@@ -1,0 +1,918 @@
+{
+ "schema_version": 1,
+ "saved_at": "2026-10-13T21:24:15Z",
+ "mode": "full",
+ "mode_reason": "no usable previous counts file",
+ "last_full_sweep": "2026-10-13T21:24:15Z",
+ "prices_saved_at": "2026-10-13T21:23:42Z",
+ "pause_seconds": 3,
+ "calls": 75,
+ "rechecked": 75,
+ "unreliable": [
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "IB",
+   "guests": "2",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "IF",
+   "guests": "2",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "OA",
+   "guests": "2",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "OB",
+   "guests": "2",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "BF",
+   "guests": "2",
+   "why": "subtraction gave {'': 0, 'Aft': 0, 'Forward': 0, 'Mid': 0}"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "BF",
+   "guests": "3",
+   "why": "subtraction gave {'': 0, 'Aft': 0, 'Forward': 0, 'Mid': 0}"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "BA",
+   "guests": "2",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "BA",
+   "guests": "3",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "BB",
+   "guests": "2",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "BB",
+   "guests": "3",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "B4",
+   "guests": "2",
+   "why": "call returned other cabin types: MC"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "B4",
+   "guests": "3",
+   "why": "call returned other cabin types: MC"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "MA",
+   "guests": "2",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "MA",
+   "guests": "3",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "MB",
+   "guests": "2",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "MB",
+   "guests": "3",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "SC",
+   "guests": "2",
+   "why": "call returned other cabin types: B1"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "HI",
+   "guests": "3",
+   "why": "subtraction gave {'Aft': 0, 'Forward': 0, 'Mid': 0}"
+  }
+ ],
+ "sailings": {
+  "joy-2026-11-20": {
+   "IB": {
+    "open_decks": [
+     8,
+     9,
+     10,
+     11
+    ],
+    "open_locations": [
+     "forward",
+     "midship",
+     "aft"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "IF": {
+    "open_decks": [
+     5
+    ],
+    "open_locations": [
+     "forward"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "IA": {
+    "open_decks": [
+     13,
+     14,
+     15
+    ],
+    "open_locations": [
+     "midship",
+     "aft"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 19,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 3,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "I4": {
+    "open_decks": [
+     11,
+     12,
+     13,
+     14
+    ],
+    "open_locations": [
+     "forward",
+     "midship",
+     "aft"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 41,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 41,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 41,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "OA": {
+    "open_decks": [
+     9,
+     11,
+     12,
+     13
+    ],
+    "open_locations": [
+     "forward"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "OB": {
+    "open_decks": [
+     5
+    ],
+    "open_locations": [
+     "forward"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "O4": {
+    "open_decks": [
+     5,
+     11
+    ],
+    "open_locations": [
+     "forward",
+     "midship"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 2,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 1,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 1,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "O5": {
+    "open_decks": [
+     5
+    ],
+    "open_locations": [
+     "forward",
+     "midship"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 4,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 1,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 1,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "5": {
+      "cabins_left": 1,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "BF": {
+    "open_decks": null,
+    "open_locations": null,
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "subtraction gave {'': 0, 'Aft': 0, 'Forward': 0, 'Mid': 0}",
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "subtraction gave {'': 0, 'Aft': 0, 'Forward': 0, 'Mid': 0}",
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "BA": {
+    "open_decks": [
+     12,
+     13,
+     14,
+     15
+    ],
+    "open_locations": [
+     "forward",
+     "midship",
+     "aft"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "BB": {
+    "open_decks": [
+     10,
+     11
+    ],
+    "open_locations": [
+     "forward",
+     "midship",
+     "aft"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 17,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "B4": {
+    "open_decks": [
+     12,
+     13,
+     14
+    ],
+    "open_locations": [
+     "forward",
+     "midship",
+     "aft"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "call returned other cabin types: MC",
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "call returned other cabin types: MC",
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 47,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "B1": {
+    "open_decks": [
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ],
+    "open_locations": [
+     "aft"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 23,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 20,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "MC": {
+    "open_decks": [
+     9
+    ],
+    "open_locations": [
+     "midship"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 5,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 5,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "MA": {
+    "open_decks": [
+     13,
+     15
+    ],
+    "open_locations": [
+     "midship"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "MB": {
+    "open_decks": [
+     10,
+     12
+    ],
+    "open_locations": [
+     "midship"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "M4": {
+    "open_decks": [
+     9,
+     10,
+     11,
+     12,
+     13
+    ],
+    "open_locations": [
+     "midship"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 24,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 24,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 24,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "M6": {
+    "open_decks": [
+     8
+    ],
+    "open_locations": [
+     "forward"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 13,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 7,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 7,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "SC": {
+    "open_decks": [
+     14
+    ],
+    "open_locations": null,
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "call returned other cabin types: B1",
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 5,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "SP": {
+    "open_decks": [
+     10,
+     11,
+     12,
+     15
+    ],
+    "open_locations": [
+     "midship"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 11,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 11,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 11,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "5": {
+      "cabins_left": 11,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "HJ": {
+    "open_decks": [
+     14
+    ],
+    "open_locations": [
+     "midship"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 11,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 11,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 11,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "HF": {
+    "open_decks": [
+     18
+    ],
+    "open_locations": [
+     "forward"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 2,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 2,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "HG": {
+    "open_decks": [
+     9,
+     10,
+     11,
+     13
+    ],
+    "open_locations": [
+     "forward"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 7,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 7,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 3,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "HH": {
+    "open_decks": [
+     15
+    ],
+    "open_locations": [
+     "forward",
+     "midship"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 6,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 6,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 6,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "5": {
+      "cabins_left": 6,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "HE": {
+    "open_decks": [
+     17
+    ],
+    "open_locations": [
+     "forward"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 14,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 14,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "HB": {
+    "open_decks": [
+     9,
+     15
+    ],
+    "open_locations": [
+     "aft"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 2,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 2,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 2,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "HC": {
+    "open_decks": [
+     10,
+     11,
+     13
+    ],
+    "open_locations": [
+     "aft"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 4,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 4,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 4,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "H5": {
+    "open_decks": [
+     17
+    ],
+    "open_locations": [
+     "forward"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 8,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 8,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 8,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "5": {
+      "cabins_left": 8,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "H6": {
+    "open_decks": [
+     18
+    ],
+    "open_locations": [
+     "forward"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": 8,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "3": {
+      "cabins_left": 8,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "4": {
+      "cabins_left": 8,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     },
+     "5": {
+      "cabins_left": 8,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   },
+   "HI": {
+    "open_decks": null,
+    "open_locations": null,
+    "by_guests": {
+     "3": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "subtraction gave {'Aft': 0, 'Forward': 0, 'Mid': 0}",
+      "checked_at": "2026-10-13T21:24:15Z"
+     }
+    }
+   }
+  }
+ }
+}

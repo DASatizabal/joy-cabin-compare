@@ -1,0 +1,2077 @@
+{
+ "schema_version": 1,
+ "saved_at": "2026-10-13T21:36:57Z",
+ "source": "NCL vacation-builder API (stateroom-types-availability and price-summary)",
+ "guest_counts": [
+  2,
+  3,
+  4,
+  5
+ ],
+ "rates": {
+  "free_at_sea_plus": {
+   "adult_per_day": 49.99,
+   "child_per_day": 40.0,
+   "rules": "21 and over pay the adult rate; guests 1 and 2 aged 3 to 20 pay the child rate; 2 and under are not eligible; under 21 in position 3 or later do not get it and are not charged. Includes prepaid service charges.",
+   "source": "https://www.ncl.com/cruise-deals/promotion-terms",
+   "checked_at": "2026-10-13"
+  },
+  "open_bar": {
+   "per_day_2_to_5_nights": 32.0,
+   "per_day_6_plus_nights": 28.5,
+   "soda_per_day": 12.5,
+   "source": "https://www.ncl.com/cruise-deals/promotion-terms",
+   "checked_at": "2026-10-13"
+  },
+  "service_charge": {
+   "suite_haven_per_night": 25.0,
+   "standard_per_night": 20.0,
+   "min_age": 3,
+   "suite_haven_types": [
+    "SUITE",
+    "HAVEN"
+   ],
+   "source": "https://www.ncl.com/faq/what-is-ncl-onboard-service-charge",
+   "checked_at": "2026-10-13"
+  }
+ },
+ "rate_warnings": [],
+ "warnings": [],
+ "checks": {
+  "extra_guest_mismatches": [
+   {
+    "sailing": "joy-2026-11-20",
+    "category": "O5",
+    "per_extra_guest": {
+     "3": 150.0,
+     "4": 150.0,
+     "5": 209.67
+    }
+   }
+  ],
+  "formula": [
+   {
+    "sailing": "joy-2026-11-20",
+    "guests": 2,
+    "category": "IX",
+    "expected": 930,
+    "ncl_total": 930,
+    "ok": true
+   },
+   {
+    "sailing": "joy-2026-11-20",
+    "guests": 3,
+    "category": "IA",
+    "expected": 1256,
+    "ncl_total": 1256,
+    "ok": true
+   },
+   {
+    "sailing": "joy-2026-11-20",
+    "guests": 4,
+    "category": "I4",
+    "expected": 1542,
+    "ncl_total": 1542,
+    "ok": true
+   },
+   {
+    "sailing": "joy-2026-11-20",
+    "guests": 5,
+    "category": "O5",
+    "expected": 2107,
+    "ncl_total": 2107,
+    "ok": true
+   }
+  ],
+  "ages": [
+   {
+    "sailing": "joy-2026-11-20",
+    "party": "1 adult, 15, 7",
+    "category": "IA",
+    "expected": 1081.5,
+    "ncl_total": 1081.5,
+    "ok": true
+   }
+  ],
+  "rates": [
+   {
+    "sailing": "joy-2026-11-20",
+    "item": "open bar",
+    "price_summary": 96,
+    "terms_rate_x_nights": 96.0,
+    "ok": true
+   },
+   {
+    "sailing": "joy-2026-11-20",
+    "item": "soda",
+    "price_summary": 37.5,
+    "terms_rate_x_nights": 37.5,
+    "ok": true
+   }
+  ]
+ },
+ "sailings": [
+  {
+   "id": "joy-2026-11-20",
+   "ship": "Norwegian Joy",
+   "ship_short": "Joy",
+   "itinerary_code": "JOY3MIANASNPIMIA",
+   "package_id": "23379711",
+   "ncl_ids": {
+    "itinerary_code": "JOY3MIANASNPIMIA",
+    "package_id": "23379711",
+    "found_on": "https://www.ncl.com/cruises/JOY3MIANASNPIMIA",
+    "sailing_id": "59333",
+    "ship_code": "JOY",
+    "destination_codes": [
+     "BAHAMAS",
+     "WEEKEND"
+    ],
+    "duration": 3,
+    "sail_start": "2026-11-20T00:00:00",
+    "checked_at": "2026-10-13T21:35:51Z"
+   },
+   "depart": "2026-11-20",
+   "return": "2026-11-23",
+   "nights": 3,
+   "url": "https://www.ncl.com/cruises/JOY3MIANASNPIMIA",
+   "source": "NCL vacation-builder API",
+   "saved_at": "2026-10-13",
+   "party_sizes": {
+    "2": {
+     "updated": true,
+     "as_of": "2026-10-13T21:35:51Z",
+     "why": null
+    },
+    "3": {
+     "updated": true,
+     "as_of": "2026-10-13T21:35:51Z",
+     "why": null
+    },
+    "4": {
+     "updated": true,
+     "as_of": "2026-10-13T21:35:51Z",
+     "why": null
+    },
+    "5": {
+     "updated": true,
+     "as_of": "2026-10-13T21:35:51Z",
+     "why": null
+    }
+   },
+   "taxes_per_guest": 150,
+   "gratuities": {
+    "open_bar": {
+     "title": "Unlimited Open Bar",
+     "per_guest": 96,
+     "soda_under_21_position_2": 37.5,
+     "under_21_position_3_plus": 0,
+     "source": "NCL price-summary (age test)",
+     "checked_at": "2026-10-13"
+    },
+    "specialty_dining": {
+     "title": "Specialty Dining - 1 Meal",
+     "per_guest": 20,
+     "under_13": 0,
+     "source": "NCL price-summary (age test)",
+     "checked_at": "2026-10-13"
+    }
+   },
+   "kids_sail_free": {
+    "title": "Kids Sail Free",
+    "short": "3rd & 4th guests in the same stateroom pay only taxes, and fees.",
+    "description": "3rd and 4th guests sailing in the same stateroom sail for taxes, fees, and port expenses only. Additional cost will be added to your booking for optional package selection.",
+    "codes": [
+     "34CHO"
+    ],
+    "types": [
+     "INSIDE",
+     "OCEANVIEW",
+     "BALCONY",
+     "MINISUITE"
+    ],
+    "checked_at": "2026-10-13"
+   },
+   "terminal": {
+    "confirmed": false,
+    "text": "Expected: Terminal B (confirm on your eDocs)"
+   },
+   "ports": [
+    {
+     "date": "2026-11-20",
+     "port": "Miami, Florida",
+     "arrive": null,
+     "depart": "16:00"
+    },
+    {
+     "date": "2026-11-21",
+     "port": "Nassau, Bahamas",
+     "arrive": "07:00",
+     "depart": "17:00"
+    },
+    {
+     "date": "2026-11-22",
+     "port": "Great Stirrup Cay, Bahamas",
+     "arrive": "07:00",
+     "depart": "17:00"
+    },
+    {
+     "date": "2026-11-23",
+     "port": "Miami, Florida",
+     "arrive": "07:00",
+     "depart": null
+    }
+   ],
+   "price_summaries": [
+    {
+     "guests": 2,
+     "type": "INSIDE",
+     "category": "IX",
+     "fare_code": "ALL4CHO",
+     "fare_total": 398,
+     "fare_per_guest": [
+      199,
+      199
+     ],
+     "taxes_per_guest": [
+      150,
+      150
+     ],
+     "open_bar": {
+      "title": "Unlimited Open Bar",
+      "per_guest": [
+       96,
+       96
+      ]
+     },
+     "specialty_dining": {
+      "title": "Specialty Dining - 1 Meal",
+      "per_guest": [
+       20,
+       20
+      ]
+     },
+     "grand_total": 930
+    },
+    {
+     "guests": 3,
+     "type": "INSIDE",
+     "category": "IA",
+     "fare_code": "ALL4CHO",
+     "fare_total": 458,
+     "fare_per_guest": [
+      229,
+      229,
+      0
+     ],
+     "taxes_per_guest": [
+      150,
+      150,
+      150
+     ],
+     "open_bar": {
+      "title": "Unlimited Open Bar",
+      "per_guest": [
+       96,
+       96,
+       96
+      ]
+     },
+     "specialty_dining": {
+      "title": "Specialty Dining - 1 Meal",
+      "per_guest": [
+       20,
+       20,
+       20
+      ]
+     },
+     "grand_total": 1256
+    },
+    {
+     "guests": 4,
+     "type": "INSIDE",
+     "category": "I4",
+     "fare_code": "ALL4CHO",
+     "fare_total": 478,
+     "fare_per_guest": [
+      239,
+      239,
+      0,
+      0
+     ],
+     "taxes_per_guest": [
+      150,
+      150,
+      150,
+      150
+     ],
+     "open_bar": {
+      "title": "Unlimited Open Bar",
+      "per_guest": [
+       96,
+       96,
+       96,
+       96
+      ]
+     },
+     "specialty_dining": {
+      "title": "Specialty Dining - 1 Meal",
+      "per_guest": [
+       20,
+       20,
+       20,
+       20
+      ]
+     },
+     "grand_total": 1542
+    },
+    {
+     "guests": 5,
+     "type": "OCEANVIEW",
+     "category": "O5",
+     "fare_code": "ALL4CHO",
+     "fare_total": 777,
+     "fare_per_guest": [
+      299,
+      299,
+      0,
+      0,
+      179
+     ],
+     "taxes_per_guest": [
+      150,
+      150,
+      150,
+      150,
+      150
+     ],
+     "open_bar": {
+      "title": "Unlimited Open Bar",
+      "per_guest": [
+       96,
+       96,
+       96,
+       96,
+       96
+      ]
+     },
+     "specialty_dining": {
+      "title": "Specialty Dining - 1 Meal",
+      "per_guest": [
+       20,
+       20,
+       20,
+       20,
+       20
+      ]
+     },
+     "grand_total": 2107
+    }
+   ],
+   "types": [
+    {
+     "code": "INSIDE",
+     "title": "Inside",
+     "match": "inside",
+     "categories": [
+      {
+       "code": "IX",
+       "title": "Guarantee Inside",
+       "guarantee": true,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 349.0,
+         "cabin_total": 698
+        },
+        "3": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Guarantee Inside",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "IB",
+       "title": "Inside",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 369.0,
+         "cabin_total": 738
+        },
+        "3": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Inside, holds up to 4",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "IA",
+        "IF"
+       ]
+      },
+      {
+       "code": "IF",
+       "title": "Inside",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 369.0,
+         "cabin_total": 738
+        },
+        "3": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Inside, holds up to 4",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "IB",
+        "IA"
+       ]
+      },
+      {
+       "code": "IA",
+       "title": "Inside",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 3,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 379.0,
+         "cabin_total": 758
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 302.66,
+         "cabin_total": 908,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        }
+       },
+       "description": "Inside, holds up to 3",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "IB",
+        "IF"
+       ]
+      },
+      {
+       "code": "I4",
+       "title": "Family Inside",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 389.0,
+         "cabin_total": 778
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 309.33,
+         "cabin_total": 928,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 269.5,
+         "cabin_total": 1078,
+         "added_vs_2": 300
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Family Inside, Decks 11 to 15, forward, midship and aft",
+       "decks": [
+        11,
+        12,
+        13,
+        14,
+        15
+       ],
+       "location": [
+        "forward",
+        "midship",
+        "aft"
+       ],
+       "size": "135 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "IT",
+       "title": "Solo Inside",
+       "guarantee": false,
+       "solo": true,
+       "capacity": null,
+       "by_guests": {
+        "2": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Not available for 2 guests"
+        },
+        "3": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Not available for 3 guests"
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Not available for 4 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Not available for 5 guests"
+        }
+       },
+       "description": "Solo Inside, Decks 5 and 8, forward, midship and aft",
+       "decks": [
+        5,
+        8
+       ],
+       "location": [
+        "forward",
+        "midship",
+        "aft"
+       ],
+       "size": "135 to 201 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      }
+     ]
+    },
+    {
+     "code": "OCEANVIEW",
+     "title": "Oceanview",
+     "match": "oceanview",
+     "categories": [
+      {
+       "code": "OX",
+       "title": "Guarantee Oceanview",
+       "guarantee": true,
+       "solo": false,
+       "capacity": 2,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 359.0,
+         "cabin_total": 718
+        },
+        "3": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 2 guests"
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 2 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 2 guests"
+        }
+       },
+       "description": "Guarantee Oceanview",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "OA",
+       "title": "Oceanview with Picture Window",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 2,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 409.0,
+         "cabin_total": 818
+        },
+        "3": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 2 guests"
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 2 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 2 guests"
+        }
+       },
+       "description": "Oceanview with Picture Window, holds up to 2",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "OB"
+       ]
+      },
+      {
+       "code": "OB",
+       "title": "Oceanview with Picture Window",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 2,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 409.0,
+         "cabin_total": 818
+        },
+        "3": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 2 guests"
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 2 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 2 guests"
+        }
+       },
+       "description": "Oceanview with Picture Window, holds up to 2",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "OA"
+       ]
+      },
+      {
+       "code": "O4",
+       "title": "Family Oceanview",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 419.0,
+         "cabin_total": 838
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 329.33,
+         "cabin_total": 988,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 284.5,
+         "cabin_total": 1138,
+         "added_vs_2": 300
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Family Oceanview, holds up to 4",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "O5"
+       ]
+      },
+      {
+       "code": "O5",
+       "title": "Family Oceanview",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 5,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 449.0,
+         "cabin_total": 898
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 349.33,
+         "cabin_total": 1048,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 299.5,
+         "cabin_total": 1198,
+         "added_vs_2": 300
+        },
+        "5": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 305.4,
+         "cabin_total": 1527,
+         "added_vs_2": 629
+        }
+       },
+       "description": "Family Oceanview, holds up to 5",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "O4"
+       ]
+      },
+      {
+       "code": "OT",
+       "title": "Solo Oceanview",
+       "guarantee": false,
+       "solo": true,
+       "capacity": null,
+       "by_guests": {
+        "2": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Not available for 2 guests"
+        },
+        "3": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Not available for 3 guests"
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Not available for 4 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Not available for 5 guests"
+        }
+       },
+       "description": "Solo Oceanview, Deck 5, midship",
+       "decks": [
+        5
+       ],
+       "location": [
+        "midship"
+       ],
+       "size": "160 to 245 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      }
+     ]
+    },
+    {
+     "code": "BALCONY",
+     "title": "Balcony",
+     "match": "balcony",
+     "categories": [
+      {
+       "code": "BX",
+       "title": "Guarantee Balcony",
+       "guarantee": true,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 369.0,
+         "cabin_total": 738
+        },
+        "3": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Guarantee Balcony",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "BF",
+       "title": "Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 419.0,
+         "cabin_total": 838
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 329.33,
+         "cabin_total": 988,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Balcony, holds up to 4",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "BB",
+        "BA"
+       ]
+      },
+      {
+       "code": "BA",
+       "title": "Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 3,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 429.0,
+         "cabin_total": 858
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 336.0,
+         "cabin_total": 1008,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        }
+       },
+       "description": "Balcony, holds up to 3",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "BB",
+        "BF"
+       ]
+      },
+      {
+       "code": "BB",
+       "title": "Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 429.0,
+         "cabin_total": 858
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 336.0,
+         "cabin_total": 1008,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 289.5,
+         "cabin_total": 1158,
+         "added_vs_2": 300
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Balcony, holds up to 4",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "BA",
+        "BF"
+       ]
+      },
+      {
+       "code": "B4",
+       "title": "Family Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 439.0,
+         "cabin_total": 878
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 342.66,
+         "cabin_total": 1028,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 294.5,
+         "cabin_total": 1178,
+         "added_vs_2": 300
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Family Balcony, Decks 12 to 15, forward, midship and aft",
+       "decks": [
+        12,
+        13,
+        14,
+        15
+       ],
+       "location": [
+        "forward",
+        "midship",
+        "aft"
+       ],
+       "size": "213 to 234 sq ft, balcony 38 to 58 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "B1",
+       "title": "Aft-Facing Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 3,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 529.0,
+         "cabin_total": 1058
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 402.66,
+         "cabin_total": 1208,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        }
+       },
+       "description": "Aft-Facing Balcony, Decks 9 to 15, aft",
+       "decks": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+       ],
+       "location": [
+        "aft"
+       ],
+       "size": "216 to 426 sq ft, balcony 40 to 149 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "B6",
+       "title": "Large Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": null,
+       "by_guests": {
+        "2": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        },
+        "3": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        },
+        "4": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        },
+        "5": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        }
+       },
+       "description": "Large Balcony, Deck 8, forward",
+       "decks": [
+        8
+       ],
+       "location": [
+        "forward"
+       ],
+       "size": "331 sq ft, balcony 155 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "BT",
+       "title": "Solo Balcony",
+       "guarantee": false,
+       "solo": true,
+       "capacity": null,
+       "by_guests": {
+        "2": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        },
+        "3": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        },
+        "4": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        },
+        "5": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        }
+       },
+       "description": "Solo Balcony, Decks 11 and 12, forward, midship and aft",
+       "decks": [
+        11,
+        12
+       ],
+       "location": [
+        "forward",
+        "midship",
+        "aft"
+       ],
+       "size": "214 to 367 sq ft, balcony 38 to 90 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      }
+     ]
+    },
+    {
+     "code": "MINISUITE",
+     "title": "Club Balcony Suite",
+     "match": "mini_suite",
+     "categories": [
+      {
+       "code": "MX",
+       "title": "Guarantee Club Balcony Suite",
+       "guarantee": true,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 419.0,
+         "cabin_total": 838
+        },
+        "3": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Guarantee Club Balcony Suite",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "MC",
+       "title": "Club Balcony Suite",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 439.0,
+         "cabin_total": 878
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 342.66,
+         "cabin_total": 1028,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Sold out for this party size"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Club Balcony Suite, holds up to 4",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "MB",
+        "MA"
+       ]
+      },
+      {
+       "code": "MA",
+       "title": "Club Balcony Suite",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 3,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 459.0,
+         "cabin_total": 918
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 356.0,
+         "cabin_total": 1068,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        }
+       },
+       "description": "Club Balcony Suite, holds up to 3",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "MB",
+        "MC"
+       ]
+      },
+      {
+       "code": "MB",
+       "title": "Club Balcony Suite",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 3,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 459.0,
+         "cabin_total": 918
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 356.0,
+         "cabin_total": 1068,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        }
+       },
+       "description": "Club Balcony Suite, holds up to 3",
+       "decks": null,
+       "location": null,
+       "size": null,
+       "details_source": null,
+       "shares_ncl_description_with": [
+        "MC",
+        "MA"
+       ]
+      },
+      {
+       "code": "M4",
+       "title": "Family Club Balcony Suite",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 479.0,
+         "cabin_total": 958
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 369.33,
+         "cabin_total": 1108,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 314.5,
+         "cabin_total": 1258,
+         "added_vs_2": 300
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Family Club Balcony Suite, Decks 9 to 14, midship",
+       "decks": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+       ],
+       "location": [
+        "midship"
+       ],
+       "size": "249 sq ft, balcony 42 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "M6",
+       "title": "Club Balcony Suite with Larger Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 509.0,
+         "cabin_total": 1018
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 389.33,
+         "cabin_total": 1168,
+         "added_vs_2": 150
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 329.5,
+         "cabin_total": 1318,
+         "added_vs_2": 300
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "Club Balcony Suite with Larger Balcony, Decks 8 and 10, forward and aft",
+       "decks": [
+        8,
+        10
+       ],
+       "location": [
+        "forward",
+        "aft"
+       ],
+       "size": "329 to 439 sq ft, balcony 102 to 140 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      }
+     ]
+    },
+    {
+     "code": "SUITE",
+     "title": "Suite",
+     "match": "suite",
+     "categories": [
+      {
+       "code": "SC",
+       "title": "Penthouse Suite with Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 3,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 529.0,
+         "cabin_total": 1058
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 462.33,
+         "cabin_total": 1387,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        }
+       },
+       "description": "Penthouse Suite with Balcony, Deck 14, midship",
+       "decks": [
+        14
+       ],
+       "location": [
+        "midship"
+       ],
+       "size": "339 to 342 sq ft, balcony 65 to 68 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "SP",
+       "title": "Family Suite",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 6,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 549.0,
+         "cabin_total": 1098
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 475.66,
+         "cabin_total": 1427,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 439.0,
+         "cabin_total": 1756,
+         "added_vs_2": 658
+        },
+        "5": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 417.0,
+         "cabin_total": 2085,
+         "added_vs_2": 987
+        }
+       },
+       "description": "Family Suite, Decks 10 to 12, 14 and 15, midship",
+       "decks": [
+        10,
+        11,
+        12,
+        14,
+        15
+       ],
+       "location": [
+        "midship"
+       ],
+       "size": "512 to 562 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      }
+     ]
+    },
+    {
+     "code": "HAVEN",
+     "title": "The Haven",
+     "match": "haven",
+     "categories": [
+      {
+       "code": "HI",
+       "title": "The Haven Penthouse Suite with Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 3,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 799.0,
+         "cabin_total": 1598
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 642.33,
+         "cabin_total": 1927,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        }
+       },
+       "description": "The Haven Penthouse Suite with Balcony, Decks 14 and 15, forward and midship",
+       "decks": [
+        14,
+        15
+       ],
+       "location": [
+        "forward",
+        "midship"
+       ],
+       "size": "436 to 449 sq ft, balcony 84 to 97 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "HJ",
+       "title": "The Haven Suite with Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 849.0,
+         "cabin_total": 1698
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 675.66,
+         "cabin_total": 2027,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 589.0,
+         "cabin_total": 2356,
+         "added_vs_2": 658
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "The Haven Suite with Balcony, Deck 14, midship",
+       "decks": [
+        14
+       ],
+       "location": [
+        "midship"
+       ],
+       "size": "381 sq ft, balcony 61 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "HF",
+       "title": "The Haven Courtyard Penthouse with Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 3,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 899.0,
+         "cabin_total": 1798
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 709.0,
+         "cabin_total": 2127,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        },
+        "5": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        }
+       },
+       "description": "The Haven Courtyard Penthouse with Balcony, Deck 18, forward",
+       "decks": [
+        18
+       ],
+       "location": [
+        "forward"
+       ],
+       "size": "324 sq ft, balcony 54 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "HG",
+       "title": "The Haven Forward-Facing Penthouse with Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 949.0,
+         "cabin_total": 1898
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 742.33,
+         "cabin_total": 2227,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 639.0,
+         "cabin_total": 2556,
+         "added_vs_2": 658
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "The Haven Forward-Facing Penthouse with Balcony, Decks 9 to 13, forward",
+       "decks": [
+        9,
+        10,
+        11,
+        12,
+        13
+       ],
+       "location": [
+        "forward"
+       ],
+       "size": "415 to 466 sq ft, balcony 27 to 46 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "HH",
+       "title": "The Haven Family Villa Suite with Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 5,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 999.0,
+         "cabin_total": 1998
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 775.66,
+         "cabin_total": 2327,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 664.0,
+         "cabin_total": 2656,
+         "added_vs_2": 658
+        },
+        "5": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 597.0,
+         "cabin_total": 2985,
+         "added_vs_2": 987
+        }
+       },
+       "description": "The Haven Family Villa Suite with Balcony, Deck 15, forward",
+       "decks": [
+        15
+       ],
+       "location": [
+        "forward"
+       ],
+       "size": "501 sq ft, balcony 84 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "HE",
+       "title": "The Haven Courtyard Penthouse with Large Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 3,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 1049.0,
+         "cabin_total": 2098
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 809.0,
+         "cabin_total": 2427,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 3 guests"
+        }
+       },
+       "description": "The Haven Courtyard Penthouse with Large Balcony, Decks 17 and 18, forward",
+       "decks": [
+        17,
+        18
+       ],
+       "location": [
+        "forward"
+       ],
+       "size": "374 to 620 sq ft, balcony 43 to 146 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "HB",
+       "title": "The Haven Aft-Facing Penthouse with Large Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 1249.0,
+         "cabin_total": 2498
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 942.33,
+         "cabin_total": 2827,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 789.0,
+         "cabin_total": 3156,
+         "added_vs_2": 658
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "The Haven Aft-Facing Penthouse with Large Balcony, Decks 9, 12 and 15, aft",
+       "decks": [
+        9,
+        12,
+        15
+       ],
+       "location": [
+        "aft"
+       ],
+       "size": "619 to 668 sq ft, balcony 199 to 248 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "HC",
+       "title": "The Haven Aft-Facing Penthouse with Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 4,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 1299.0,
+         "cabin_total": 2598
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 975.66,
+         "cabin_total": 2927,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 814.0,
+         "cabin_total": 3256,
+         "added_vs_2": 658
+        },
+        "5": {
+         "available": false,
+         "sold_out": false,
+         "reason": "Holds only 4 guests"
+        }
+       },
+       "description": "The Haven Aft-Facing Penthouse with Balcony, Decks 10, 11, 13 and 14, aft",
+       "decks": [
+        10,
+        11,
+        13,
+        14
+       ],
+       "location": [
+        "aft"
+       ],
+       "size": "571 to 595 sq ft, balcony 151 to 175 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "H5",
+       "title": "The Haven 2-Bedroom Family Villa with Large Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 6,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 1599.0,
+         "cabin_total": 3198
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 1175.66,
+         "cabin_total": 3527,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 964.0,
+         "cabin_total": 3856,
+         "added_vs_2": 658
+        },
+        "5": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 837.0,
+         "cabin_total": 4185,
+         "added_vs_2": 987
+        }
+       },
+       "description": "The Haven 2-Bedroom Family Villa with Large Balcony, Deck 17, forward",
+       "decks": [
+        17
+       ],
+       "location": [
+        "forward"
+       ],
+       "size": "622 sq ft, balcony 127 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "H6",
+       "title": "The Haven 2-Bedroom Family Villa with Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": 6,
+       "by_guests": {
+        "2": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 1999.0,
+         "cabin_total": 3998
+        },
+        "3": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 1442.33,
+         "cabin_total": 4327,
+         "added_vs_2": 329
+        },
+        "4": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 1164.0,
+         "cabin_total": 4656,
+         "added_vs_2": 658
+        },
+        "5": {
+         "available": true,
+         "sold_out": false,
+         "price_pp": 997.0,
+         "cabin_total": 4985,
+         "added_vs_2": 987
+        }
+       },
+       "description": "The Haven 2-Bedroom Family Villa with Balcony, Deck 18, forward",
+       "decks": [
+        18
+       ],
+       "location": [
+        "forward"
+       ],
+       "size": "538 sq ft, balcony 43 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      },
+      {
+       "code": "H2",
+       "title": "The Haven Premier Owner’s Suite with Large Balcony",
+       "guarantee": false,
+       "solo": false,
+       "capacity": null,
+       "by_guests": {
+        "2": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        },
+        "3": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        },
+        "4": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        },
+        "5": {
+         "available": false,
+         "sold_out": true,
+         "reason": "Sold out"
+        }
+       },
+       "description": "The Haven Premier Owner’s Suite with Large Balcony, Deck 18, forward",
+       "decks": [
+        18
+       ],
+       "location": [
+        "forward"
+       ],
+       "size": "2130 sq ft, balcony 516 sq ft",
+       "details_source": "NCL",
+       "shares_ncl_description_with": []
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

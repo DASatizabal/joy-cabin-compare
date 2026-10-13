@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norwegian Joy Cabins</title>
+    <meta name="description" content="Compare Norwegian Cruise Line's published cabin prices on the Norwegian Joy, Nov 20, 2026, 3 nights from Miami to Nassau and Great Stirrup Cay.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-ocean: #0a2540;
+            --ocean-blue: #1e3a5f;
+            --teal: #0d9488;
+            --teal-light: #14b8a6;
+            --teal-wash: rgba(13, 148, 136, 0.1);
+            --gold: #f59e0b;
+            --gold-wash: #fef3c7;
+            --red: #b91c1c;
+            --red-wash: #fef2f2;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-800);
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* Hero Header */
+        .hero {
+            background: linear-gradient(135deg, var(--deep-ocean) 0%, var(--ocean-blue) 100%);
+            color: var(--white);
+            padding: 2rem 1rem 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+
+        .version-badge {
+            position: absolute; top: 0; right: 0;
+            font-size: 0.75rem; font-weight: 500; opacity: 0.5; letter-spacing: 0.025em;
+        }
+
+        .hero-title { font-size: 2.25rem; font-weight: 700; line-height: 1.2; margin-bottom: 0.5rem; padding-right: 3rem; }
+        .hero-subtitle { font-size: 1.1rem; font-weight: 300; opacity: 0.9; margin-bottom: 1.25rem; }
+
+        .as-of-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .as-of[hidden] { display: none; }
+        .as-of {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.12); border-radius: 9999px;
+            padding: 0.4rem 1rem; font-size: 0.9rem;
+        }
+
+        @media (max-width: 480px) { .hero-title { font-size: 1.75rem; } }
+
+        /* Wave Animation */
+        .wave-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 80px; overflow: hidden; }
+        .wave {
+            position: absolute; bottom: 0; left: 0; width: 200%; height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80'%3E%3Cpath d='M0 20 Q25 8 50 20 Q75 8 100 20 Q125 8 150 20 Q175 8 200 20 L200 35 Q175 23 150 35 Q125 23 100 35 Q75 23 50 35 Q25 23 0 35 Z' fill='%235b9cd9'/%3E%3Cpath d='M0 18 Q25 6 50 18 Q75 6 100 18 Q125 6 150 18 Q175 6 200 18' fill='none' stroke='%2393c5f7' stroke-width='2'/%3E%3Cpath d='M0 35 Q25 23 50 35 Q75 23 100 35 Q125 23 150 35 Q175 23 200 35 L200 50 Q175 38 150 50 Q125 38 100 50 Q75 38 50 50 Q25 38 0 50 Z' fill='%234a8bc9'/%3E%3Cpath d='M0 33 Q25 21 50 33 Q75 21 100 33 Q125 21 150 33 Q175 21 200 33' fill='none' stroke='%237db5e9' stroke-width='2'/%3E%3Cpath d='M0 50 Q25 38 50 50 Q75 38 100 50 Q125 38 150 50 Q175 38 200 50 L200 65 Q175 53 150 65 Q125 53 100 65 Q75 53 50 65 Q25 53 0 65 Z' fill='%233a7ab9'/%3E%3Cpath d='M0 48 Q25 36 50 48 Q75 36 100 48 Q125 36 150 48 Q175 36 200 48' fill='none' stroke='%236aa5d9' stroke-width='2'/%3E%3Cpath d='M0 65 Q25 53 50 65 Q75 53 100 65 Q125 53 150 65 Q175 53 200 65 L200 80 L0 80 Z' fill='%232a69a9'/%3E%3Cpath d='M0 63 Q25 51 50 63 Q75 51 100 63 Q125 51 150 63 Q175 51 200 63' fill='none' stroke='%235795c9' stroke-width='2'/%3E%3C/svg%3E") repeat-x;
+            background-size: 200px 100%;
+            animation: wave 25s linear infinite;
+        }
+        @keyframes wave { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @media (prefers-reduced-motion: reduce) { .wave { animation: none; } }
+
+        /* Layout */
+        .wrap { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
+
+        .panel {
+            background: var(--white); border-radius: 16px; padding: 1.25rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-top: 1.5rem;
+        }
+
+        .panel-title {
+            font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+            color: var(--ocean-blue); margin-bottom: 0.6rem;
+        }
+
+        .hint { font-size: 0.8rem; color: var(--gray-500); margin-top: 0.5rem; }
+
+        /* Segmented buttons */
+        .seg { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .seg button {
+            min-width: 3rem; padding: 0.6rem 1rem; border: 2px solid var(--gray-200); border-radius: 9999px;
+            background: var(--white); font: inherit; font-size: 0.9rem; font-weight: 600; color: var(--gray-700);
+            cursor: pointer; transition: all 0.2s;
+        }
+        .seg button:hover { border-color: var(--teal); color: var(--teal); }
+        .seg button[aria-pressed="true"] { background: var(--teal); border-color: var(--teal); color: var(--white); }
+        .seg.small button { padding: 0.45rem 0.85rem; font-size: 0.85rem; }
+
+        /* Card and cabin table side by side on wide screens */
+        .layout { display: grid; gap: 1.25rem; margin-top: 1.5rem; }
+        .layout > .panel { margin-top: 0; }
+        @media (min-width: 900px) { .layout { grid-template-columns: 1fr 1fr; align-items: start; } }
+
+        .card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+        .card-head { padding: 1.1rem 1.25rem; border-bottom: 1px solid var(--gray-100); }
+        .card-title { font-size: 1.3rem; font-weight: 700; color: var(--gray-900); line-height: 1.25; }
+        .card-dates { font-size: 0.9rem; color: var(--gray-600); margin-top: 0.15rem; }
+        .stops { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.6rem; }
+        .stop { font-size: 0.75rem; background: var(--gray-100); color: var(--gray-700); border-radius: 9999px; padding: 0.15rem 0.6rem; }
+        .card-body { padding: 1.1rem 1.25rem 1.25rem; }
+
+        .cabin-line { font-size: 0.85rem; color: var(--gray-600); margin-bottom: 0.75rem; }
+        .cabin-line strong { color: var(--gray-900); }
+
+        .price-total { font-size: 2.1rem; font-weight: 700; color: var(--deep-ocean); line-height: 1.1; }
+        .price-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gray-500); }
+        .price-pp { font-size: 1rem; font-weight: 600; color: var(--gray-700); margin-top: 0.15rem; }
+
+        .rows { margin-top: 0.9rem; border-top: 1px solid var(--gray-200); }
+        .row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); font-size: 0.875rem; }
+        .row .k { color: var(--gray-600); }
+        .row .v { font-weight: 600; color: var(--gray-900); text-align: right; white-space: nowrap; }
+        .row.muted .v { color: var(--gray-500); font-weight: 500; white-space: normal; }
+        .row.missing .v { color: #92400e; font-weight: 600; white-space: normal; }
+        .row.subtotal .k, .row.subtotal .v { font-weight: 700; color: var(--gray-900); }
+        .row.due .k { color: var(--gray-700); }
+        .row.total { border-top: 2px solid var(--gray-300); font-size: 1rem; }
+        .row.total .k { color: var(--gray-900); font-weight: 700; }
+
+        .addon { margin-top: 0.75rem; background: var(--gray-50); border-radius: 8px; padding: 0.6rem 0.75rem; font-size: 0.82rem; color: var(--gray-700); }
+        .addon strong { color: var(--gray-900); }
+
+        .notice { border-radius: 8px; padding: 0.75rem; font-size: 0.9rem; margin-bottom: 0.75rem; }
+        .notice.bad { background: var(--red-wash); color: var(--red); }
+        .notice.info { background: var(--gold-wash); color: var(--gray-800); }
+        .notice.stale { background: var(--gold-wash); color: var(--gray-800); font-size: 0.85rem; }
+
+        details.days { margin-top: 0.9rem; font-size: 0.85rem; }
+        details.days summary { cursor: pointer; color: var(--ocean-blue); font-weight: 600; }
+        details.days ol { list-style: none; margin-top: 0.5rem; }
+        details.days li { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.3rem 0; border-bottom: 1px dashed var(--gray-200); }
+        details.days li span:last-child { color: var(--gray-500); white-space: nowrap; }
+        .terminal { font-size: 0.8rem; color: var(--gray-600); margin-top: 0.6rem; }
+
+        .ncl-link {
+            display: block; text-align: center; padding: 0.75rem; color: var(--ocean-blue);
+            font-size: 0.875rem; text-decoration: none; border-top: 1px solid var(--gray-100);
+        }
+        .ncl-link:hover { background: var(--gray-50); }
+
+        .offer-badge { display: inline-block; margin-top: 0.6rem; padding: 0.25rem 0.7rem; border-radius: 9999px; background: #dcfce7; color: #166534; font-size: 0.8rem; font-weight: 700; }
+        .offer-text { font-size: 0.78rem; color: var(--gray-600); margin-top: 0.3rem; line-height: 1.4; }
+
+        /* Per guest charges */
+        .charges { list-style: none; }
+        .charges li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); font-size: 0.875rem; }
+        .charges li:last-child { border-bottom: 0; }
+        .charges .k { color: var(--gray-700); }
+        .charges .k small { display: block; color: var(--gray-500); font-size: 0.75rem; }
+        .charges .v { font-weight: 700; color: var(--gray-900); text-align: right; white-space: nowrap; }
+        .charges .v.none { color: #92400e; white-space: normal; }
+
+        /* Footer */
+        .footer { background: var(--deep-ocean); color: var(--white); padding: 2rem 1rem; margin-top: 2rem; font-size: 0.875rem; }
+        .footer p { opacity: 0.8; margin-top: 0.5rem; }
+        .footer a { color: var(--teal-light); }
+
+        .loading, .load-error { text-align: center; padding: 3rem 1rem; color: var(--gray-600); }
+
+        /* Guest counters */
+        .counters { display: flex; flex-direction: column; gap: 0.75rem; }
+        .counter { display: flex; align-items: center; gap: 0.6rem; }
+        .counter-label { font-size: 0.9rem; font-weight: 600; color: var(--gray-800); min-width: 7.5rem; }
+        .counter button {
+            width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2px solid var(--gray-200); background: var(--white);
+            font: inherit; font-size: 1.25rem; font-weight: 700; color: var(--teal); cursor: pointer;
+        }
+        .counter button:hover { border-color: var(--teal); }
+        .counter-value { font-size: 1.25rem; font-weight: 700; min-width: 1.5rem; text-align: center; }
+        .kid-ages { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .kid-ages:empty { display: none; }
+        .kid-note { margin-top: -0.4rem; }
+        .kid-ages label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--gray-700); margin-bottom: 0.2rem; }
+        .kid-ages select { padding: 0.45rem 0.6rem; border: 2px solid var(--gray-200); border-radius: 8px; font: inherit; font-size: 0.9rem; background: var(--white); }
+        .kid-ages select.unset { border-color: var(--gold); }
+        .guest-msg { min-height: 1.2rem; margin-top: 0.6rem; font-size: 0.85rem; color: var(--red); }
+        .guest-summary { margin-top: 0.4rem; font-size: 0.85rem; color: var(--gray-600); }
+
+        /* Category lists */
+        .cat-name { font-weight: 700; color: var(--gray-900); }
+        .cat-meta { font-size: 0.78rem; color: var(--gray-500); margin-top: 0.1rem; }
+        .cat-code { font-size: 0.75rem; color: var(--gray-500); font-weight: 400; white-space: nowrap; }
+        .card-picks { padding: 0.9rem 1.25rem 0; }
+        .card-picks .cat-list-title { margin-top: 0; }
+        .gty { color: #92400e; }
+        .cat-list { list-style: none; margin-top: 0.9rem; }
+        .cat-list-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ocean-blue); margin-top: 0.9rem; }
+        .cat-list button {
+            display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; width: 100%; text-align: left;
+            padding: 0.55rem 0.7rem; margin-top: 0.4rem; border: 2px solid var(--gray-200); border-radius: 10px;
+            background: var(--white); font: inherit; font-size: 0.85rem; cursor: pointer;
+        }
+        .cat-list button:hover { border-color: var(--teal); }
+        .cat-list button[aria-pressed="true"] { border-color: var(--teal); background: var(--teal-wash); }
+        .cat-list button.only { cursor: default; pointer-events: none; }
+        .cat-list .price { font-weight: 700; white-space: nowrap; }
+
+        /* iOS-style switches (same look as the June page) */
+        .toggle-container { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.6rem; }
+        .toggle-label { font-size: 0.875rem; font-weight: 600; color: var(--gray-700); }
+        .toggle-price { font-size: 0.78rem; color: var(--gray-500); }
+        .toggle-note { font-size: 0.72rem; color: #92400e; margin-top: 0.15rem; }
+        .toggle-switch {
+            position: relative; flex-shrink: 0; width: 50px; height: 28px; appearance: none; -webkit-appearance: none;
+            background: var(--gray-300); border-radius: 9999px; cursor: pointer; transition: background 0.3s; margin: 0;
+        }
+        .toggle-switch:checked { background: var(--teal); }
+        .toggle-switch::before {
+            content: ''; position: absolute; width: 24px; height: 24px; border-radius: 50%; top: 2px; left: 2px;
+            background: var(--white); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); transition: transform 0.3s;
+        }
+        .toggle-switch:checked::before { transform: translateX(22px); }
+        .offers { margin-top: 0.9rem; padding-top: 0.6rem; border-top: 1px solid var(--gray-200); }
+        .offers-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ocean-blue); }
+        .toggle-blurb { font-size: 0.72rem; color: var(--gray-600); margin-top: 0.3rem; line-height: 1.35; }
+        .offers-foot { font-size: 0.72rem; color: var(--gray-600); margin-top: 0.5rem; line-height: 1.35; }
+        .drink-list { display: inline-block; margin-top: 0.35rem; font-size: 0.8rem; font-weight: 600; color: var(--ocean-blue); }
+
+        /* Cabins left */
+        .gauge { display: inline-block; margin-top: 0.25rem; padding: 0.05rem 0.5rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 600; }
+        .gauge.ok { background: #dcfce7; color: #166534; }
+        .gauge.mid { background: var(--gold-wash); color: #92400e; }
+        .gauge.low { background: var(--red-wash); color: var(--red); }
+        .gauge.na { background: var(--gray-100); color: var(--gray-600); font-weight: 500; }
+        span.gauge { display: table; }
+
+        /* Full cabin table */
+        table.cabins { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        table.cabins td { padding: 0.5rem 0.4rem; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
+        table.cabins td:last-child { text-align: right; white-space: nowrap; }
+        table.cabins tr.group td { text-align: left; background: var(--gray-50); font-weight: 700; color: var(--ocean-blue); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        table.cabins tr.pickable { cursor: pointer; }
+        table.cabins tr.pickable:hover { background: var(--gray-50); }
+        table.cabins tr.chosen { background: var(--teal-wash); }
+        table.cabins tr.off td { color: var(--gray-500); }
+        table.cabins tr.off .cat-name { color: var(--gray-500); font-weight: 500; }
+        .pp-small { display: block; font-size: 0.75rem; color: var(--gray-500); font-weight: 400; }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <span class="version-badge" id="versionBadge"></span>
+            <h1 class="hero-title">Norwegian Joy, Nov 20, 2026</h1>
+            <p class="hero-subtitle">3 nights round trip from Miami to Nassau and Great Stirrup Cay. Compare Norwegian Cruise Line's published cabin prices for your group.</p>
+            <div class="as-of-row">
+                <span class="as-of">Prices as of <strong id="asOf">loading...</strong></span>
+                <span class="as-of" id="countsAsOf" hidden>Cabins left as of <strong id="countsAsOfDate"></strong></span>
+            </div>
+        </div>
+        <div class="wave-container"><div class="wave"></div></div>
+    </header>
+
+    <main class="wrap">
+        <div id="departed"></div>
+
+        <section class="panel" aria-label="Who is in the cabin">
+            <div class="panel-title">Who is in the cabin</div>
+            <div class="counters">
+                <div class="counter">
+                    <span class="counter-label">Adults (21+)</span>
+                    <button type="button" data-count="adults" data-step="-1" aria-label="One fewer adult">&minus;</button>
+                    <span class="counter-value" id="adultCount">2</span>
+                    <button type="button" data-count="adults" data-step="1" aria-label="One more adult">+</button>
+                </div>
+                <div class="counter">
+                    <span class="counter-label">Kids (under 21)</span>
+                    <button type="button" data-count="kids" data-step="-1" aria-label="One fewer kid">&minus;</button>
+                    <span class="counter-value" id="kidCount">0</span>
+                    <button type="button" data-count="kids" data-step="1" aria-label="One more kid">+</button>
+                </div>
+                <p class="hint kid-note" id="kidNote">Use each kid's age on Nov 20, 2026.</p>
+                <div class="kid-ages" id="kidAges"></div>
+            </div>
+            <div class="guest-msg" id="guestMsg" role="status" aria-live="polite"></div>
+            <div class="guest-summary" id="guestSummary"></div>
+        </section>
+
+        <section class="panel" aria-label="Cabin type">
+            <div class="panel-title">Cabin type</div>
+            <div class="seg small" id="typeButtons" role="group" aria-label="Cabin type"></div>
+            <p class="hint">Prices are for one cabin with everyone above in it.</p>
+        </section>
+
+        <section class="panel" aria-label="Gratuities">
+            <div class="panel-title">Gratuities</div>
+            <div class="toggle-container">
+                <input type="checkbox" class="toggle-switch" id="prepayToggle" checked aria-label="Prepay gratuities">
+                <div>
+                    <div class="toggle-label" id="prepayLabel">Prepay gratuities</div>
+                    <div class="toggle-price" id="prepayDesc">Service charges are paid with the cruise, before you sail</div>
+                </div>
+            </div>
+            <p class="hint">Daily gratuities can be adjusted or removed onboard at Guest Services.</p>
+        </section>
+
+        <div id="app"><div class="loading">Loading prices...</div></div>
+    </main>
+
+    <footer class="footer">
+        <div class="wrap">
+            <strong>About these prices</strong>
+            <p>This page compares Norwegian Cruise Line's published rates. It does not book or hold a cabin. Prices come from NCL's booking system and are checked once a day. They change often, so check NCL before booking.</p>
+            <p>Each total is the cruise fare, NCL's government taxes, fees and port expenses, the daily service charges (crew gratuities) for every guest 3 and older, the gratuities for the Free at Sea offers you keep switched on, and Free at Sea Plus if you choose it. Unlimited Open Bar: guests 21 and over pay the full gratuity, a guest under 21 who is guest 2 pays for a soda package instead, and other guests under 21 pay nothing. Specialty Dining: guests 13 and over pay, under 13 eat free. NCL lists adults first, then kids oldest first. If NCL doesn't show a number on a given day, this page says so instead of guessing.</p>
+            <p>Only ages are asked for. No names, birth dates or reservation details are collected.</p>
+            <p id="footerVersion"></p>
+        </div>
+    </footer>
+
+    <script>
+        const APP_VERSION = "1.0.0";
+        const DATA_URL = "data/prices.json";
+        const COUNTS_URL = "data/counts.json";
+        const COUNTS_MAX_AGE_DAYS = 7;
+        const MIN_GUESTS = 2, MAX_GUESTS = 5;
+        const TYPE_ORDER = ["inside", "oceanview", "balcony", "mini_suite", "suite", "haven"];
+        const STORE_KEY = "joy-cabin-compare-v1";
+        const GUARANTEE_TEXT = "Guarantee: NCL picks your cabin location";
+        const NOT_FOUND = "Not found on NCL today";
+
+        let DATA = null, J = null;   // data file, the Joy sailing
+        let COUNTS = null;           // data/counts.json when present and at most 7 days old
+        const state = {
+            adults: 2, kids: [],         // kids: ages 0 to 20, or null until chosen
+            type: "balcony",
+            pick: null,                  // chosen category code
+            // Free at Sea choices for the cabin (all guests in a cabin must choose the same offers).
+            offers: { bar: true, dining: true, plus: false },
+            prepayGratuities: true,      // service charges before sailing, or onboard on the last day
+        };
+
+        // ---------- helpers ----------
+        const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+        // Exact amounts (line items, totals) show cents when NCL charges cents, like $37.50.
+        const money = n => { const r = Math.round(n * 100) / 100; return "$" + r.toLocaleString("en-US", { minimumFractionDigits: Number.isInteger(r) ? 0 : 2, maximumFractionDigits: 2 }); };
+        // Derived amounts (per person, per night) in whole dollars.
+        const moneyR = n => "$" + Math.round(n).toLocaleString("en-US");
+        const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        const fmtDay = iso => { const d = new Date(iso + "T12:00:00Z"); return `${DAYS[d.getUTCDay()]}, ${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}`; };
+        const fmtDate = iso => { const d = new Date(iso.slice(0, 10) + "T12:00:00Z"); return `${MONTHS[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`; };
+        const fmtTime = hhmm => { if (!hhmm) return ""; let [h, m] = hhmm.split(":").map(Number); const ap = h >= 12 ? "PM" : "AM"; h = h % 12 || 12; return `${h}:${String(m).padStart(2, "0")} ${ap}`; };
+        const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+        const guests = () => state.adults + state.kids.length;
+        const agesKnown = () => state.kids.every(a => Number.isInteger(a));
+
+        // Only ages and switch choices are remembered on this device; nothing personal.
+        function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {} }
+        function restore() {
+            try {
+                const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+                if (!s || !Number.isInteger(s.adults) || !Array.isArray(s.kids)) return;
+                const kids = s.kids.map(a => Number.isInteger(a) && a >= 0 && a <= 20 ? a : null);
+                if (s.adults < 1 || s.adults + kids.length < MIN_GUESTS || s.adults + kids.length > MAX_GUESTS) return;
+                const o = s.offers || {};
+                const offers = { bar: o.bar !== false, dining: o.dining !== false, plus: o.plus === true };
+                if (offers.plus && !(offers.bar && offers.dining)) offers.plus = false;
+                Object.assign(state, {
+                    adults: s.adults, kids, offers,
+                    type: typeof s.type === "string" ? s.type : state.type,
+                    pick: typeof s.pick === "string" ? s.pick : null,
+                    prepayGratuities: s.prepayGratuities !== false,
+                });
+            } catch (e) {}
+        }
+
+        // ---------- data access ----------
+        // Solo cabins (T1, IT, OT, BT) and Studio only fit one guest, so they are hidden everywhere.
+        const types = () => J.types.filter(t => t.match !== "studio");
+        const catsOf = t => t.categories.filter(c => !c.solo);
+        const allCats = () => types().flatMap(t => catsOf(t).map(c => Object.assign({ typeTitle: t.title, typeMatch: t.match, typeCode: t.code }, c)));
+        const findCat = code => allCats().find(c => c.code === code);
+        const typeOf = key => types().find(t => t.match === key);
+        const entry = (c, n) => c.by_guests[String(n)];
+        const isAvail = (c, n) => entry(c, n).available;
+        const typeName = key => (typeOf(key) || {}).title || key;
+        function allTypes() { const keys = new Set(types().map(t => t.match)); return TYPE_ORDER.filter(k => keys.has(k)); }
+        const catHtml = c => `<span class="cat-name">${esc(c.description)}</span> <span class="cat-code">(${esc(c.code)})</span>`;
+
+        // Available categories of a broad type for the party, cheapest first.
+        function availableIn(t, n) {
+            return catsOf(t).filter(c => isAvail(c, n)).sort((a, b) => entry(a, n).cabin_total - entry(b, n).cabin_total);
+        }
+
+        function noneAvailableText(t, n) {
+            const reasons = catsOf(t).map(c => entry(c, n).reason || "");
+            if (reasons.length && reasons.every(r => r.startsWith("Holds only"))) return `No ${t.title} cabin holds ${n} guests.`;
+            if (reasons.length && reasons.every(r => r === "Sold out")) return `${t.title} is sold out.`;
+            return `No ${t.title} cabin is available for ${n} guests.`;
+        }
+
+        // Default cabin: the cheapest available non-Guarantee category; if a list has only
+        // Guarantee categories, the cheapest Guarantee one. Lists are cheapest first.
+        const defaultPick = list => list.find(c => !c.guarantee) || list[0] || null;
+
+        // The chosen category: the saved pick if it is still available in this type for this
+        // party, otherwise the default.
+        function chosenInType(t, n) {
+            const list = availableIn(t, n);
+            return list.find(c => c.code === state.pick) || defaultPick(list);
+        }
+
+        // Cabins left, from data/counts.json (location totals of a category's call minus those of
+        // the next pricier category's call). Nothing for Guarantee cabins or when the counts file
+        // is missing or more than 7 days old. Unreliable counts say so.
+        function gauge(c, n) {
+            if (!COUNTS || c.guarantee) return null;
+            const e = c._counts && c._counts.by_guests && c._counts.by_guests[String(n)];
+            if (!e) return null;
+            if (!e.reliable || !Number.isInteger(e.cabins_left) || e.cabins_left < 1) return { text: "Count not available", cls: "na" };
+            const left = e.cabins_left;
+            return { text: `${plural(left, "cabin", "cabins")} left`, cls: left >= 50 ? "ok" : left >= 10 ? "mid" : "low" };
+        }
+        const gaugeHtml = (c, n) => { const g = gauge(c, n); return g ? `<span class="gauge ${g.cls}">${esc(g.text)}</span>` : ""; };
+
+        // ---------- cost ----------
+        // NCL's guest order: adults first, then kids oldest first. Position matters for Open Bar.
+        function guestOrder() {
+            return [...Array(state.adults).fill(null), ...state.kids.slice().sort((a, b) => (b ?? -1) - (a ?? -1))];
+        }
+
+        // Confirmed by NCL price summaries and NCL's terms and FAQ (see NOTES.md):
+        // Fare and taxes don't depend on age (cabin_total already covers the party).
+        // Open Bar (if chosen): 21 and over the full gratuity; an under 21 guest 1 or 2 the soda
+        //   package; under 21 in position 3 or later nothing.
+        // Specialty Dining (if chosen): 13 and over pay; under 13 eat free; any position.
+        // Free at Sea Plus (if chosen), per guest per night: 21 and over the adult rate; a guest
+        //   1 or 2 aged 3 to 20 the child rate; 2 and under not eligible; under 21 in position 3 or
+        //   later doesn't get it and isn't charged. It includes prepaid service charges.
+        // Service charges (crew gratuities), per guest per night, for guests 3 and older (NCL's
+        //   FAQ), at the Suite and Haven rate or the standard rate, except guests covered by Plus.
+        // Any of these that NCL didn't show today (null in the data file) is left out of the
+        // total and listed as missing; nothing is guessed.
+        function cost(c, offers = state.offers) {
+            const n = guests();
+            const e = entry(c, n);
+            const nights = J.nights;
+            const g = J.gratuities, R = DATA.rates || {};
+            const taxes = J.taxes_per_guest == null ? null : J.taxes_per_guest * n;
+            const plusOn = offers.plus && !!R.free_at_sea_plus;
+            const order = guestOrder();
+            const isAdult = a => a === null;
+            const ageOf = a => isAdult(a) ? 99 : a;
+            const missing = [];
+
+            // Free at Sea Plus
+            const plusAdult = plusOn ? order.filter(isAdult).length : 0;
+            const plusChild = plusOn ? order.filter((a, i) => !isAdult(a) && i <= 1 && a >= 3).length : 0;
+            const coveredByPlus = plusAdult + plusChild;
+            const plus = { on: plusOn, parts: [], total: 0 };
+            if (plusAdult) plus.parts.push({ count: plusAdult, pp: R.free_at_sea_plus.adult_per_day, nights });
+            if (plusChild) plus.parts.push({ count: plusChild, pp: R.free_at_sea_plus.child_per_day, nights, note: "child rate" });
+            plus.total = plus.parts.reduce((t, p) => t + p.count * p.pp * p.nights, 0);
+            plus.notCovered = plusOn ? n - coveredByPlus : 0;
+
+            // Service charges (crew gratuities)
+            const sc = { title: "Service charges (crew gratuities)", parts: [], total: 0, notes: [], missing: !R.service_charge };
+            if (sc.missing) {
+                missing.push("service charges");
+            } else {
+                const suite = R.service_charge.suite_haven_types.includes(c.typeCode);
+                const rate = suite ? R.service_charge.suite_haven_per_night : R.service_charge.standard_per_night;
+                const minAge = R.service_charge.min_age;
+                const isPlusGuest = (a, i) => plusOn && (isAdult(a) || (i <= 1 && a >= 3));
+                const payers = order.filter((a, i) => ageOf(a) >= minAge && !isPlusGuest(a, i)).length;
+                const under = order.filter(a => ageOf(a) < minAge).length;
+                if (payers) sc.parts.push({ count: payers, pp: rate, nights });
+                sc.total = payers * rate * nights;
+                if (coveredByPlus) sc.notes.push(`included in Free at Sea Plus for ${plural(coveredByPlus, "guest", "guests")}`);
+                if (under) sc.notes.push(`under ${minAge}: no charge`);
+            }
+
+            // Open Bar gratuity
+            const bar = { title: g ? g.open_bar.title : "Unlimited Open Bar", on: offers.bar, parts: [], total: 0, notes: [], missing: !g };
+            if (offers.bar && !g) missing.push("Open Bar gratuity");
+            if (offers.bar && g) {
+                const adults = order.filter(isAdult).length;
+                const soda = order.filter((a, i) => !isAdult(a) && i <= 1).length;
+                const free = order.filter((a, i) => !isAdult(a) && i >= 2).length;
+                if (adults) bar.parts.push({ count: adults, pp: g.open_bar.per_guest });
+                if (soda) bar.parts.push({ count: soda, pp: g.open_bar.soda_under_21_position_2, note: "soda package, under 21" });
+                bar.total = bar.parts.reduce((t, p) => t + p.count * p.pp, 0);
+                if (free) bar.notes.push("other guests under 21: no charge");
+            }
+
+            // Specialty Dining gratuity
+            const dining = { title: g ? g.specialty_dining.title : "Specialty Dining", on: offers.dining, parts: [], total: 0, notes: [], missing: !g };
+            if (offers.dining && !g) missing.push("Specialty Dining gratuity");
+            if (offers.dining && g) {
+                const diners = order.filter(a => ageOf(a) >= 13).length;
+                if (diners) dining.parts.push({ count: diners, pp: g.specialty_dining.per_guest });
+                dining.total = diners * g.specialty_dining.per_guest;
+                if (n - diners) dining.notes.push("under 13 eat free");
+            }
+
+            const gratuities = sc.total + bar.total + dining.total;
+            const total = e.cabin_total + plus.total + gratuities;
+            const onboard = state.prepayGratuities ? 0 : sc.total;
+            return { n, nights, ksf: ksfFor(c.typeCode), cabin: e.cabin_total, fare: taxes === null ? null : e.cabin_total - taxes, taxes, plus, sc, bar, dining, gratuities, total, onboard, before: total - onboard, missing };
+        }
+
+        function addedCostLine(c) {
+            const n = guests();
+            if (n <= 2) return "";
+            const parts = [];
+            for (let k = 3; k <= n; k++) {
+                const prev = entry(c, k - 1), cur = entry(c, k);
+                if (prev.available && cur.available) parts.push(`guest ${k} +${money(cur.cabin_total - prev.cabin_total)}`);
+            }
+            return parts.length ? `<div class="addon">Added cost in ${catHtml(c)} (fare and taxes): <strong>${parts.join(", ")}</strong></div>` : "";
+        }
+
+        function lineRows(k) {
+            const part = p => `${plural(p.count, "guest", "guests")} x ${money(p.pp)}${p.nights ? ` x ${p.nights} nights` : ""}${p.note ? ` (${p.note})` : ""}`;
+            const missingRow = title => `<div class="row missing"><span class="k">${esc(title)}</span><span class="v">${NOT_FOUND}</span></div>`;
+            // Example: "Unlimited Open Bar: 1 guest x $96, 1 guest x $37.50 (soda package, under 21)"
+            const line = x => {
+                if (x.on === false) return `<div class="row muted"><span class="k">${esc(x.title)}</span><span class="v">not chosen</span></div>`;
+                if (x.missing) return missingRow(x.title + " gratuity");
+                const notes = (x.notes || []).map(n => ` (${n})`).join("");
+                if (!x.parts.length) return `<div class="row muted"><span class="k">${esc(x.title)}${notes}</span><span class="v">no one charged</span></div>`;
+                return `<div class="row"><span class="k">${esc(x.title)}: ${x.parts.map(part).join(", ")}${notes}</span><span class="v">${money(x.total)}</span></div>`;
+            };
+            const plusRow = !k.plus.on ? "" : k.plus.parts.length
+                ? `<div class="row"><span class="k">Free at Sea Plus: ${k.plus.parts.map(part).join(", ")}${k.plus.notCovered ? ` (${plural(k.plus.notCovered, "guest", "guests")} not eligible: no charge)` : ""}</span><span class="v">${money(k.plus.total)}</span></div>`
+                : `<div class="row muted"><span class="k">Free at Sea Plus</span><span class="v">no one eligible</span></div>`;
+            const when = state.prepayGratuities ? "" : " (charged onboard)";
+            const scRow = k.sc.missing ? missingRow(k.sc.title) : k.sc.parts.length
+                ? `<div class="row"><span class="k">${esc(k.sc.title)}${when}: ${k.sc.parts.map(part).join(", ")}${k.sc.notes.map(n => ` (${n})`).join("")}</span><span class="v">${money(k.sc.total)}</span></div>`
+                : `<div class="row muted"><span class="k">${esc(k.sc.title)}${k.sc.notes.map(n => ` (${n})`).join("")}</span><span class="v">$0</span></div>`;
+            const fareRows = k.taxes === null
+                ? `<div class="row"><span class="k">Cruise fare with taxes, fees and port expenses</span><span class="v">${money(k.cabin)}</span></div>
+                   <div class="row missing"><span class="k">Taxes, fees and port expenses per guest (already in the line above)</span><span class="v">${NOT_FOUND}</span></div>`
+                : `<div class="row"><span class="k">Cruise fare${k.n >= 3 && k.ksf ? ` (guest${k.n >= 4 ? "s 3 and 4" : " 3"}: ${esc(k.ksf.title)}, $0 fare)` : ""}</span><span class="v">${money(k.fare)}</span></div>
+                   <div class="row"><span class="k">Taxes, fees and port expenses: ${k.n} x ${money(J.taxes_per_guest)}</span><span class="v">${money(k.taxes)}</span></div>`;
+            return `
+                ${fareRows}
+                ${plusRow}
+                ${scRow}
+                ${line(k.bar)}
+                ${line(k.dining)}
+                <div class="row subtotal"><span class="k">Gratuities total</span><span class="v">${money(k.gratuities)}</span></div>`;
+        }
+
+        // Prices kept from an earlier day for this party size (NCL failed today's check).
+        function staleNote() {
+            const n = String(guests());
+            const st = J.party_sizes && J.party_sizes[n];
+            if (!st || st.updated !== false) return "";
+            const when = new Date(st.as_of).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "America/New_York" });
+            return `<div class="notice stale"><strong>Not updated today.</strong> Prices for ${n} guests are from ${esc(when)}.</div>`;
+        }
+
+        // Free at Sea blurbs. Amounts come from the data file; the Wi-Fi minutes and excursion
+        // credit were read from NCL's promotion terms (NOTES.md, "Free at Sea blurbs").
+        const DRINK_LIST_URL = "https://www.ncl.com/sites/default/files//NCL%20Beverage%20Packages%20Flyer%202026.pdf";
+        // Specialty dining meals per guest: from NCL's price summary line ("Specialty Dining - 1 Meal"),
+        // or by sail length when that line is missing (2 to 4 nights 1, 5 to 6 nights 2, 7 to 8 nights 3, 9+ nights 4).
+        function diningMeals() {
+            const m = /(\d+)\s*Meal/i.exec(((J.gratuities || {}).specialty_dining || {}).title || "");
+            if (m) return Number(m[1]);
+            return J.nights <= 4 ? 1 : J.nights <= 6 ? 2 : J.nights <= 8 ? 3 : 4;
+        }
+        const BLURBS = {
+            bar: () => "Premium spirits, 100+ cocktails, sodas and juices, plus drinks at Great Stirrup Cay.",
+            dining: () => `${diningMeals()} specialty restaurant ${diningMeals() === 1 ? "meal" : "meals"} per guest, about a $40 to $60 value each.`,
+            plus: () => `Adds unlmt. Wi-Fi\\top shelf spirits\\Starbucks\\bottled water\\daily svc. chrg. ${money(DATA.rates.free_at_sea_plus.adult_per_day)}/adult/night.`,   // "\\" shows one backslash
+        };
+
+        function totalBlock(k) {
+            const n = guests();
+            const missingNote = k.missing.length
+                ? `<div class="notice info">Not included in the total because NCL didn't show the amount today: ${esc(k.missing.join(", "))}.</div>` : "";
+            if (!agesKnown()) {
+                return `<div class="notice info">Choose every kid's age above to see the full total. Free at Sea charges depend on age.</div><div class="rows">${lineRows(k)}</div>`;
+            }
+            const perNight = k.total / k.nights;
+            return `
+                ${missingNote}
+                <div class="price-label">Total for ${plural(n, "guest", "guests")}</div>
+                <div class="price-total">${money(k.total)}</div>
+                <div class="price-pp">${moneyR(k.total / n)} per person</div>
+                <div class="rows">
+                    ${lineRows(k)}
+                    <div class="row total"><span class="k">Total</span><span class="v">${money(k.total)}</span></div>
+                    <div class="row due"><span class="k">Due before you sail</span><span class="v">${money(k.before)}</span></div>
+                    <div class="row due"><span class="k">Charged onboard</span><span class="v">${money(k.onboard)}</span></div>
+                    <div class="row"><span class="k">Cost per night</span><span class="v">${moneyR(perNight)} (${moneyR(perNight / n)} per person)</span></div>
+                </div>`;
+        }
+
+        // Free at Sea switches for the cabin. All guests in a cabin share the choice.
+        function offerToggles(c) {
+            const k = cost(c), off = state.offers, R = DATA.rates || {};
+            const desc = x => x.missing ? "price " + NOT_FOUND.toLowerCase()
+                : x.parts.length ? "+" + money(x.total) + " (" + x.parts.map(p => `${plural(p.count, "guest", "guests")} x ${money(p.pp)}${p.nights ? ` x ${p.nights} nights` : ""}`).join(", ") + ")" : "no one charged";
+            const sw = (offer, label, on, text, extra = "") => `
+                <div class="toggle-container">
+                    <input type="checkbox" class="toggle-switch" data-offer="${offer}" ${on ? "checked" : ""} aria-label="${esc(label)}">
+                    <div>
+                        <div class="toggle-label">${esc(label)}</div>
+                        <div class="toggle-price">${text}</div>
+                    </div>
+                </div>
+                <div class="toggle-blurb">${esc(BLURBS[offer]())}</div>${extra}`;
+            let plusSwitch;
+            if (!R.free_at_sea_plus) {
+                plusSwitch = `<div class="toggle-container"><div><div class="toggle-label">Free at Sea Plus</div><div class="toggle-price">Price ${NOT_FOUND.toLowerCase()}, so it can't be added here.</div></div></div>`;
+            } else {
+                const kp = cost(c, { bar: true, dining: true, plus: true });   // what Plus would cost if switched on
+                const preview = kp.plus.parts.length ? desc(kp.plus) + ", includes prepaid service charges" : "no one in this cabin is eligible";
+                plusSwitch = sw("plus", "Free at Sea Plus", off.plus, preview,
+                    off.plus ? "" : `<div class="toggle-note">Turning this on also turns on Open Bar and Specialty Dining. ${money(R.free_at_sea_plus.child_per_day)} per night for a guest 1 or 2 aged 3 to 20.</div>`);
+            }
+            return `
+                <div class="offers">
+                    <div class="offers-head"><span class="offers-title">Free at Sea for this cabin</span></div>
+                    <a class="drink-list" href="${DRINK_LIST_URL}" target="_blank" rel="noopener">See NCL's full drink list (PDF) &rarr;</a>
+                    ${sw("bar", "Unlimited Open Bar", off.bar, off.bar ? desc(k.bar) : "off")}
+                    ${sw("dining", "Specialty Dining", off.dining, off.dining ? desc(k.dining) : "off")}
+                    ${plusSwitch}
+                    <div class="offers-foot">Under 21: soda package as guest 1 or 2, no drink package as guest 3 or later. Under 13: dining free.</div>
+                    <div class="offers-foot">Always included: 150 minutes of Wi-Fi per guest and a $50 excursion credit per port for guest 1.</div>
+                    <div class="offers-foot">Choose at least 24 hours before sailing. No changes onboard.</div>
+                </div>`;
+        }
+
+        function catHeader(c) {
+            const meta = [c.size, c.capacity && !c.description.includes("holds up to") ? `holds up to ${c.capacity}` : ""].filter(Boolean).join(", ");
+            return `<div class="cabin-line">${catHtml(c)}
+                ${meta ? `<div class="cat-meta">${esc(meta)}</div>` : ""}
+                ${c.guarantee ? `<div class="cat-meta gty">${GUARANTEE_TEXT}</div>` : ""}</div>`;
+        }
+
+        // One cabin button. When it is the only available option it is shown already selected,
+        // with no tap action and no hover effect (no data-pick, so the click handler ignores it).
+        function catButton(c, n, pressed, only) {
+            const attrs = only
+                ? `class="only" aria-pressed="true" aria-disabled="true" tabindex="-1"`
+                : `data-pick="${esc(c.code)}" aria-pressed="${pressed}"`;
+            return `<li><button type="button" ${attrs}>
+                    <span>${catHtml(c)}${c.guarantee ? `<span class="cat-meta gty" style="display:block">${GUARANTEE_TEXT}</span>` : ""}${gaugeHtml(c, n)}</span>
+                    <span class="price">${money(entry(c, n).cabin_total)}</span>
+                </button></li>`;
+        }
+
+        // Tap list of the available categories in this type, cheapest first.
+        function catPicker(t, chosen, n) {
+            const list = availableIn(t, n);
+            if (!list.length) return "";
+            const only = list.length === 1;
+            return `<div class="cat-list-title">${esc(t.title)} cabins for ${n} guests</div><ul class="cat-list">${list.map(c => catButton(c, n, c.code === chosen.code, only)).join("")}</ul>`;
+        }
+
+        function daysList() {
+            return `<details class="days"><summary>Day by day</summary><ol>${J.ports.map(d => `
+                <li><span>${fmtDay(d.date)}: ${d.sea ? "At sea" : esc(d.port)}</span><span>${d.sea ? "" : [d.arrive && "arrive " + fmtTime(d.arrive), d.depart && "leave " + fmtTime(d.depart)].filter(Boolean).join(", ")}</span></li>`).join("")}</ol></details>
+                <div class="terminal">${esc(J.terminal.text)}</div>`;
+        }
+
+        function stops() {
+            const names = J.ports.filter((d, i) => !d.sea && i > 0 && i < J.ports.length - 1).map(d => d.port.split(",")[0]);
+            const seaDays = J.ports.filter(d => d.sea).length;
+            return `<div class="stops">${names.map(p => `<span class="stop">${esc(p)}</span>`).join("")}${seaDays ? `<span class="stop">${plural(seaDays, "sea day", "sea days")}</span>` : ""}</div>`;
+        }
+
+        // NCL's Kids Sail Free offer, when NCL lists it today, for a broad type (INSIDE, ...).
+        // NCL applies it by guest position (3rd and 4th guests), at any age; cabin prices already include it.
+        const ksfFor = typeCode => J.kids_sail_free && J.kids_sail_free.types.includes(typeCode) ? J.kids_sail_free : null;
+        const ksfTypeNames = () => types().filter(t => J.kids_sail_free.types.includes(t.code)).map(t => t.title);
+        const listText = a => a.length > 1 ? a.slice(0, -1).join(", ") + " and " + a[a.length - 1] : a.join("");
+
+        // ---------- per guest charges ----------
+        // Each amount as NCL shows it, per guest, with "Not found on NCL today" when it's missing.
+        function chargesPanel() {
+            const g = J.gratuities, R = DATA.rates || {};
+            const li = (k, sub, v) => `<li><span class="k">${k}${sub ? `<small>${sub}</small>` : ""}</span><span class="v ${v === null ? "none" : ""}">${v === null ? NOT_FOUND : v}</span></li>`;
+            const checked = [g && g.open_bar.checked_at, ...["free_at_sea_plus", "service_charge"].map(k => R[k] && R[k].checked_at)].filter(Boolean).sort().pop();
+            const items = [
+                li("Taxes, fees and port expenses", "Every guest, any age. Already inside NCL's cabin prices.", J.taxes_per_guest == null ? null : money(J.taxes_per_guest)),
+                li("Unlimited Open Bar gratuity", "Each guest 21 and over", g ? money(g.open_bar.per_guest) : null),
+                li("Soda package instead of Open Bar", "A guest under 21 who is guest 1 or 2. Under 21 as guest 3 or later: $0.", g ? money(g.open_bar.soda_under_21_position_2) : null),
+                li(`${esc(g ? g.specialty_dining.title : "Specialty Dining")} gratuity`, "Each guest 13 and over. Under 13: $0.", g ? money(g.specialty_dining.per_guest) : null),
+                li("Free at Sea Plus (optional), per night", "Each guest 21 and over; guest 1 or 2 aged 3 to 20 pays the child rate below. Includes service charges.", R.free_at_sea_plus ? money(R.free_at_sea_plus.adult_per_day) : null),
+                li("Free at Sea Plus child rate, per night", "Guest 1 or 2 aged 3 to 20", R.free_at_sea_plus ? money(R.free_at_sea_plus.child_per_day) : null),
+                li("Service charges, per night", `Each guest 3 and older. ${R.service_charge ? money(R.service_charge.suite_haven_per_night) + " in Suites and The Haven." : ""}`, R.service_charge ? money(R.service_charge.standard_per_night) : null),
+            ];
+            return `
+                <section class="panel" aria-label="Per guest charges">
+                    <div class="panel-title">Per guest charges on this sailing</div>
+                    <ul class="charges">${items.join("")}</ul>
+                    ${J.kids_sail_free ? `<p class="hint"><strong>${esc(J.kids_sail_free.title)}</strong>, NCL's words: "${esc(J.kids_sail_free.description)}" Applies to ${esc(listText(ksfTypeNames()))} cabins, to guests 3 and 4 at any age. Already in the cabin prices on this page.</p>` : ""}
+                    <p class="hint">From NCL's own price quotes and its promotion terms and service charge pages${checked ? `, checked ${esc(fmtDate(checked))}` : ""}. The total below adds these up for the guests and switches you choose.</p>
+                </section>`;
+        }
+
+        // ---------- card ----------
+        function card() {
+            const n = guests();
+            const t = typeOf(state.type);
+            let body = "", picks = "";
+            const c = t ? chosenInType(t, n) : null;
+            if (!t) {
+                body = `<div class="notice bad">${esc(typeName(state.type))}: not offered on this sailing</div>`;
+            } else if (!c) {
+                body = `<div class="notice bad">${esc(noneAvailableText(t, n))}</div>`;
+            } else {
+                const full = findCat(c.code);
+                const k = cost(full);
+                picks = catPicker(t, full, n) + offerToggles(full);
+                body = catHeader(full) + staleNote() + totalBlock(k) + addedCostLine(full);
+            }
+            return `
+                <article class="card">
+                    <div class="card-head">
+                        <h2 class="card-title">${esc(J.ship)}</h2>
+                        <div class="card-dates">${fmtDay(J.depart)} to ${fmtDay(J.return)}, ${J.depart.slice(0, 4)} (${J.nights} nights)</div>
+                        ${stops()}
+                        ${t && ksfFor(t.code) ? `<span class="offer-badge">${esc(ksfFor(t.code).title)}</span><div class="offer-text">${esc(ksfFor(t.code).short)} Guests 3 and 4 at any age, already in the prices below.</div>` : ""}
+                    </div>
+                    ${picks ? `<div class="card-picks">${picks}</div>` : ""}
+                    <div class="card-body">${body}${daysList()}</div>
+                    <a class="ncl-link" href="${esc(J.url)}" target="_blank" rel="noopener">See this sailing on NCL &rarr;</a>
+                </article>`;
+        }
+
+        // Every cabin for the party. Unavailable ones are greyed out with the reason.
+        function cabinTable() {
+            const n = guests();
+            const t0 = typeOf(state.type);
+            const chosen = t0 ? chosenInType(t0, n) : null;
+            const rows = types().map(t => {
+                const cats = catsOf(t).slice().sort((a, b) => {
+                    const ea = entry(a, n), eb = entry(b, n);
+                    if (ea.available !== eb.available) return ea.available ? -1 : 1;
+                    return (ea.cabin_total || 1e9) - (eb.cabin_total || 1e9);
+                });
+                return `<tr class="group"><td colspan="2">${esc(t.title)}</td></tr>` + cats.map(c => {
+                    const e = entry(c, n);
+                    const meta = [c.size, c.capacity && !c.description.includes("holds up to") ? `holds up to ${c.capacity}` : "", c.guarantee ? GUARANTEE_TEXT : ""].filter(Boolean).join(". ");
+                    return e.available
+                        ? `<tr class="pickable ${chosen && c.code === chosen.code ? "chosen" : ""}" data-code="${esc(c.code)}" data-typekey="${t.match}"><td>${catHtml(c)}${meta ? `<div class="cat-meta">${esc(meta)}</div>` : ""}${gaugeHtml(c, n)}</td><td>${money(e.cabin_total)}<span class="pp-small">${moneyR(e.price_pp)} pp</span></td></tr>`
+                        : `<tr class="off"><td>${catHtml(c)}${meta ? `<div class="cat-meta">${esc(meta)}</div>` : ""}</td><td>${esc(e.reason)}</td></tr>`;
+                }).join("");
+            }).join("");
+            return `
+                <section class="panel" aria-label="Every cabin">
+                    <div class="panel-title">Every cabin for ${plural(n, "guest", "guests")} (fare and taxes)</div>
+                    <table class="cabins"><tbody>${rows}</tbody></table>
+                    <p class="hint">Tap an available cabin to choose it. Free at Sea and service charges are added in the total.${COUNTS ? " Cabins left are NCL's open cabins in that category for your party size; \"Count not available\" means NCL's answer couldn't be split cleanly (see NOTES.md)." : ""}</p>
+                </section>`;
+        }
+
+        // ---------- render ----------
+        function renderGuests(msg = "") {
+            const ageOn = fmtDate(J ? J.depart : "2026-11-20");
+            document.getElementById("adultCount").textContent = state.adults;
+            document.getElementById("kidCount").textContent = state.kids.length;
+            const opts = a => `<option value="">Choose age</option>` + Array.from({ length: 21 }, (_, i) => `<option value="${i}" ${a === i ? "selected" : ""}>${i}</option>`).join("");
+            document.getElementById("kidAges").innerHTML = state.kids.map((a, i) => `
+                <div><label for="kid${i}">Kid ${i + 1} age on ${esc(ageOn)}</label><select id="kid${i}" data-kid="${i}" class="${Number.isInteger(a) ? "" : "unset"}">${opts(a)}</select></div>`).join("");
+            document.getElementById("guestMsg").textContent = msg;
+            document.getElementById("kidNote").textContent = `Use each kid's age on ${ageOn}.`;
+            const n = guests();
+            const parts = [`${plural(n, "guest", "guests")} in the cabin`];
+            if (agesKnown() && state.kids.length) parts.push(`NCL's guest order: ${guestOrder().map(a => a === null ? "adult" : `age ${a}`).join(", ")}`);
+            document.getElementById("guestSummary").textContent = parts.join(". ") + ".";
+        }
+
+        function renderTypes() {
+            document.getElementById("typeButtons").innerHTML = allTypes().map(k =>
+                `<button type="button" data-type="${k}" aria-pressed="${state.type === k}">${esc(typeName(k))}</button>`).join("");
+        }
+
+        function renderPrepay() {
+            const on = state.prepayGratuities;
+            document.getElementById("prepayToggle").checked = on;
+            document.getElementById("prepayLabel").textContent = on ? "Prepay gratuities" : "Pay onboard on the last day";
+            document.getElementById("prepayDesc").textContent = on
+                ? "Service charges are paid with the cruise, before you sail. The amount is the same either way."
+                : "Service charges are added to your onboard account. The amount is the same either way.";
+        }
+
+        function render(msg) {
+            if (!allTypes().includes(state.type)) state.type = allTypes().includes("balcony") ? "balcony" : allTypes()[0];
+            if (!(DATA.rates || {}).free_at_sea_plus) state.offers.plus = false;
+            renderPrepay();
+            renderGuests(msg);
+            renderTypes();
+            document.getElementById("app").innerHTML = `${chargesPanel()}<div class="layout">${card()}${cabinTable()}</div>`;
+            save();
+        }
+
+        // ---------- guest rules ----------
+        function changeCount(which, step) {
+            const n = guests();
+            if (step > 0 && n >= MAX_GUESTS) return `A cabin here holds at most ${MAX_GUESTS} guests, so remove someone before adding another.`;
+            if (which === "adults") {
+                if (step < 0 && state.adults <= 1) return "Every cabin needs at least 1 adult (21 or older).";
+                if (step < 0 && n <= MIN_GUESTS) return `Prices are for at least ${MIN_GUESTS} guests in a cabin, so add a kid before removing an adult.`;
+                state.adults += step;
+            } else {
+                if (step < 0 && !state.kids.length) return "There are no kids to remove.";
+                if (step < 0 && n <= MIN_GUESTS) return `Prices are for at least ${MIN_GUESTS} guests in a cabin, so add an adult before removing a kid.`;
+                if (step > 0) state.kids.push(null); else state.kids.pop();
+            }
+            return "";
+        }
+
+        // ---------- events ----------
+        document.addEventListener("click", e => {
+            if (!DATA) return;
+            const b = e.target.closest("button[data-count], button[data-type], button[data-pick], tr.pickable");
+            if (!b) return;
+            let msg = "";
+            if (b.dataset.count) msg = changeCount(b.dataset.count, Number(b.dataset.step));
+            else if (b.dataset.pick) state.pick = b.dataset.pick;
+            else if (b.dataset.type) state.type = b.dataset.type;
+            else if (b.dataset.code) {
+                // A cabin tapped in the full table: choose it, and its type for the card.
+                state.type = b.dataset.typekey;
+                state.pick = b.dataset.code;
+            }
+            render(msg);
+        });
+
+        document.addEventListener("change", e => {
+            if (!DATA) return;
+            const offer = e.target.closest("input[data-offer]");
+            if (offer) {
+                const o = state.offers;
+                o[offer.dataset.offer] = offer.checked;
+                // Free at Sea Plus upgrades the Open Bar and Specialty Dining offers.
+                if (offer.dataset.offer === "plus" && offer.checked) { o.bar = true; o.dining = true; }
+                if ((offer.dataset.offer === "bar" || offer.dataset.offer === "dining") && !offer.checked) o.plus = false;
+                render();
+                return;
+            }
+            if (e.target.id === "prepayToggle") {
+                state.prepayGratuities = e.target.checked;
+                render();
+                return;
+            }
+            const kid = e.target.closest("select[data-kid]");
+            if (!kid) return;
+            state.kids[Number(kid.dataset.kid)] = kid.value === "" ? null : Number(kid.value);
+            render();
+        });
+
+        // ---------- counts and descriptions ----------
+        function usableCounts(cnt) {
+            try {
+                if (!cnt || cnt.schema_version !== 1 || typeof cnt.sailings !== "object") return null;
+                const saved = Date.parse(cnt.saved_at);
+                if (!Number.isFinite(saved)) return null;
+                if (Date.now() - saved > COUNTS_MAX_AGE_DAYS * 86400000) return null;
+                return cnt;
+            } catch (e) { return null; }
+        }
+
+        const LOCATION_ORDER = ["forward", "midship", "aft"];
+        function deckText(decks) {
+            const d = [...new Set(decks)].sort((a, b) => a - b);
+            if (d.length === 1) return `Deck ${d[0]}`;
+            const parts = [];
+            let run = [d[0]];
+            for (const x of [...d.slice(1), null]) {
+                if (x !== null && x === run[run.length - 1] + 1) { run.push(x); continue; }
+                if (run.length >= 3) parts.push(`${run[0]} to ${run[run.length - 1]}`); else parts.push(...run.map(String));
+                run = [x];
+            }
+            return "Decks " + (parts.length > 1 ? parts.slice(0, -1).join(", ") + " and " + parts[parts.length - 1] : parts[0]);
+        }
+        function locationText(locs) {
+            const w = LOCATION_ORDER.filter(l => locs.includes(l));
+            return w.length < 3 ? w.join(" and ") : "forward, midship and aft";
+        }
+
+        // Plain description: NCL's title, decks and location from the price file, with gaps
+        // filled from where this category's own open cabins are (counts file, if fresh).
+        // Same rules as tools/fetch_prices.py; nothing is guessed.
+        function describe(c) {
+            const cc = c._counts || {};
+            const decks = c.decks || (!c.guarantee && cc.open_decks) || null;
+            const locs = c.location || (!c.guarantee && cc.open_locations) || null;
+            const parts = [c.title];
+            if (decks && decks.length) parts.push(deckText(decks));
+            if (locs && locs.length) parts.push(locationText(locs));
+            if (!(decks && decks.length) && !c.guarantee && (c.shares_ncl_description_with || []).length && c.capacity) parts.push(`holds up to ${c.capacity}`);
+            return parts.join(", ");
+        }
+
+        function attachCounts() {
+            const sc = COUNTS && COUNTS.sailings[J.id];
+            for (const t of J.types) for (const c of t.categories) {
+                c._counts = (sc && !c.guarantee && sc[c.code]) || null;
+                c.description = describe(c);
+            }
+            const pill = document.getElementById("countsAsOf");
+            if (COUNTS) {
+                document.getElementById("countsAsOfDate").textContent = new Date(COUNTS.saved_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "America/New_York" });
+                pill.hidden = false;
+            } else {
+                pill.hidden = true;
+            }
+        }
+
+        // After the ship sails, say so (prices stay as NCL last showed them).
+        function departedNote() {
+            const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" });   // YYYY-MM-DD
+            if (today < J.depart) return;
+            document.getElementById("departed").innerHTML = `<div class="panel"><div class="notice info" style="margin:0">This sailing left Miami on ${esc(fmtDate(J.depart))}. The prices below are the last ones NCL showed.</div></div>`;
+        }
+
+        // ---------- start ----------
+        document.getElementById("versionBadge").textContent = "v" + APP_VERSION;
+        document.getElementById("footerVersion").textContent = "Version " + APP_VERSION;
+        restore();
+        // Counts are optional: any problem loading them just hides the count labels.
+        const countsPromise = fetch(COUNTS_URL, { cache: "no-cache" })
+            .then(r => r.ok ? r.json() : null)
+            .catch(() => null);
+        fetch(DATA_URL, { cache: "no-cache" })
+            .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+            .then(d => countsPromise.then(cnt => [d, cnt]))
+            .then(([d, cnt]) => {
+                DATA = d;
+                COUNTS = usableCounts(cnt);
+                J = d.sailings.find(s => s.id.startsWith("joy"));
+                if (!J) throw new Error("the sailing is missing");
+                document.getElementById("asOf").textContent = new Date(d.saved_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "America/New_York" });
+                attachCounts();
+                departedNote();
+                render();
+            })
+            .catch(err => {
+                document.getElementById("asOf").textContent = "unavailable";
+                document.getElementById("app").innerHTML = `<div class="load-error">The prices could not be loaded (${esc(err.message)}). Please refresh the page.</div>`;
+            });
+    </script>
+</body>
+</html>
