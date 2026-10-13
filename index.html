@@ -163,15 +163,6 @@
         .offer-badge { display: inline-block; margin-top: 0.6rem; padding: 0.25rem 0.7rem; border-radius: 9999px; background: #dcfce7; color: #166534; font-size: 0.8rem; font-weight: 700; }
         .offer-text { font-size: 0.78rem; color: var(--gray-600); margin-top: 0.3rem; line-height: 1.4; }
 
-        /* Per guest charges */
-        .charges { list-style: none; }
-        .charges li { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); font-size: 0.875rem; }
-        .charges li:last-child { border-bottom: 0; }
-        .charges .k { color: var(--gray-700); }
-        .charges .k small { display: block; color: var(--gray-500); font-size: 0.75rem; }
-        .charges .v { font-weight: 700; color: var(--gray-900); text-align: right; white-space: nowrap; }
-        .charges .v.none { color: #92400e; white-space: normal; }
-
         /* Footer */
         .footer { background: var(--deep-ocean); color: var(--white); padding: 2rem 1rem; margin-top: 2rem; font-size: 0.875rem; }
         .footer p { opacity: 0.8; margin-top: 0.5rem; }
@@ -689,32 +680,6 @@
         // NCL's Kids Sail Free offer, when NCL lists it today, for a broad type (INSIDE, ...).
         // NCL applies it by guest position (3rd and 4th guests), at any age; cabin prices already include it.
         const ksfFor = typeCode => J.kids_sail_free && J.kids_sail_free.types.includes(typeCode) ? J.kids_sail_free : null;
-        const ksfTypeNames = () => types().filter(t => J.kids_sail_free.types.includes(t.code)).map(t => t.title);
-        const listText = a => a.length > 1 ? a.slice(0, -1).join(", ") + " and " + a[a.length - 1] : a.join("");
-
-        // ---------- per guest charges ----------
-        // Each amount as NCL shows it, per guest, with "Not found on NCL today" when it's missing.
-        function chargesPanel() {
-            const g = J.gratuities, R = DATA.rates || {};
-            const li = (k, sub, v) => `<li><span class="k">${k}${sub ? `<small>${sub}</small>` : ""}</span><span class="v ${v === null ? "none" : ""}">${v === null ? NOT_FOUND : v}</span></li>`;
-            const checked = [g && g.open_bar.checked_at, ...["free_at_sea_plus", "service_charge"].map(k => R[k] && R[k].checked_at)].filter(Boolean).sort().pop();
-            const items = [
-                li("Taxes, fees and port expenses", "Every guest, any age. Already inside NCL's cabin prices.", J.taxes_per_guest == null ? null : money(J.taxes_per_guest)),
-                li("Unlimited Open Bar gratuity", "Each guest 21 and over", g ? money(g.open_bar.per_guest) : null),
-                li("Soda package instead of Open Bar", "A guest under 21 who is guest 1 or 2. Under 21 as guest 3 or later: $0.", g ? money(g.open_bar.soda_under_21_position_2) : null),
-                li(`${esc(g ? g.specialty_dining.title : "Specialty Dining")} gratuity`, "Each guest 13 and over. Under 13: $0.", g ? money(g.specialty_dining.per_guest) : null),
-                li("Free at Sea Plus (optional), per night", "Each guest 21 and over; guest 1 or 2 aged 3 to 20 pays the child rate below. Includes service charges.", R.free_at_sea_plus ? money(R.free_at_sea_plus.adult_per_day) : null),
-                li("Free at Sea Plus child rate, per night", "Guest 1 or 2 aged 3 to 20", R.free_at_sea_plus ? money(R.free_at_sea_plus.child_per_day) : null),
-                li("Service charges, per night", `Each guest 3 and older. ${R.service_charge ? money(R.service_charge.suite_haven_per_night) + " in Suites and The Haven." : ""}`, R.service_charge ? money(R.service_charge.standard_per_night) : null),
-            ];
-            return `
-                <section class="panel" aria-label="Per guest charges">
-                    <div class="panel-title">Per guest charges on this sailing</div>
-                    <ul class="charges">${items.join("")}</ul>
-                    ${J.kids_sail_free ? `<p class="hint"><strong>${esc(J.kids_sail_free.title)}</strong>, NCL's words: "${esc(J.kids_sail_free.description)}" Applies to ${esc(listText(ksfTypeNames()))} cabins, to guests 3 and 4 at any age. Already in the cabin prices on this page.</p>` : ""}
-                    <p class="hint">From NCL's own price quotes and its promotion terms and service charge pages${checked ? `, checked ${esc(fmtDate(checked))}` : ""}. The total below adds these up for the guests and switches you choose.</p>
-                </section>`;
-        }
 
         // ---------- card ----------
         function card() {
@@ -809,7 +774,7 @@
             renderPrepay();
             renderGuests(msg);
             renderTypes();
-            document.getElementById("app").innerHTML = `${chargesPanel()}<div class="layout">${card()}${cabinTable()}</div>`;
+            document.getElementById("app").innerHTML = `<div class="layout">${card()}${cabinTable()}</div>`;
             save();
         }
 

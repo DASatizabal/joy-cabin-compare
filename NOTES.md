@@ -61,7 +61,7 @@ The daily age test (`fetch_prices.py`): one price summary with 1 adult (reservat
 ## Taxes, fees and Free at Sea per guest
 
 - Shown as their own lines, from NCL: taxes from the price summary's tax line; Open Bar, soda and Specialty Dining from the age test; Free at Sea Plus and the Open Bar per day rates from https://www.ncl.com/cruise-deals/promotion-terms; service charges from https://www.ncl.com/faq/what-is-ncl-onboard-service-charge.
-- The page has a "Per guest charges on this sailing" panel listing each amount with who pays it, and the date read.
+- They appear the same way as on the June page: as lines in the cabin's price breakdown with the per guest amount (for example "Taxes, fees and port expenses: 3 x $150", "Unlimited Open Bar: 2 guests x $96"). A separate "Per guest charges" panel was tried on 2026-10-13 and removed at the owner's request, to match June.
 - If a number can't be found, it is never guessed. Order: today's NCL value; else the previous run's value if it is at most 3 days old (gratuities) or any age (rates, with `stale_since`); else null with a warning in the data file. `tools/check_prices.py` allows null only with a matching warning. The page then shows "Not found on NCL today" on that line, leaves it out of the total, and says which items are not included. Tested 2026-10-13 with a copy of the data file with taxes, gratuities, Plus and service charges all null.
 
 ## Cabin counts
