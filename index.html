@@ -160,8 +160,8 @@
         }
         .ncl-link:hover { background: var(--gray-50); }
 
-        .offer-badge { display: inline-block; margin-top: 0.6rem; padding: 0.25rem 0.7rem; border-radius: 9999px; background: #dcfce7; color: #166534; font-size: 0.8rem; font-weight: 700; }
-        .offer-text { font-size: 0.78rem; color: var(--gray-600); margin-top: 0.3rem; line-height: 1.4; }
+        .ksf-note { background: #dcfce7; color: #166534; border-radius: 8px; padding: 0.5rem 0.75rem; font-size: 0.85rem; }
+        .ksf-note[hidden] { display: none; }
 
         /* Footer */
         .footer { background: var(--deep-ocean); color: var(--white); padding: 2rem 1rem; margin-top: 2rem; font-size: 0.875rem; }
@@ -276,6 +276,7 @@
                     <span class="counter-value" id="adultCount">2</span>
                     <button type="button" data-count="adults" data-step="1" aria-label="One more adult">+</button>
                 </div>
+                <p class="ksf-note" id="ksfNote" hidden></p>
                 <div class="counter">
                     <span class="counter-label">Kids (under 21)</span>
                     <button type="button" data-count="kids" data-step="-1" aria-label="One fewer kid">&minus;</button>
@@ -509,7 +510,7 @@
             const gratuities = sc.total + bar.total + dining.total;
             const total = e.cabin_total + plus.total + gratuities;
             const onboard = state.prepayGratuities ? 0 : sc.total;
-            return { n, nights, ksf: ksfFor(c.typeCode), cabin: e.cabin_total, fare: taxes === null ? null : e.cabin_total - taxes, taxes, plus, sc, bar, dining, gratuities, total, onboard, before: total - onboard, missing };
+            return { n, nights, cabin: e.cabin_total, fare: taxes === null ? null : e.cabin_total - taxes, taxes, plus, sc, bar, dining, gratuities, total, onboard, before: total - onboard, missing };
         }
 
         function addedCostLine(c) {
@@ -544,7 +545,7 @@
             const fareRows = k.taxes === null
                 ? `<div class="row"><span class="k">Cruise fare with taxes, fees and port expenses</span><span class="v">${money(k.cabin)}</span></div>
                    <div class="row missing"><span class="k">Taxes, fees and port expenses per guest (already in the line above)</span><span class="v">${NOT_FOUND}</span></div>`
-                : `<div class="row"><span class="k">Cruise fare${k.n >= 3 && k.ksf ? ` (guest${k.n >= 4 ? "s 3 and 4" : " 3"}: ${esc(k.ksf.title)}, $0 fare)` : ""}</span><span class="v">${money(k.fare)}</span></div>
+                : `<div class="row"><span class="k">Cruise fare</span><span class="v">${money(k.fare)}</span></div>
                    <div class="row"><span class="k">Taxes, fees and port expenses: ${k.n} x ${money(J.taxes_per_guest)}</span><span class="v">${money(k.taxes)}</span></div>`;
             return `
                 ${fareRows}
@@ -677,9 +678,17 @@
             return `<div class="stops">${names.map(p => `<span class="stop">${esc(p)}</span>`).join("")}${seaDays ? `<span class="stop">${plural(seaDays, "sea day", "sea days")}</span>` : ""}</div>`;
         }
 
-        // NCL's Kids Sail Free offer, when NCL lists it today, for a broad type (INSIDE, ...).
-        // NCL applies it by guest position (3rd and 4th guests), at any age; cabin prices already include it.
-        const ksfFor = typeCode => J.kids_sail_free && J.kids_sail_free.types.includes(typeCode) ? J.kids_sail_free : null;
+        // NCL's Kids Sail Free offer, shown between the Adults and Kids counters only while NCL
+        // lists it. NCL applies it to the 3rd and 4th guests at any age; cabin prices already include it.
+        function renderKidsSailFree() {
+            const el = document.getElementById("ksfNote");
+            const k = J.kids_sail_free;
+            el.hidden = !k;
+            if (!k) return;
+            const names = types().filter(t => k.types.includes(t.code)).map(t => t.title);
+            const list = names.length > 1 ? names.slice(0, -1).join(", ") + " and " + names[names.length - 1] : names.join("");
+            el.innerHTML = `<strong>${esc(k.title)}:</strong> 3rd and 4th guests sail free. They pay only taxes, fees and port expenses. ${esc(list)} only.`;
+        }
 
         // ---------- card ----------
         function card() {
@@ -703,7 +712,6 @@
                         <h2 class="card-title">${esc(J.ship)}</h2>
                         <div class="card-dates">${fmtDay(J.depart)} to ${fmtDay(J.return)}, ${J.depart.slice(0, 4)} (${J.nights} nights)</div>
                         ${stops()}
-                        ${t && ksfFor(t.code) ? `<span class="offer-badge">${esc(ksfFor(t.code).title)}</span><div class="offer-text">${esc(ksfFor(t.code).short)} Guests 3 and 4 at any age, already in the prices below.</div>` : ""}
                     </div>
                     ${picks ? `<div class="card-picks">${picks}</div>` : ""}
                     <div class="card-body">${body}${daysList()}</div>
@@ -773,6 +781,7 @@
             if (!(DATA.rates || {}).free_at_sea_plus) state.offers.plus = false;
             renderPrepay();
             renderGuests(msg);
+            renderKidsSailFree();
             renderTypes();
             document.getElementById("app").innerHTML = `<div class="layout">${card()}${cabinTable()}</div>`;
             save();
