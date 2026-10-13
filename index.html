@@ -646,6 +646,13 @@
                 ${c.guarantee ? `<div class="cat-meta gty">${GUARANTEE_TEXT}</div>` : ""}</div>`;
         }
 
+        // Price shown for a cabin in the tap list and the full table: the full total for this
+        // cabin with today's choices (guests, ages, Free at Sea switches), the same number the
+        // card shows as Total. Until every kid's age is chosen, fare and taxes only, because
+        // gratuities depend on age.
+        const listPrice = (c, n) => agesKnown() ? cost(findCat(c.code)).total : entry(c, n).cabin_total;
+        const priceBasis = () => agesKnown() ? "total with your choices" : "fare and taxes; choose every kid's age for full totals";
+
         // One cabin button. When it is the only available option it is shown already selected,
         // with no tap action and no hover effect (no data-pick, so the click handler ignores it).
         function catButton(c, n, pressed, only) {
@@ -654,7 +661,7 @@
                 : `data-pick="${esc(c.code)}" aria-pressed="${pressed}"`;
             return `<li><button type="button" ${attrs}>
                     <span>${catHtml(c)}${c.guarantee ? `<span class="cat-meta gty" style="display:block">${GUARANTEE_TEXT}</span>` : ""}${gaugeHtml(c, n)}</span>
-                    <span class="price">${money(entry(c, n).cabin_total)}</span>
+                    <span class="price">${money(listPrice(c, n))}</span>
                 </button></li>`;
         }
 
@@ -663,7 +670,7 @@
             const list = availableIn(t, n);
             if (!list.length) return "";
             const only = list.length === 1;
-            return `<div class="cat-list-title">${esc(t.title)} cabins for ${n} guests</div><ul class="cat-list">${list.map(c => catButton(c, n, c.code === chosen.code, only)).join("")}</ul>`;
+            return `<div class="cat-list-title">${esc(t.title)} cabins for ${n} guests (${priceBasis()})</div><ul class="cat-list">${list.map(c => catButton(c, n, c.code === chosen.code, only)).join("")}</ul>`;
         }
 
         function daysList() {
@@ -734,15 +741,15 @@
                     const e = entry(c, n);
                     const meta = [c.size, c.capacity && !c.description.includes("holds up to") ? `holds up to ${c.capacity}` : "", c.guarantee ? GUARANTEE_TEXT : ""].filter(Boolean).join(". ");
                     return e.available
-                        ? `<tr class="pickable ${chosen && c.code === chosen.code ? "chosen" : ""}" data-code="${esc(c.code)}" data-typekey="${t.match}"><td>${catHtml(c)}${meta ? `<div class="cat-meta">${esc(meta)}</div>` : ""}${gaugeHtml(c, n)}</td><td>${money(e.cabin_total)}<span class="pp-small">${moneyR(e.price_pp)} pp</span></td></tr>`
+                        ? `<tr class="pickable ${chosen && c.code === chosen.code ? "chosen" : ""}" data-code="${esc(c.code)}" data-typekey="${t.match}"><td>${catHtml(c)}${meta ? `<div class="cat-meta">${esc(meta)}</div>` : ""}${gaugeHtml(c, n)}</td><td>${money(listPrice(c, n))}<span class="pp-small">${moneyR(listPrice(c, n) / n)} pp</span></td></tr>`
                         : `<tr class="off"><td>${catHtml(c)}${meta ? `<div class="cat-meta">${esc(meta)}</div>` : ""}</td><td>${esc(e.reason)}</td></tr>`;
                 }).join("");
             }).join("");
             return `
                 <section class="panel" aria-label="Every cabin">
-                    <div class="panel-title">Every cabin for ${plural(n, "guest", "guests")} (fare and taxes)</div>
+                    <div class="panel-title">Every cabin for ${plural(n, "guest", "guests")} (${priceBasis()})</div>
                     <table class="cabins"><tbody>${rows}</tbody></table>
-                    <p class="hint">Tap an available cabin to choose it. Free at Sea and service charges are added in the total.${COUNTS ? " Cabins left are NCL's open cabins in that category for your party size; \"Count not available\" means NCL's answer couldn't be split cleanly (see NOTES.md)." : ""}</p>
+                    <p class="hint">Tap an available cabin to choose it. ${agesKnown() ? "Each price is that cabin's full total: fare, taxes, service charges and the Free at Sea options switched on above." : "Free at Sea and service charges are added once every kid's age is chosen."}${COUNTS ? " Cabins left are NCL's open cabins in that category for your party size; \"Count not available\" means NCL's answer couldn't be split cleanly (see NOTES.md)." : ""}</p>
                 </section>`;
         }
 
