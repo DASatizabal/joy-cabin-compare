@@ -2,6 +2,11 @@
 
 All notable changes to this project are listed here. Versions follow Semantic Versioning (MAJOR.MINOR.PATCH). The version in `index.html` (`APP_VERSION`) must match the newest entry below; `tools/check_release.py` enforces this.
 
+## [1.3.1] - 2026-10-14
+
+### Fixed
+- `tools/fetch_florida.py`: signed in to a Florida resident account, NCL's price summary has no per-guest fare lines (the AI PC's first `--setup` stopped with "unexpected fare lines []"). The fare is now worked out from NCL's own totals, as the screenshots were read (subtotal minus the Open Bar and Specialty Dining lines, for 2 guests), and checked against NCL's grand total. If a signed-in answer still can't be read, the script prints its layout (codes and amounts only, no names). No change to the page.
+
 ## [1.3.0] - 2026-10-14
 
 ### Added

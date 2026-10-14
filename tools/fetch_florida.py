@@ -123,17 +123,55 @@ def browser_post(page, url, body):
     return json.loads(r["text"])
 
 
-def per_guest_fare(summary):
-    """Fare per guest for guests 1 and 2, checked against the summary's own total."""
+def per_guest_fare(summary, res=None):
+    """Fare per guest for guests 1 and 2, checked against NCL's own total.
+
+    Signed out, NCL lists the fare per guest (STATEROOM group). Signed in to a Florida resident
+    account it doesn't (seen 2026-10-14 on the AI PC; the owner's Florida screenshots had no
+    "Stateroom" section either), so the fare is worked out from NCL's totals the way the
+    screenshots were read: subtotal minus the Free at Sea gratuity lines, for 2 guests.
+    """
     s = summary
+    tot = (res or {}).get("total") or {}
+    num = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)
+    gratuities = sum(sum(x["per_guest"]) for x in (s["open_bar"], s["specialty_dining"]) if x)
+    taxes = sum(s["taxes_per_guest"]) if s["taxes_per_guest"] else tot.get("taxesAndFees")
+    if not num(taxes):
+        raise RuntimeError("no tax line and no taxesAndFees total")
     fares = s["fare_per_guest"]
-    if len(fares) < GUESTS or abs(fares[0] - fares[1]) > 0.01:
-        raise RuntimeError(f"unexpected fare lines {fares}")
-    parts = s["fare_total"] + sum(s["taxes_per_guest"]) + sum(
-        sum(x["per_guest"]) for x in (s["open_bar"], s["specialty_dining"]) if x)
-    if abs(parts - s["grand_total"]) > 1:
-        raise RuntimeError(f"lines {parts} don't add up to NCL's total {s['grand_total']}")
-    return float(fares[0])
+    if len(fares) >= GUESTS and abs(fares[0] - fares[1]) <= 0.01:
+        fare_total, per = s["fare_total"], float(fares[0])
+    elif num(tot.get("subtotal")):
+        fare_total = tot["subtotal"] - gratuities
+        per = fare_total / GUESTS
+    elif num(tot.get("grandTotal")):
+        fare_total = tot["grandTotal"] - taxes - gratuities
+        per = fare_total / GUESTS
+    else:
+        raise RuntimeError(f"no fare lines {fares} and no totals")
+    if fare_total < 0:
+        raise RuntimeError(f"worked-out fare {fare_total} is below zero")
+    if abs(fare_total + taxes + gratuities - s["grand_total"]) > 1:
+        raise RuntimeError(f"fare {fare_total} + taxes {taxes} + gratuities {gratuities} don't add up to NCL's total {s['grand_total']}")
+    return round(per, 2)
+
+
+def layout(res):
+    """NCL's answer, amounts and codes only (never titles or guest entries' names), for diagnosis."""
+    lines = []
+    num = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)
+    try:
+        for room in res.get("staterooms") or []:
+            for g in ((room.get("pricing") or {}).get("priceGroups") or []):
+                lines.append(f"  group {g.get('code')}")
+                for it in g.get("priceItems") or []:
+                    amounts = [x.get("price") for x in it.get("guests") or [] if num(x.get("price"))]
+                    own = {k: v for k, v in it.items() if num(v)}
+                    lines.append(f"    item {it.get('code')} ({it.get('itemType')}): {len(it.get('guests') or [])} guest entries {amounts} {own}")
+        lines.append(f"  total {{{', '.join(f'{k}: {v}' for k, v in (res.get('total') or {}).items() if num(v))}}}")
+    except Exception as e:
+        lines.append(f"  (could not describe: {type(e).__name__})")
+    return "\n".join(lines)
 
 
 # ---------- the sailing and its categories ----------
@@ -157,7 +195,11 @@ def one_category(page, cfg, type_code, code, fare_code):
     res = browser_post(page, fp.PRICE_SUMMARY_URL, body)
     if (res.get("total") or {}).get("grandTotal", 0) <= 0:
         raise RuntimeError("empty logged-in price summary")
-    florida = per_guest_fare(fp.parse_price_summary(res, GUESTS, type_code, code, fare_code))
+    try:
+        florida = per_guest_fare(fp.parse_price_summary(res, GUESTS, type_code, code, fare_code), res)
+    except Exception:
+        log(f"  Signed-in answer for {code} couldn't be read. Its layout (amounts and codes only):\n{layout(res)}")
+        raise
     return website, florida
 
 
