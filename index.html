@@ -138,6 +138,9 @@
         .row.due .k { color: var(--gray-700); }
         .row.total { border-top: 2px solid var(--gray-300); font-size: 1rem; }
         .row.total .k { color: var(--gray-900); font-weight: 700; }
+        .row.onboard { border-bottom: 1px solid var(--gray-100); }
+        .row.onboard .k { color: var(--gray-700); font-size: 0.85rem; }
+        .onboard-note { font-size: 0.85rem; color: var(--gray-600); margin-top: 0.2rem; }
 
         .addon { margin-top: 0.75rem; background: var(--gray-50); border-radius: 8px; padding: 0.6rem 0.75rem; font-size: 0.82rem; color: var(--gray-700); }
         .addon strong { color: var(--gray-900); }
@@ -322,7 +325,7 @@
         <div class="wrap">
             <strong>About these prices</strong>
             <p>This page compares Norwegian Cruise Line's published rates. It does not book or hold a cabin. Prices come from NCL's booking system and are checked once a day. They change often, so check NCL before booking.</p>
-            <p>Each total is the cruise fare, NCL's government taxes, fees and port expenses, the daily service charges (crew gratuities) for every guest 3 and older, the gratuities for the Free at Sea offers you keep switched on, and Free at Sea Plus if you choose it. Unlimited Open Bar: guests 21 and over pay the full gratuity, a guest under 21 who is guest 2 pays for a soda package instead, and other guests under 21 pay nothing. Specialty Dining: guests 13 and over pay, under 13 eat free. NCL lists adults first, then kids oldest first. If NCL doesn't show a number on a given day, this page says so instead of guessing.</p>
+            <p>Each total is the cruise fare, NCL's government taxes, fees and port expenses, the daily service charges (crew gratuities) for every guest 3 and older when you prepay them (otherwise they're shown separately as paid onboard), the gratuities for the Free at Sea offers you keep switched on, and Free at Sea Plus if you choose it. Unlimited Open Bar: guests 21 and over pay the full gratuity, a guest under 21 who is guest 2 pays for a soda package instead, and other guests under 21 pay nothing. Specialty Dining: guests 13 and over pay, under 13 eat free. NCL lists adults first, then kids oldest first. If NCL doesn't show a number on a given day, this page says so instead of guessing.</p>
             <p>The Florida resident rate is the one number not from NCL's website: an estimate (16.4% off NCL's cabin price, fare and taxes) worked out from an NCL cruise consultant's Florida resident quote on Oct 13, 2026. Switch it off to see NCL's published prices.</p>
             <p>Only ages are asked for. No names, birth dates or reservation details are collected.</p>
             <p id="footerVersion"></p>
@@ -534,7 +537,9 @@
             const gratuities = sc.total + bar.total + dining.total;
             const total = e.cabin_total - fl.amount + plus.total + gratuities;
             const onboard = state.prepayGratuities ? 0 : sc.total;
-            return { n, nights, cabin: e.cabin_total, fare, fl, taxes, plus, sc, bar, dining, gratuities, total, onboard, before: total - onboard, missing };
+            // "now": the amount shown as the total. Prepay on: everything. Prepay off (default):
+            // everything except the service charges, which are charged onboard.
+            return { n, nights, cabin: e.cabin_total, fare, fl, taxes, plus, sc, bar, dining, gratuities, total, onboard, now: total - onboard, missing };
         }
 
         function addedCostLine(c) {
@@ -562,9 +567,9 @@
             const plusRow = !k.plus.on ? "" : k.plus.parts.length
                 ? `<div class="row"><span class="k">Free at Sea Plus: ${k.plus.parts.map(part).join(", ")}${k.plus.notCovered ? ` (${plural(k.plus.notCovered, "guest", "guests")} not eligible: no charge)` : ""}</span><span class="v">${money(k.plus.total)}</span></div>`
                 : `<div class="row muted"><span class="k">Free at Sea Plus</span><span class="v">no one eligible</span></div>`;
-            const when = state.prepayGratuities ? "" : " (charged onboard)";
+            const when = state.prepayGratuities ? "" : " (paid onboard, not in the total)";
             const scRow = k.sc.missing ? missingRow(k.sc.title) : k.sc.parts.length
-                ? `<div class="row"><span class="k">${esc(k.sc.title)}${when}: ${k.sc.parts.map(part).join(", ")}${k.sc.notes.map(n => ` (${n})`).join("")}</span><span class="v">${money(k.sc.total)}</span></div>`
+                ? `<div class="row${state.prepayGratuities ? "" : " muted"}"><span class="k">${esc(k.sc.title)}${when}: ${k.sc.parts.map(part).join(", ")}${k.sc.notes.map(n => ` (${n})`).join("")}</span><span class="v">${money(k.sc.total)}${state.prepayGratuities ? "" : " onboard"}</span></div>`
                 : `<div class="row muted"><span class="k">${esc(k.sc.title)}${k.sc.notes.map(n => ` (${n})`).join("")}</span><span class="v">$0</span></div>`;
             const fareRows = k.taxes === null
                 ? `<div class="row"><span class="k">Cruise fare with taxes, fees and port expenses</span><span class="v">${money(k.cabin)}</span></div>
@@ -579,7 +584,7 @@
                 ${scRow}
                 ${line(k.bar)}
                 ${line(k.dining)}
-                <div class="row subtotal"><span class="k">Gratuities total</span><span class="v">${money(k.gratuities)}</span></div>`;
+                <div class="row subtotal"><span class="k">${k.onboard ? "Gratuities paid now (service charges are paid onboard)" : "Gratuities total"}</span><span class="v">${money(k.gratuities - k.onboard)}</span></div>`;
         }
 
         // Prices kept from an earlier day for this party size (NCL failed today's check).
@@ -614,18 +619,19 @@
             if (!agesKnown()) {
                 return `<div class="notice info">Choose every kid's age above to see the full total. Free at Sea charges depend on age.</div><div class="rows">${lineRows(k)}</div>`;
             }
-            const perNight = k.total / k.nights;
+            const perNight = k.now / k.nights;
+            const onboardText = `+ ${money(k.onboard)} service charges paid onboard (can be removed at Guest Services)`;
             return `
                 ${missingNote}
-                <div class="price-label">Total for ${plural(n, "guest", "guests")}</div>
-                <div class="price-total">${money(k.total)}</div>
-                <div class="price-pp">${moneyR(k.total / n)} per person</div>
+                <div class="price-label">${k.onboard ? "Total to pay now" : "Total"} for ${plural(n, "guest", "guests")}</div>
+                <div class="price-total">${money(k.now)}</div>
+                <div class="price-pp">${moneyR(k.now / n)} per person</div>
+                ${k.onboard ? `<div class="onboard-note">${onboardText}</div>` : ""}
                 <div class="rows">
                     ${lineRows(k)}
-                    <div class="row total"><span class="k">Total</span><span class="v">${money(k.total)}</span></div>
-                    <div class="row due"><span class="k">Due before you sail</span><span class="v">${money(k.before)}</span></div>
-                    <div class="row due"><span class="k">Charged onboard</span><span class="v">${money(k.onboard)}</span></div>
-                    <div class="row"><span class="k">Cost per night</span><span class="v">${moneyR(perNight)} (${moneyR(perNight / n)} per person)</span></div>
+                    <div class="row total"><span class="k">Total</span><span class="v">${money(k.now)}</span></div>
+                    ${k.onboard ? `<div class="row onboard"><span class="k">${onboardText}</span></div>` : ""}
+                    <div class="row"><span class="k">Cost per night${k.onboard ? " (paid now)" : ""}</span><span class="v">${moneyR(perNight)} (${moneyR(perNight / n)} per person)</span></div>
                 </div>`;
         }
 
@@ -676,8 +682,8 @@
         // cabin with today's choices (guests, ages, Free at Sea switches), the same number the
         // card shows as Total. Until every kid's age is chosen, fare and taxes only, because
         // gratuities depend on age.
-        const listPrice = (c, n) => { const k = cost(findCat(c.code)); return agesKnown() ? k.total : k.cabin - k.fl.amount; };
-        const priceBasis = () => agesKnown() ? "total with your choices" : "fare and taxes; choose every kid's age for full totals";
+        const listPrice = (c, n) => { const k = cost(findCat(c.code)); return agesKnown() ? k.now : k.cabin - k.fl.amount; };
+        const priceBasis = () => agesKnown() ? (state.prepayGratuities ? "total with your choices" : "total to pay now with your choices") : "fare and taxes; choose every kid's age for full totals";
 
         // One cabin button. When it is the only available option it is shown already selected,
         // with no tap action and no hover effect (no data-pick, so the click handler ignores it).
@@ -775,7 +781,7 @@
                 <section class="panel" aria-label="Every cabin">
                     <div class="panel-title">Every cabin for ${plural(n, "guest", "guests")} (${priceBasis()})</div>
                     <table class="cabins"><tbody>${rows}</tbody></table>
-                    <p class="hint">Tap an available cabin to choose it. ${agesKnown() ? `Each price is that cabin's full total: fare, taxes, service charges and the Free at Sea options switched on${state.flResident ? ", with the Florida resident estimate" : ""}.` : "Free at Sea and service charges are added once every kid's age is chosen."}${COUNTS ? " Cabins left are NCL's open cabins in that category for your party size; \"Count not available\" means NCL's answer couldn't be split cleanly (see NOTES.md)." : ""}</p>
+                    <p class="hint">Tap an available cabin to choose it. ${agesKnown() ? `Each price is that cabin's total ${state.prepayGratuities ? "" : "to pay now "}with your choices: fare, taxes${state.prepayGratuities ? ", service charges" : ""} and the Free at Sea options switched on${state.flResident ? ", with the Florida resident estimate" : ""}.${state.prepayGratuities ? "" : " Service charges are paid onboard and not included."}` : "Free at Sea and service charges are added once every kid's age is chosen."}${COUNTS ? " Cabins left are NCL's open cabins in that category for your party size; \"Count not available\" means NCL's answer couldn't be split cleanly (see NOTES.md)." : ""}</p>
                 </section>`;
         }
 
@@ -813,8 +819,8 @@
             document.getElementById("prepayToggle").checked = on;
             document.getElementById("prepayLabel").textContent = on ? "Prepay gratuities" : "Pay onboard on the last day";
             document.getElementById("prepayDesc").textContent = on
-                ? "Service charges are paid with the cruise, before you sail. The amount is the same either way."
-                : "Service charges are added to your onboard account. The amount is the same either way.";
+                ? "Service charges are paid now with the cruise and included in the totals."
+                : "Service charges are not in the totals. They're charged to your onboard account and can be removed at Guest Services.";
         }
 
         function render(msg) {
