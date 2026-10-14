@@ -2,6 +2,11 @@
 
 All notable changes to this project are listed here. Versions follow Semantic Versioning (MAJOR.MINOR.PATCH). The version in `index.html` (`APP_VERSION`) must match the newest entry below; `tools/check_release.py` enforces this.
 
+## [1.3.3] - 2026-10-14
+
+### Fixed
+- `tools/fetch_florida.py` refuses to commit unless the clone's Git email is GitHub's private noreply address, and says how to set it. The first push from the AI PC was blocked by GitHub (GH007) because the commit carried a personal email; the repo is public. README step 5 sets the noreply address.
+
 ## [1.3.2] - 2026-10-14
 
 ### Changed

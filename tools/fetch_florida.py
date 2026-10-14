@@ -269,8 +269,20 @@ def record(profile):
 LOGGED_IN = "logged-in NCL account"
 
 
+NOREPLY = "174554998+DASatizabal@users.noreply.github.com"   # GitHub's private address for the owner
+
+
 def publish():
-    """Commit data/florida.json if it changed, and push it to main (which republishes the page)."""
+    """Commit data/florida.json if it changed, and push it to main (which republishes the page).
+
+    Public repo: every commit carries the author's email, so this refuses to commit unless this
+    clone uses GitHub's private noreply address (GitHub also blocks pushes that would publish a
+    private email, error GH007, seen 2026-10-14)."""
+    email = subprocess.run(["git", "-C", ROOT, "config", "user.email"], capture_output=True, text=True).stdout.strip()
+    if not email.endswith("@users.noreply.github.com"):
+        log("Not publishing: this repository's Git email isn't GitHub's private noreply address, and the repo is public.")
+        log(f'Fix once, in D:\\Repos\\joy-cabin-compare: git config user.email "{NOREPLY}"')
+        return 7
     subprocess.run(["git", "-C", ROOT, "add", "data/florida.json"], check=True)
     if subprocess.run(["git", "-C", ROOT, "diff", "--cached", "--quiet"]).returncode == 0:
         if subprocess.run(["git", "-C", ROOT, "status", "-sb"], capture_output=True, text=True).stdout.find("ahead") == -1:

@@ -24,7 +24,10 @@ Important: the folder `D:\AI-VAULT\ncl-profile` holds your signed-in NCL session
    cd D:\Repos
    git clone https://github.com/DASatizabal/joy-cabin-compare.git
    cd D:\Repos\joy-cabin-compare
+   git config user.name "DASatizabal"
+   git config user.email "174554998+DASatizabal@users.noreply.github.com"
    ```
+   The last two lines make this copy sign its updates with GitHub's private address instead of your personal email, because the repository is public (GitHub blocks pushes that would publish a personal email, and the script refuses to publish without this).
 6. Install the browser tool. Type each line and press Enter after each (the second one downloads a backup browser and takes a minute):
    ```
    py -3 -m pip install playwright
