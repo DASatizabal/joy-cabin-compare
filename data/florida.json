@@ -1,0 +1,74 @@
+{
+ "schema_version": 1,
+ "saved_at": "2026-10-14T17:36:45Z",
+ "sailing_id": "joy-2026-11-20",
+ "package_id": "23379711",
+ "guests": 2,
+ "source": "Owner's screenshots of NCL's Florida resident view and website view, 2026-10-14 (until the AI PC's daily run replaces them)",
+ "categories": {
+  "B4": {
+   "type": "BALCONY",
+   "website_fare_pp": 289,
+   "florida_fare_pp": 239,
+   "off_pp": 50,
+   "checked_at": "2026-10-14",
+   "source": "owner's screenshots of NCL's Florida resident view"
+  },
+  "BF": {
+   "type": "BALCONY",
+   "website_fare_pp": 269,
+   "florida_fare_pp": 189,
+   "off_pp": 80,
+   "checked_at": "2026-10-14",
+   "source": "owner's screenshots of NCL's Florida resident view"
+  },
+  "BX": {
+   "type": "BALCONY",
+   "website_fare_pp": 219,
+   "florida_fare_pp": 204,
+   "off_pp": 15,
+   "checked_at": "2026-10-14",
+   "source": "owner's screenshots of NCL's Florida resident view"
+  },
+  "I4": {
+   "type": "INSIDE",
+   "website_fare_pp": 239,
+   "florida_fare_pp": 179,
+   "off_pp": 60,
+   "checked_at": "2026-10-14",
+   "source": "owner's screenshots of NCL's Florida resident view"
+  },
+  "IB": {
+   "type": "INSIDE",
+   "website_fare_pp": 219,
+   "florida_fare_pp": 159,
+   "off_pp": 60,
+   "checked_at": "2026-10-14",
+   "source": "owner's screenshots of NCL's Florida resident view"
+  },
+  "O4": {
+   "type": "OCEANVIEW",
+   "website_fare_pp": 269,
+   "florida_fare_pp": 269,
+   "off_pp": 0,
+   "checked_at": "2026-10-14",
+   "source": "owner's screenshots of NCL's Florida resident view"
+  },
+  "OA": {
+   "type": "OCEANVIEW",
+   "website_fare_pp": 259,
+   "florida_fare_pp": 259,
+   "off_pp": 0,
+   "checked_at": "2026-10-14",
+   "source": "owner's screenshots of NCL's Florida resident view"
+  },
+  "OB": {
+   "type": "OCEANVIEW",
+   "website_fare_pp": 259,
+   "florida_fare_pp": 259,
+   "off_pp": 0,
+   "checked_at": "2026-10-14",
+   "source": "owner's screenshots of NCL's Florida resident view"
+  }
+ }
+}

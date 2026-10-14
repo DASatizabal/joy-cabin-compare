@@ -312,14 +312,19 @@ def kids_sail_free(result):
     return None
 
 
-def fetch_price_summary(cfg, guests, type_code, cat_code, fare_code, guest_list=None):
-    body = {
+def price_summary_body(cfg, guests, type_code, cat_code, fare_code, guest_list=None):
+    """The price-summary request body, as NCL's own app sends it (also used by fetch_florida.py)."""
+    return {
         "packageId": cfg["package_id"],
         "stateroomFilters": [{"id": "0", "mainCabin": True, "numberOfGuests": guests,
                               "stateroomTypeCode": type_code, "pricedCategoryCode": cat_code,
                               "fareCodes": [fare_code], "guests": guest_list or [], "vouchers": []}],
         "userFareCodes": [],
     }
+
+
+def fetch_price_summary(cfg, guests, type_code, cat_code, fare_code, guest_list=None):
+    body = price_summary_body(cfg, guests, type_code, cat_code, fare_code, guest_list)
     # NCL has briefly answered with a total of $0 (seen 2026-10-09); retry before giving up.
     for attempt in range(len(RETRY_WAITS) + 1):
         if attempt:
@@ -330,6 +335,11 @@ def fetch_price_summary(cfg, guests, type_code, cat_code, fare_code, guest_list=
             raise RuntimeError(f"Unexpected price summary for {cat_code} at {guests} guests")
         if (res["total"].get("grandTotal") or 0) > 0:
             break
+    return parse_price_summary(res, guests, type_code, cat_code, fare_code)
+
+
+def parse_price_summary(res, guests, type_code, cat_code, fare_code):
+    """Fare, taxes and Free at Sea gratuity lines from a price-summary answer (amounts only)."""
     lines = {}
     for group in res["staterooms"][0]["pricing"]["priceGroups"]:
         for item in group.get("priceItems", []):

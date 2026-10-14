@@ -54,6 +54,8 @@ jobs:
           cp data/prices.json _site/data/prices.json
           # Counts are optional: the page hides count labels when this file is missing or old.
           if [ -f data/counts.json ]; then cp data/counts.json _site/data/counts.json; fi
+          # Florida rates are optional too (written on the owner's AI PC by tools/fetch_florida.py).
+          if [ -f data/florida.json ]; then cp data/florida.json _site/data/florida.json; fi
 
       - name: Name the artifact for this run attempt
         id: name

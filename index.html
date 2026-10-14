@@ -62,6 +62,7 @@
 
         .as-of-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         .as-of[hidden] { display: none; }
+        .as-of.old { background: rgba(245, 158, 11, 0.35); }
         .as-of {
             display: inline-flex; align-items: center; gap: 0.5rem;
             background: rgba(255, 255, 255, 0.12); border-radius: 9999px;
@@ -260,6 +261,7 @@
             <div class="as-of-row">
                 <span class="as-of">Prices as of <strong id="asOf">loading...</strong></span>
                 <span class="as-of" id="countsAsOf" hidden>Cabins left as of <strong id="countsAsOfDate"></strong></span>
+                <span class="as-of" id="flAsOf" hidden>Florida rates as of <strong id="flAsOfDate"></strong></span>
             </div>
         </div>
         <div class="wave-container"><div class="wave"></div></div>
@@ -324,14 +326,14 @@
             <strong>About these prices</strong>
             <p>This page compares Norwegian Cruise Line's published rates. It does not book or hold a cabin. Prices come from NCL's booking system and are checked once a day. They change often, so check NCL before booking.</p>
             <p>Each total is the cruise fare, NCL's government taxes, fees and port expenses, the daily service charges (crew gratuities) for every guest 3 and older when you prepay them (otherwise they're shown separately as paid onboard), the gratuities for the Free at Sea offers you keep switched on, and Free at Sea Plus if you choose it. Unlimited Open Bar: guests 21 and over pay the full gratuity, a guest under 21 who is guest 2 pays for a soda package instead, and other guests under 21 pay nothing. Specialty Dining: guests 13 and over pay, under 13 eat free. NCL lists adults first, then kids oldest first. If NCL doesn't show a number on a given day, this page says so instead of guessing.</p>
-            <p>Florida resident rates aren't on NCL's public website. The amounts used here were read from NCL's Florida resident view on Oct 14, 2026 for some cabins (Inside IB and I4, Balcony BF, B4 and BX, Oceanview) and are taken off NCL's daily fare for guests 1 and 2. Cabins not checked show no Florida discount. Switch it off to see NCL's published prices.</p>
+            <p>Florida resident rates aren't on NCL's public website. They are read from NCL while signed in to a Florida resident account and checked daily when possible ("Florida rates as of" at the top). The difference from the website fare comes off the fare for guests 1 and 2. Cabins not checked, or not checked in the last 7 days, show NCL's website price. Switch it off to see NCL's published prices.</p>
             <p>Only ages are asked for. No names, birth dates or reservation details are collected.</p>
             <p id="footerVersion"></p>
         </div>
     </footer>
 
     <script>
-        const APP_VERSION = "1.2.1";
+        const APP_VERSION = "1.3.0";
         const DATA_URL = "data/prices.json";
         const COUNTS_URL = "data/counts.json";
         const COUNTS_MAX_AGE_DAYS = 7;
@@ -340,16 +342,30 @@
         const STORE_KEY = "joy-cabin-compare-v2";
         const GUARANTEE_TEXT = "Guarantee: NCL picks your cabin location";
         const NOT_FOUND = "Not found on NCL today";
-        // Florida resident rates: NOT read from NCL's public pages (they don't show them). The owner
-        // compared NCL's Florida resident view with the regular website view on 2026-10-14, 2 adults,
-        // same category, and the difference was always in the cruise fare only, a fixed dollar
-        // amount per guest that differs by category (NOTES.md, "Florida resident rates"):
-        // IB $219 to $159, I4 $239 to $179, BF $269 to $189, B4 $289 to $239, BX $219 to $204,
-        // OA and OB $259 both ways, O4 $269 both ways (very likely O4: its cabin number wasn't
-        // confirmed). Taken off the fare of guests 1 and 2 (the guests the screens showed; guests 3
-        // and 4 pay $0 fare under Kids Sail Free). Every other category: not checked, no discount.
-        const FL_OFF_PER_GUEST = { IB: 60, I4: 60, BF: 80, B4: 50, BX: 15, OA: 0, OB: 0, O4: 0 };
-        const FL_CHECKED_DATE = "Oct 14, 2026";
+        // Florida resident rates: NOT on NCL's public pages. data/florida.json holds, per category,
+        // NCL's website fare and Florida fare per guest at 2 guests, read daily by
+        // tools/fetch_florida.py on the owner's AI PC while signed in to a Florida resident NCL
+        // account (seeded from the owner's screenshots of NCL's Florida view, 2026-10-14). The
+        // difference comes off the fare of guests 1 and 2 (guests 3 and 4 pay $0 fare under Kids
+        // Sail Free). Categories not in the file, or checked more than 7 days ago, get no discount.
+        const FLORIDA_URL = "data/florida.json";
+        const FL_MAX_AGE_DAYS = 7, FL_OLD_DAYS = 3;
+        let FLORIDA = null;
+        const daysSince = t => (Date.now() - Date.parse(t.length === 10 ? t + "T12:00:00Z" : t)) / 86400000;
+        const fmtWhen = t => new Date(t.length === 10 ? t + "T12:00:00Z" : t).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "America/New_York" });
+        function usableFlorida(f) {
+            try {
+                if (!f || f.schema_version !== 1 || f.sailing_id !== "joy-2026-11-20" || typeof f.categories !== "object") return null;
+                if (!Number.isFinite(Date.parse(f.saved_at))) return null;
+                return f;
+            } catch (e) { return null; }
+        }
+        // { off_pp, checked_at } for a category, { stale } if older than 7 days, or null if not checked.
+        function flEntry(code) {
+            const e = FLORIDA && FLORIDA.categories[code];
+            if (!e || !Number.isFinite(e.off_pp)) return null;
+            return daysSince(e.checked_at) > FL_MAX_AGE_DAYS ? { stale: true, checked_at: e.checked_at } : e;
+        }
 
         let DATA = null, J = null;   // data file, the Joy sailing
         let COUNTS = null;           // data/counts.json when present and at most 7 days old
@@ -531,9 +547,11 @@
             // Florida resident rate: the checked dollar amount for this category, off the fare of
             // guests 1 and 2 (never more than the fare). Unchecked categories get no discount.
             const fare = taxes === null ? null : e.cabin_total - taxes;
-            const perGuest = FL_OFF_PER_GUEST[c.code];
-            const fl = { on: state.flResident, checked: perGuest !== undefined, perGuest: perGuest || 0, guests: Math.min(n, 2), amount: 0 };
-            if (fl.on && fl.checked) fl.amount = Math.min(fl.perGuest * fl.guests, fare === null ? Infinity : fare);
+            const fe = flEntry(c.code);
+            const fl = { on: state.flResident, checked: !!fe && !fe.stale, stale: !!(fe && fe.stale), perGuest: fe && !fe.stale ? fe.off_pp : 0,
+                         checkedAt: fe ? fe.checked_at : null, guests: Math.min(n, 2), amount: 0 };
+            if (fl.on && fl.checked && fl.perGuest > 0) fl.amount = Math.min(fl.perGuest * fl.guests, fare === null ? Infinity : fare);
+            if (fl.on && fl.checked && fl.perGuest < 0) fl.amount = fl.perGuest * fl.guests;   // Florida fare higher than the website
 
             const gratuities = sc.total + bar.total + dining.total;
             const total = e.cabin_total - fl.amount + plus.total + gratuities;
@@ -566,10 +584,13 @@
                    <div class="row missing"><span class="k">Taxes, fees and port expenses per guest (already in the line above)</span><span class="v">${NOT_FOUND}</span></div>`
                 : `<div class="row"><span class="k">Cruise fare</span><span class="v">${money(k.fare)}</span></div>
                    <div class="row"><span class="k">Taxes, fees and port expenses: ${k.n} x ${money(J.taxes_per_guest)}</span><span class="v">${money(k.taxes)}</span></div>`;
+            const flWhen = k.fl.checkedAt ? `NCL, checked ${fmtWhen(k.fl.checkedAt)}` : "";
             const flRow = !k.fl.on ? ""
+                : k.fl.stale ? `<div class="row muted"><span class="k">Florida resident rate: last checked ${esc(fmtWhen(k.fl.checkedAt))}, too old to use</span><span class="v">no discount</span></div>`
                 : !k.fl.checked ? `<div class="row muted"><span class="k">Florida resident rate: not checked for this cabin</span><span class="v">no discount</span></div>`
-                : !k.fl.amount ? `<div class="row muted"><span class="k">Florida resident rate (checked on NCL's Florida view): same as the website for this cabin</span><span class="v">$0</span></div>`
-                : `<div class="row"><span class="k">Florida resident rate (checked on NCL's Florida view): ${plural(k.fl.guests, "guest", "guests")} x ${money(k.fl.perGuest)} off the fare</span><span class="v">&minus;${money(k.fl.amount)}</span></div>`;
+                : !k.fl.amount ? `<div class="row muted"><span class="k">Florida resident rate (${esc(flWhen)}): same as the website for this cabin</span><span class="v">$0</span></div>`
+                : k.fl.amount < 0 ? `<div class="row"><span class="k">Florida resident rate (${esc(flWhen)}): ${plural(k.fl.guests, "guest", "guests")} x ${money(-k.fl.perGuest)} more than the website fare</span><span class="v">+${money(-k.fl.amount)}</span></div>`
+                : `<div class="row"><span class="k">Florida resident rate (${esc(flWhen)}): ${plural(k.fl.guests, "guest", "guests")} x ${money(k.fl.perGuest)} off the fare</span><span class="v">&minus;${money(k.fl.amount)}</span></div>`;
             return `
                 ${fareRows}
                 ${flRow}
@@ -774,7 +795,7 @@
                 <section class="panel" aria-label="Every cabin">
                     <div class="panel-title">Every cabin for ${plural(n, "guest", "guests")} (${priceBasis()})</div>
                     <table class="cabins"><tbody>${rows}</tbody></table>
-                    <p class="hint">Tap an available cabin to choose it. ${agesKnown() ? `Each price is that cabin's total ${state.prepayGratuities ? "" : "to pay now "}with your choices: fare, taxes${state.prepayGratuities ? ", service charges" : ""} and the Free at Sea options switched on${state.flResident ? ", with Florida resident rates where checked" : ""}.${state.prepayGratuities ? "" : " Service charges are paid onboard and not included."}` : "Free at Sea and service charges are added once every kid's age is chosen."}${COUNTS ? " Cabins left are NCL's open cabins in that category for your party size; \"Count not available\" means NCL's answer couldn't be split cleanly (see NOTES.md)." : ""}</p>
+                    <p class="hint">Tap an available cabin to choose it. ${agesKnown() ? `Each price is that cabin's total ${state.prepayGratuities ? "" : "to pay now "}with your choices: fare, taxes${state.prepayGratuities ? ", service charges" : ""} and the Free at Sea options switched on${state.flResident && FLORIDA ? ", with Florida resident rates where checked" : ""}.${state.prepayGratuities ? "" : " Service charges are paid onboard and not included."}` : "Free at Sea and service charges are added once every kid's age is chosen."}${COUNTS ? " Cabins left are NCL's open cabins in that category for your party size; \"Count not available\" means NCL's answer couldn't be split cleanly (see NOTES.md)." : ""}</p>
                 </section>`;
         }
 
@@ -802,9 +823,17 @@
         function renderFl() {
             const on = state.flResident;
             document.getElementById("flToggle").checked = on;
-            document.getElementById("flDesc").textContent = on
-                ? `From NCL's Florida resident view, checked ${FL_CHECKED_DATE}, off the fare for guests 1 and 2: Inside IB and I4 $60, Balcony BF $80, B4 $50, BX $15 each. Oceanview: no discount. Other cabins: not checked. Confirm with NCL.`
-                : "NCL's published online prices, with no Florida resident discount.";
+            const n = FLORIDA ? Object.keys(FLORIDA.categories).filter(c => { const e = flEntry(c); return e && !e.stale; }).length : 0;
+            const old = FLORIDA && daysSince(FLORIDA.saved_at) > FL_OLD_DAYS ? " They may be out of date." : "";
+            document.getElementById("flDesc").textContent = !on ? "NCL's published online prices, with no Florida resident discount."
+                : !FLORIDA || !n ? "Florida resident prices aren't available right now, so NCL's website prices are shown."
+                : `NCL's Florida resident prices, checked ${fmtWhen(FLORIDA.saved_at)}, for ${plural(n, "cabin type", "cabin types")}.${old} The difference comes off the fare for guests 1 and 2 and varies by cabin. Cabins not checked show the website price. Confirm with NCL.`;
+            const pill = document.getElementById("flAsOf");
+            pill.hidden = !FLORIDA;
+            if (FLORIDA) {
+                document.getElementById("flAsOfDate").textContent = fmtWhen(FLORIDA.saved_at);
+                pill.classList.toggle("old", daysSince(FLORIDA.saved_at) > FL_OLD_DAYS);
+            }
         }
 
         function renderPrepay() {
@@ -962,12 +991,17 @@
         const countsPromise = fetch(COUNTS_URL, { cache: "no-cache" })
             .then(r => r.ok ? r.json() : null)
             .catch(() => null);
+        // Florida rates are optional too: any problem shows NCL's website prices.
+        const floridaPromise = fetch(FLORIDA_URL, { cache: "no-cache" })
+            .then(r => r.ok ? r.json() : null)
+            .catch(() => null);
         fetch(DATA_URL, { cache: "no-cache" })
             .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-            .then(d => countsPromise.then(cnt => [d, cnt]))
-            .then(([d, cnt]) => {
+            .then(d => Promise.all([countsPromise, floridaPromise]).then(([cnt, fl]) => [d, cnt, fl]))
+            .then(([d, cnt, fl]) => {
                 DATA = d;
                 COUNTS = usableCounts(cnt);
+                FLORIDA = usableFlorida(fl);
                 J = d.sailings.find(s => s.id.startsWith("joy"));
                 if (!J) throw new Error("the sailing is missing");
                 document.getElementById("asOf").textContent = new Date(d.saved_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "America/New_York" });

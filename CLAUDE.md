@@ -12,11 +12,11 @@ Built from the owner's June 2027 tool (public repo DASatizabal/cruise-cabin-comp
 
 - Semantic Versioning. `APP_VERSION` in `index.html` must match the newest `## [x.y.z]` entry in `CHANGELOG.md`. Add a changelog entry for every release.
 - Run `python3 tools/check_release.py` before committing. GitHub Actions runs it on every push and pull request.
-- Every data file the page reads has a format check: `tools/check_prices.py`, `tools/check_counts.py`.
+- Every data file the page reads has a format check: `tools/check_prices.py`, `tools/check_counts.py`, `tools/check_florida.py`.
 - NEVER call NCL's `cabin/manage-cabin` (it carries recommendAndHold and holds a real cabin), `api/book`, `booking/api/recommended-cabin`, or anything that holds or books. `request()` refuses any address containing "manage-cabin" or "hold", and stops on any NCL API answer containing "hold" or "heldUntil". Keep both guards.
 - NCL's ids (itinerary code, packageId, sailingId, ship code) are looked up every run, never typed in. Only the ship, date, length and home port are fixed (`SAILING` in `tools/fetch_prices.py`).
 - Never guess a number. Anything NCL doesn't show is null with a warning, and the page says "Not found on NCL today".
-- One owner-approved exception: the "Florida resident rate" switch (default on) uses `FL_OFF_PER_GUEST`, dollar amounts off the fare of guests 1 and 2 per category, read by the owner from NCL's Florida resident view on 2026-10-14 (IB and I4 $60, BF $80, B4 $50, BX $15, OA, OB and O4 $0). Categories not in it show "not checked" and no discount. Never invent an amount for a category; add one only from an NCL Florida view check (NOTES.md).
+- One owner-approved exception: Florida resident rates (switch on by default) come from `data/florida.json`, written daily by `tools/fetch_florida.py` on the owner's AI PC while signed in to a Florida resident NCL account (setup: `tools/florida-runner/README.md`). Per category: website fare, Florida fare, difference per guest, taken off the fare of guests 1 and 2. Categories not in the file, or older than 7 days, get no discount. Never invent an amount. The file holds numbers only (`tools/check_florida.py` rejects other keys); the browser profile with the NCL login never goes in a repo.
 - CruiseFeed is never called from this repo.
 - Privacy: public repo. No guest names, dates of birth, Latitudes numbers or reservation numbers in any file, ever. The page asks for ages only.
 - Steps written for the owner must be complete: no "same as above", no choices left open, and no em dashes.
@@ -26,6 +26,7 @@ Built from the owner's June 2027 tool (public repo DASatizabal/cruise-cabin-comp
 
 - `data/prices.json` (schema 1): written by `tools/fetch_prices.py`. Same layout as the June repo's schema 2 for one sailing, plus `warnings`, `sailings[].ncl_ids` and `sailings[].kids_sail_free` (NCL's offer text and the cabin types it covers, or null). `taxes_per_guest`, `gratuities` and each entry of `rates` may be null, only with a warning.
 - `data/counts.json` (schema 1): written by `tools/fetch_counts.py`, same as June.
+- `data/florida.json` (schema 1): written by `tools/fetch_florida.py` on the AI PC, not by GitHub Actions. `categories[<code>]`: `type`, `website_fare_pp`, `florida_fare_pp`, `off_pp`, `checked_at`, `source`.
 - `tools/decide_run.py`: first job of the refresh. Scheduled runs skip work done that UTC day; every run skips from the sail date on.
 
 ## Automation

@@ -2,6 +2,16 @@
 
 All notable changes to this project are listed here. Versions follow Semantic Versioning (MAJOR.MINOR.PATCH). The version in `index.html` (`APP_VERSION`) must match the newest entry below; `tools/check_release.py` enforces this.
 
+## [1.3.0] - 2026-10-14
+
+### Added
+- `tools/fetch_florida.py` and `tools/florida-runner/README.md`: reads NCL's Florida resident fares for every cabin type daily on the owner's AI PC, from a browser profile that stays signed in to a Florida resident NCL account, and publishes them as `data/florida.json` (numbers only). Setup mode for the first sign-in and a test price; record mode, with names removed, if NCL needs more than the sign-in.
+- `tools/check_florida.py`: format check for `data/florida.json`; it rejects any key that isn't a number or code, so nothing personal can be published. Part of the release check. "Deploy site" publishes the file.
+- "Florida rates as of [date]" at the top of the page, amber when more than 3 days old.
+
+### Changed
+- The page reads Florida rates from `data/florida.json` instead of a fixed table. Seeded with the amounts from the owner's screenshots, so prices are unchanged until the AI PC's first run. A category checked more than 7 days ago gets no discount and says so.
+
 ## [1.2.1] - 2026-10-14
 
 ### Removed

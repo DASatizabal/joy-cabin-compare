@@ -16,6 +16,7 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 import check_prices  # noqa: E402
+import check_florida  # noqa: E402
 
 SEMVER = r"(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
 
@@ -34,6 +35,13 @@ def main():
         problems += ["data/prices.json: " + e for e in check_prices.check(data)]
     except Exception as e:
         problems.append(f"data/prices.json cannot be read: {e}")
+
+    # Florida rates are optional, but when present they must pass their format check.
+    if os.path.exists(os.path.join(ROOT, "data", "florida.json")):
+        try:
+            problems += ["data/florida.json: " + e for e in check_florida.check(json.loads(read("data/florida.json")))]
+        except Exception as e:
+            problems.append(f"data/florida.json cannot be read: {e}")
 
     page = read("index.html")
     m = re.search(r'const APP_VERSION = "([^"]+)"', page)
