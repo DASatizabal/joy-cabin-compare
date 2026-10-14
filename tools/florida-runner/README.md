@@ -4,6 +4,12 @@ This sets up the AI PC to read NCL's Florida resident prices for the Joy Nov 20,
 
 What it does each run: for every cabin type at 2 guests, it asks NCL for the website price (signed out) and the Florida price (signed in), and saves only the numbers in `data/florida.json`. No names, email, Latitudes number or anything else from your account. It only uses NCL's price calls, never anything that books or holds a cabin. About 70 calls, 2 seconds apart, about 3 minutes.
 
+It only does what isn't done yet today (by the UTC date, like the GitHub refresh): if every cabin already has today's Florida price, a run finishes in seconds; if a run failed, the next one tries again; if a few cabins failed, the next run checks only those. Add `--force` to check every cabin anyway.
+
+The two ways to run it:
+- `py -3 tools\fetch_florida.py` checks and saves `data\florida.json` on the AI PC only. The page doesn't change.
+- `py -3 tools\fetch_florida.py --push` first gets the latest files from GitHub, then checks, saves, and sends the file to GitHub, which republishes the page in about a minute.
+
 Important: the folder `D:\AI-VAULT\ncl-profile` holds your signed-in NCL session. Anyone with that folder could act as you on ncl.com. Keep it on the AI PC. Never copy it into a repository or send it to anyone.
 
 ## First-time setup
@@ -43,21 +49,21 @@ Important: the folder `D:\AI-VAULT\ncl-profile` holds your signed-in NCL session
     py -3 tools\fetch_florida.py
     ```
     It lists each cabin type with its website and Florida fare, then `Wrote ...florida.json`. It takes about 3 minutes.
-11. Test a full run that publishes. Type this and press Enter:
+11. Publish, by hand this first time. Type this and press Enter:
     ```
     py -3 tools\fetch_florida.py --push
     ```
-    The first time, Git may open a browser window asking you to sign in to GitHub. Sign in as DASatizabal and allow access. It should end with `Pushed to main; the page republishes in about a minute.` (or `No change to commit.` if step 10's numbers didn't change).
+    If step 10 ran today, it only rechecks the cabins that failed, so it takes seconds. The first time, Git may open a browser window asking you to sign in to GitHub. Sign in as DASatizabal and allow access (the scheduled task runs in the background and can't show that window, so this has to happen once by hand). It should end with `Pushed to main; the page republishes in about a minute.`
 12. Check the page: open https://dasatizabal.github.io/joy-cabin-compare/ and look at the top. It should say "Florida rates as of" with today's date.
 
 ## Run it every morning
 
-13. In PowerShell, type this as one line and press Enter. It runs the check every day at 7:00 AM (the AI PC's clock) and writes a log:
+13. In PowerShell, type this as one line and press Enter. It runs the check every day at 7:00 AM and again every 4 hours until 7:00 PM (the AI PC's clock), and writes a log. The later runs finish in seconds when the morning run worked, and try again when it didn't. If you already created the task, running this replaces it:
     ```
-    schtasks /Create /TN "Joy Florida rates" /SC DAILY /ST 07:00 /F /TR "cmd /c cd /d D:\Repos\joy-cabin-compare && py -3 tools\fetch_florida.py --push >> D:\AI-VAULT\ncl-profile\florida-log.txt 2>&1"
+    schtasks /Create /TN "Joy Florida rates" /SC DAILY /ST 07:00 /RI 240 /DU 0012:00 /F /TR "cmd /c cd /d D:\Repos\joy-cabin-compare && py -3 tools\fetch_florida.py --push >> D:\AI-VAULT\ncl-profile\florida-log.txt 2>&1"
     ```
     It should print `SUCCESS: The scheduled task "Joy Florida rates" has successfully been created.` The task runs while you're signed in to Windows, which is how the AI PC normally runs.
-14. The next morning, open `D:\AI-VAULT\ncl-profile\florida-log.txt` in Notepad. The last lines should end with `Pushed to main` or `No change to commit.`, and the page should show "Florida rates as of" with that day's date.
+14. The next morning, open `D:\AI-VAULT\ncl-profile\florida-log.txt` in Notepad. The 7:00 AM run's lines should end with `Pushed to main`, and the later runs' with `Already checked today` and `Nothing new to publish.` The page should show "Florida rates as of" with that day's date.
 
 ## When the login expires
 
@@ -74,7 +80,7 @@ Sign in again in the Chrome window (step 7), then press Enter in PowerShell. Not
 
 If the log shows `failed` for every cabin, or `HTTP 403`, NCL may be blocking the hidden browser window. Type this as one line and press Enter, to make the daily run use a visible window instead:
 ```
-schtasks /Create /TN "Joy Florida rates" /SC DAILY /ST 07:00 /F /TR "cmd /c cd /d D:\Repos\joy-cabin-compare && py -3 tools\fetch_florida.py --push --show >> D:\AI-VAULT\ncl-profile\florida-log.txt 2>&1"
+schtasks /Create /TN "Joy Florida rates" /SC DAILY /ST 07:00 /RI 240 /DU 0012:00 /F /TR "cmd /c cd /d D:\Repos\joy-cabin-compare && py -3 tools\fetch_florida.py --push --show >> D:\AI-VAULT\ncl-profile\florida-log.txt 2>&1"
 ```
 
 ## After the cruise

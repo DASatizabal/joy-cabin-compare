@@ -7,9 +7,11 @@ daily steps for the owner: tools/florida-runner/README.md.
   py -3 tools\\fetch_florida.py --setup     first time: log in by hand, then one test price
   py -3 tools\\fetch_florida.py --record    if the test shows no Florida price: records what
                                             NCL's own site sends, names removed
-  py -3 tools\\fetch_florida.py --push      daily: every cabin, writes data/florida.json,
-                                            commits and pushes it to main (publishes the page)
-  py -3 tools\\fetch_florida.py             daily without committing (writes the file only)
+  py -3 tools\\fetch_florida.py --push      daily: checks what isn't done yet today, writes
+                                            data/florida.json, commits and pushes it to main
+                                            (publishes the page)
+  py -3 tools\\fetch_florida.py             the same without committing (writes the file only)
+  add --force to check every cabin even if already checked today
 
 How it works (NOTES.md, "Florida resident rates"): NCL's app sends no residency field in its
 price calls. Login lives in the NCLAuth cookie, and the price call goes to www.ncl.com, so a
@@ -264,12 +266,49 @@ def record(profile):
     return 0
 
 
-def daily(profile, show, push):
+LOGGED_IN = "logged-in NCL account"
+
+
+def publish():
+    """Commit data/florida.json if it changed, and push it to main (which republishes the page)."""
+    subprocess.run(["git", "-C", ROOT, "add", "data/florida.json"], check=True)
+    if subprocess.run(["git", "-C", ROOT, "diff", "--cached", "--quiet"]).returncode == 0:
+        if subprocess.run(["git", "-C", ROOT, "status", "-sb"], capture_output=True, text=True).stdout.find("ahead") == -1:
+            log("Nothing new to publish.")
+            return 0
+    else:
+        subprocess.run(["git", "-C", ROOT, "commit", "-q", "-m", f"Refresh Florida rates {now_iso()[:10]}"], check=True)
+    for attempt in range(4):
+        if subprocess.run(["git", "-C", ROOT, "pull", "--rebase", "-q"]).returncode == 0 and \
+           subprocess.run(["git", "-C", ROOT, "push", "-q", "origin", "HEAD:main"]).returncode == 0:
+            log("Pushed to main; the page republishes in about a minute.")
+            return 0
+        time.sleep(2 ** (attempt + 1))
+    log("Push failed. The file is saved here; run 'git push' by hand.")
+    return 6
+
+
+def daily(profile, show, push, force=False):
+    """Checks only what isn't done yet today (UTC date, like the GitHub refresh): a category counts
+    as done when today's entry came from the signed-in account. So a second run the same day
+    finishes in seconds, a run after a failure checks again, and after a partial failure only the
+    cabins that failed are checked. --force checks every cabin anyway."""
     if push:
         subprocess.run(["git", "-C", ROOT, "pull", "--rebase", "--autostash", "-q"], check=True)
-    if dt.datetime.now(dt.timezone.utc).date() >= dt.date.fromisoformat(fp.SAILING["depart"]):
+    today = dt.datetime.now(dt.timezone.utc).date()
+    if today >= dt.date.fromisoformat(fp.SAILING["depart"]):
         log("The ship has sailed; nothing to check.")
         return 0
+    s, cfg, fare_codes, cats = sailing_and_categories()
+    prev = (load_json(OUT) or {}).get("categories") or {}
+    done_today = lambda code: (prev.get(code) or {}).get("source") == LOGGED_IN and \
+        str((prev.get(code) or {}).get("checked_at", ""))[:10] == today.isoformat()
+    todo = cats if force else [(t, c) for t, c in cats if not done_today(c)]
+    if not todo:
+        log(f"Already checked today: all {len(cats)} cabins have today's Florida price.")
+        return publish() if push else 0
+    if len(todo) < len(cats):
+        log(f"{len(cats) - len(todo)} cabins already checked today; checking the other {len(todo)}: {', '.join(c for t, c in todo)}")
     pw, ctx, page = open_browser(profile, show)
     try:
         page.goto(HOME, wait_until="domcontentloaded")
@@ -278,10 +317,8 @@ def daily(profile, show, push):
             log(f"NOT SIGNED IN ({expires}). Sign in again: README, 'When the login expires'. File not changed.")
             return 2
         log(f"Signed in (login expires {expires}).")
-        s, cfg, fare_codes, cats = sailing_and_categories()
-        prev = (load_json(OUT) or {}).get("categories") or {}
         out, failed = dict(prev), []
-        for type_code, code in cats:
+        for type_code, code in todo:
             try:
                 website, florida = one_category(page, cfg, type_code, code, fare_codes[type_code])
             except Exception as e:
@@ -289,17 +326,21 @@ def daily(profile, show, push):
                 log(f"  {code}: failed ({e}); keeping the previous entry if any")
                 continue
             out[code] = {"type": type_code, "website_fare_pp": website, "florida_fare_pp": florida,
-                         "off_pp": round(website - florida, 2), "checked_at": now_iso(), "source": "logged-in NCL account"}
+                         "off_pp": round(website - florida, 2), "checked_at": now_iso(), "source": LOGGED_IN}
             log(f"  {code}: website ${website:.2f}, Florida ${florida:.2f}, off ${website - florida:.2f} per guest")
-        fresh = [out[c] for t, c in cats if c not in failed]
-        if fresh and not any(e["off_pp"] > 0 for e in fresh):
-            log("No cabin got a Florida price today: NCL probably didn't apply the login. File not changed.")
-            return 3
-        if not fresh:
-            log("Every cabin failed. File not changed.")
-            return 4
     finally:
         ctx.close(); pw.stop()
+    checked = [c for t, c in todo if c not in failed]
+    if not checked:
+        log("Every cabin checked this run failed. File not changed; the next run tries again.")
+        return 4
+    # Sanity check over everything signed in today: some cabin should get a Florida price
+    # (Inside and Balcony did on 2026-10-14). If none does, NCL didn't apply the login.
+    today_entries = [out[c] for t, c in cats if c in out and out[c].get("source") == LOGGED_IN
+                     and str(out[c].get("checked_at", ""))[:10] == today.isoformat()]
+    if len(today_entries) >= 10 and not any(e["off_pp"] > 0 for e in today_entries):
+        log("No cabin got a Florida price today: NCL probably didn't apply the login. File not changed.")
+        return 3
     data = {"schema_version": SCHEMA_VERSION, "saved_at": now_iso(), "sailing_id": s["id"],
             "package_id": s["package_id"], "guests": GUESTS,
             "source": "NCL price-summary while signed in to a Florida resident NCL account (owner's AI PC)",
@@ -312,22 +353,8 @@ def daily(profile, show, push):
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=1)
         f.write("\n")
-    log(f"Wrote {OUT}: {len(fresh)} cabins checked today, {len(failed)} failed.")
-    if push:
-        subprocess.run(["git", "-C", ROOT, "add", "data/florida.json"], check=True)
-        if subprocess.run(["git", "-C", ROOT, "diff", "--cached", "--quiet"]).returncode == 0:
-            log("No change to commit.")
-            return 0
-        subprocess.run(["git", "-C", ROOT, "commit", "-q", "-m", f"Refresh Florida rates {now_iso()[:10]}"], check=True)
-        for attempt in range(4):
-            if subprocess.run(["git", "-C", ROOT, "pull", "--rebase", "-q"]).returncode == 0 and \
-               subprocess.run(["git", "-C", ROOT, "push", "-q", "origin", "HEAD:main"]).returncode == 0:
-                log("Pushed to main; the page republishes in about a minute.")
-                return 0
-            time.sleep(2 ** (attempt + 1))
-        log("Push failed. The file is saved here; run 'git push' by hand.")
-        return 6
-    return 0
+    log(f"Wrote {OUT}: {len(checked)} cabins checked this run, {len(failed)} failed (the next run retries those).")
+    return publish() if push else 0
 
 
 def main():
@@ -338,6 +365,7 @@ def main():
     ap.add_argument("--record", action="store_true", help="record NCL's own price requests, names removed")
     ap.add_argument("--show", action="store_true", help="show the browser window during the daily run")
     ap.add_argument("--push", action="store_true", help="commit and push data/florida.json to main")
+    ap.add_argument("--force", action="store_true", help="check every cabin even if already checked today")
     args = ap.parse_args()
     if os.path.abspath(args.profile).startswith(ROOT):
         raise SystemExit("The profile folder must not be inside the repository.")
@@ -345,7 +373,7 @@ def main():
         return setup(args.profile)
     if args.record:
         return record(args.profile)
-    return daily(args.profile, args.show, args.push)
+    return daily(args.profile, args.show, args.push, args.force)
 
 
 if __name__ == "__main__":

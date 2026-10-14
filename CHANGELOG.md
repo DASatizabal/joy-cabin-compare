@@ -2,6 +2,12 @@
 
 All notable changes to this project are listed here. Versions follow Semantic Versioning (MAJOR.MINOR.PATCH). The version in `index.html` (`APP_VERSION`) must match the newest entry below; `tools/check_release.py` enforces this.
 
+## [1.3.2] - 2026-10-14
+
+### Changed
+- `tools/fetch_florida.py` only checks what isn't done yet today (UTC date): a cabin counts as done when today's entry came from the signed-in account. A second run the same day finishes in seconds (and still publishes today's file if it wasn't pushed yet), a run after a failure tries again, and after a partial failure only the failed cabins are checked. `--force` checks every cabin.
+- The AI PC's daily task runs at 7:00 AM and every 4 hours until 7:00 PM, so a failed morning run is retried the same day (`tools/florida-runner/README.md`, step 13).
+
 ## [1.3.1] - 2026-10-14
 
 ### Fixed
