@@ -142,8 +142,6 @@
         .row.onboard .k { color: var(--gray-700); font-size: 0.85rem; }
         .onboard-note { font-size: 0.85rem; color: var(--gray-600); margin-top: 0.2rem; }
 
-        .addon { margin-top: 0.75rem; background: var(--gray-50); border-radius: 8px; padding: 0.6rem 0.75rem; font-size: 0.82rem; color: var(--gray-700); }
-        .addon strong { color: var(--gray-900); }
 
         .notice { border-radius: 8px; padding: 0.75rem; font-size: 0.9rem; margin-bottom: 0.75rem; }
         .notice.bad { background: var(--red-wash); color: var(--red); }
@@ -333,7 +331,7 @@
     </footer>
 
     <script>
-        const APP_VERSION = "1.2.0";
+        const APP_VERSION = "1.2.1";
         const DATA_URL = "data/prices.json";
         const COUNTS_URL = "data/counts.json";
         const COUNTS_MAX_AGE_DAYS = 7;
@@ -545,17 +543,6 @@
             return { n, nights, cabin: e.cabin_total, fare, fl, taxes, plus, sc, bar, dining, gratuities, total, onboard, now: total - onboard, missing };
         }
 
-        function addedCostLine(c) {
-            const n = guests();
-            if (n <= 2) return "";
-            const parts = [];
-            for (let k = 3; k <= n; k++) {
-                const prev = entry(c, k - 1), cur = entry(c, k);
-                if (prev.available && cur.available) parts.push(`guest ${k} +${money(cur.cabin_total - prev.cabin_total)}`);
-            }
-            return parts.length ? `<div class="addon">Added cost in ${catHtml(c)} (fare and taxes): <strong>${parts.join(", ")}</strong></div>` : "";
-        }
-
         function lineRows(k) {
             const part = p => `${plural(p.count, "guest", "guests")} x ${money(p.pp)}${p.nights ? ` x ${p.nights} nights` : ""}${p.note ? ` (${p.note})` : ""}`;
             const missingRow = title => `<div class="row missing"><span class="k">${esc(title)}</span><span class="v">${NOT_FOUND}</span></div>`;
@@ -749,7 +736,7 @@
                 const full = findCat(c.code);
                 const k = cost(full);
                 picks = catPicker(t, full, n) + offerToggles(full);
-                body = catHeader(full) + staleNote() + totalBlock(k) + addedCostLine(full);
+                body = catHeader(full) + staleNote() + totalBlock(k);
             }
             return `
                 <article class="card">

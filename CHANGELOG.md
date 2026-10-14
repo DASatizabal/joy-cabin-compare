@@ -2,6 +2,11 @@
 
 All notable changes to this project are listed here. Versions follow Semantic Versioning (MAJOR.MINOR.PATCH). The version in `index.html` (`APP_VERSION`) must match the newest entry below; `tools/check_release.py` enforces this.
 
+## [1.2.1] - 2026-10-14
+
+### Removed
+- The "Added cost in [cabin] (fare and taxes): guest 3 +$X, guest 4 +$X" line under each cabin's total (owner's request).
+
 ## [1.2.0] - 2026-10-14
 
 ### Changed
