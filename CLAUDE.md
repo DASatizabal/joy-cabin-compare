@@ -16,7 +16,7 @@ Built from the owner's June 2027 tool (public repo DASatizabal/cruise-cabin-comp
 - NEVER call NCL's `cabin/manage-cabin` (it carries recommendAndHold and holds a real cabin), `api/book`, `booking/api/recommended-cabin`, or anything that holds or books. `request()` refuses any address containing "manage-cabin" or "hold", and stops on any NCL API answer containing "hold" or "heldUntil". Keep both guards.
 - NCL's ids (itinerary code, packageId, sailingId, ship code) are looked up every run, never typed in. Only the ship, date, length and home port are fixed (`SAILING` in `tools/fetch_prices.py`).
 - Never guess a number. Anything NCL doesn't show is null with a warning, and the page says "Not found on NCL today".
-- One owner-approved exception: the "Florida resident rate (estimate)" switch (default on) takes `FL_RESIDENT_OFF` (34%) off the cruise fare, worked out from an NCL consultant's quote on 2026-10-13 (NOTES.md). Keep it labeled as an estimate and switchable off.
+- One owner-approved exception: the "Florida resident rate (estimate)" switch (default on) takes `FL_RESIDENT_OFF` (16.4%, from $968 / $1,158) off NCL's cabin price (fare and taxes), worked out by the owner's method from an NCL consultant's quote on 2026-10-13 (NOTES.md). Keep it labeled as an estimate and switchable off.
 - CruiseFeed is never called from this repo.
 - Privacy: public repo. No guest names, dates of birth, Latitudes numbers or reservation numbers in any file, ever. The page asks for ages only.
 - Steps written for the owner must be complete: no "same as above", no choices left open, and no em dashes.

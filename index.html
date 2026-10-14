@@ -323,7 +323,7 @@
             <strong>About these prices</strong>
             <p>This page compares Norwegian Cruise Line's published rates. It does not book or hold a cabin. Prices come from NCL's booking system and are checked once a day. They change often, so check NCL before booking.</p>
             <p>Each total is the cruise fare, NCL's government taxes, fees and port expenses, the daily service charges (crew gratuities) for every guest 3 and older, the gratuities for the Free at Sea offers you keep switched on, and Free at Sea Plus if you choose it. Unlimited Open Bar: guests 21 and over pay the full gratuity, a guest under 21 who is guest 2 pays for a soda package instead, and other guests under 21 pay nothing. Specialty Dining: guests 13 and over pay, under 13 eat free. NCL lists adults first, then kids oldest first. If NCL doesn't show a number on a given day, this page says so instead of guessing.</p>
-            <p>The Florida resident rate is the one number not from NCL's website: an estimate (34% off the cruise fare) worked out from an NCL cruise consultant's Florida resident quote on Oct 13, 2026. Switch it off to see NCL's published prices.</p>
+            <p>The Florida resident rate is the one number not from NCL's website: an estimate (16.4% off NCL's cabin price, fare and taxes) worked out from an NCL cruise consultant's Florida resident quote on Oct 13, 2026. Switch it off to see NCL's published prices.</p>
             <p>Only ages are asked for. No names, birth dates or reservation details are collected.</p>
             <p id="footerVersion"></p>
         </div>
@@ -339,12 +339,15 @@
         const STORE_KEY = "joy-cabin-compare-v2";
         const GUARANTEE_TEXT = "Guarantee: NCL picks your cabin location";
         const NOT_FOUND = "Not found on NCL today";
-        // Florida resident rate: NOT read from NCL (NCL's website doesn't show it). Estimated by
-        // the owner's request from an NCL cruise consultant's Florida resident quote on 2026-10-13
-        // (2 adults, kids 15 and 17): Inside I4 $1,190 and Balcony BB $1,240, against $1,350 and
-        // $1,430 online the same hour, or 33.5% and 34.1% off the adults' cruise fare. 34% off the
-        // cruise fare reproduces BB exactly and I4 within $3.50. Taxes and gratuities unchanged.
-        const FL_RESIDENT_OFF = 0.34;
+        // Florida resident rate: NOT read from NCL (NCL's website doesn't show it). Owner's method
+        // (2026-10-14), from an NCL cruise consultant's Florida resident quote on 2026-10-13 for
+        // Balcony BB, 2 adults and kids 15 and 17: $1,240 final price minus Open Bar ($96 + $96)
+        // and Specialty Dining ($20 x 4) = $968 for fare and taxes, against $1,158 for the same
+        // cabin and party on NCL's website. The Florida rate is $968 / $1,158 = 83.6% of NCL's
+        // cabin price (fare and taxes), so 16.4% off. Gratuities and service charges unchanged.
+        const FL_QUOTE_CABIN = 968, FL_WEBSITE_CABIN = 1158;
+        const FL_RESIDENT_OFF = 1 - FL_QUOTE_CABIN / FL_WEBSITE_CABIN;
+        const FL_PCT = (FL_RESIDENT_OFF * 100).toFixed(1) + "%";
         const FL_QUOTE_DATE = "Oct 13, 2026";
 
         let DATA = null, J = null;   // data file, the Joy sailing
@@ -524,12 +527,9 @@
                 if (n - diners) dining.notes.push("under 13 eat free");
             }
 
-            // Florida resident estimate: a share off the cruise fare only (needs NCL's tax line to
-            // know the fare). Kids Sail Free guests already have a $0 fare, so nothing comes off them.
+            // Florida resident estimate: a share off NCL's cabin price (fare and taxes), the owner's method.
             const fare = taxes === null ? null : e.cabin_total - taxes;
-            const fl = { on: state.flResident, amount: 0, missing: state.flResident && fare === null };
-            if (state.flResident && fare !== null) fl.amount = Math.round(fare * FL_RESIDENT_OFF * 100) / 100;
-            if (fl.missing) missing.push("Florida resident estimate (needs NCL's tax line)");
+            const fl = { on: state.flResident, amount: state.flResident ? Math.round(e.cabin_total * FL_RESIDENT_OFF * 100) / 100 : 0 };
 
             const gratuities = sc.total + bar.total + dining.total;
             const total = e.cabin_total - fl.amount + plus.total + gratuities;
@@ -570,10 +570,11 @@
                 ? `<div class="row"><span class="k">Cruise fare with taxes, fees and port expenses</span><span class="v">${money(k.cabin)}</span></div>
                    <div class="row missing"><span class="k">Taxes, fees and port expenses per guest (already in the line above)</span><span class="v">${NOT_FOUND}</span></div>`
                 : `<div class="row"><span class="k">Cruise fare</span><span class="v">${money(k.fare)}</span></div>
-                   ${k.fl.on ? `<div class="row"><span class="k">Florida resident rate (estimate, ${Math.round(FL_RESIDENT_OFF * 100)}% off the cruise fare)</span><span class="v">&minus;${money(k.fl.amount)}</span></div>` : ""}
                    <div class="row"><span class="k">Taxes, fees and port expenses: ${k.n} x ${money(J.taxes_per_guest)}</span><span class="v">${money(k.taxes)}</span></div>`;
+            const flRow = k.fl.on ? `<div class="row"><span class="k">Florida resident rate (estimate, ${FL_PCT} off fare and taxes)</span><span class="v">&minus;${money(k.fl.amount)}</span></div>` : "";
             return `
                 ${fareRows}
+                ${flRow}
                 ${plusRow}
                 ${scRow}
                 ${line(k.bar)}
@@ -803,7 +804,7 @@
             const on = state.flResident;
             document.getElementById("flToggle").checked = on;
             document.getElementById("flDesc").textContent = on
-                ? `About ${Math.round(FL_RESIDENT_OFF * 100)}% off the cruise fare. Estimated from an NCL cruise consultant's Florida resident quote on ${FL_QUOTE_DATE}, not shown on NCL's website. Confirm with NCL.`
+                ? `About ${FL_PCT} off NCL's cabin price (fare and taxes). Estimated from an NCL cruise consultant's Florida resident quote on ${FL_QUOTE_DATE}, not shown on NCL's website. Confirm with NCL.`
                 : "NCL's published online prices, with no Florida resident discount.";
         }
 
