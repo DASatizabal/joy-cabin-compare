@@ -68,6 +68,16 @@ The daily age test (`fetch_prices.py`): one price summary with 1 adult (reservat
 
 Unlike the June page, every cabin price in the tap list and the full table is that cabin's full total with the current choices: cabin fare and taxes, service charges (Suite and Haven rate where it applies), Open Bar, Specialty Dining and Free at Sea Plus as switched on, for the chosen guests and ages. It is the same number as the card's Total and changes when a switch, a guest or an age changes. The small "pp" figure under it is that total divided by the guests. Until every kid's age is chosen, the lists show fare and taxes only and say so, because gratuities depend on age. Amounts NCL didn't show today are left out, as in the card.
 
+## Florida resident rate estimate (owner's request, 2026-10-13)
+
+NCL's website doesn't show Florida resident rates. The owner's NCL cruise consultant quoted, for 2 adults plus kids aged 15 and 17, with Open Bar for the adults and Specialty Dining for all 4, not a Guarantee cabin, priced about 15 minutes before the comparison: Inside $1,190 and Balcony $1,240 (2 adults only: $850 and $900; each kid adds $150 taxes plus $20 dining).
+
+The same hour, NCL's online availability (unchanged from the morning) offered only one Inside (I4, Family Inside) and two Balconies (BB, B4) for 4 guests, so the quote was I4 and most likely BB. Online without service charges: I4 $1,350 (fare $478, taxes $600, Open Bar $192, dining $80) and BB $1,430 (fare $558). Kids Sail Free makes guests 3 and 4 pay $0 fare, so the whole difference ($160 and $190) comes off the adults' fares: $239 to $159 per adult on I4 (33.5% off) and $279 to $184 on BB (34.1% off).
+
+The page uses 34% off the cruise fare (`FL_RESIDENT_OFF` in `index.html`): BB $1,240.28 against $1,240, I4 $1,187.48 against $1,190. Taxes, gratuities and service charges are unchanged. It is the one number on the page not read from NCL, so it is labeled "estimate" everywhere, explained in the footer, and the switch ("Florida resident rate (estimate)", in the card with the prepay switch, default on) turns it off to show NCL's published prices. It needs NCL's tax line to know the fare; without it the estimate is left out and listed as not included. It also applies to the list prices. It is not refreshed daily; if the consultant quotes again, update `FL_RESIDENT_OFF`, `FL_QUOTE_DATE` and this section.
+
+Same day, the prepay gratuities switch default changed to off (service charges charged onboard), owner's request. The saved-choices key moved to `joy-cabin-compare-v2` so earlier previews pick up both new defaults.
+
 ## Cabin counts
 
 Same technique as June (`tools/fetch_counts.py`):

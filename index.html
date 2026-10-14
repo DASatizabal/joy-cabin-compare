@@ -297,9 +297,16 @@
         </section>
 
         <section class="panel" aria-label="Gratuities">
-            <div class="panel-title">Gratuities</div>
+            <div class="panel-title">Florida resident rate and gratuities</div>
             <div class="toggle-container">
-                <input type="checkbox" class="toggle-switch" id="prepayToggle" checked aria-label="Prepay gratuities">
+                <input type="checkbox" class="toggle-switch" id="flToggle" checked aria-label="Florida resident rate">
+                <div>
+                    <div class="toggle-label" id="flLabel">Florida resident rate (estimate)</div>
+                    <div class="toggle-price" id="flDesc"></div>
+                </div>
+            </div>
+            <div class="toggle-container">
+                <input type="checkbox" class="toggle-switch" id="prepayToggle" aria-label="Prepay gratuities">
                 <div>
                     <div class="toggle-label" id="prepayLabel">Prepay gratuities</div>
                     <div class="toggle-price" id="prepayDesc">Service charges are paid with the cruise, before you sail</div>
@@ -316,6 +323,7 @@
             <strong>About these prices</strong>
             <p>This page compares Norwegian Cruise Line's published rates. It does not book or hold a cabin. Prices come from NCL's booking system and are checked once a day. They change often, so check NCL before booking.</p>
             <p>Each total is the cruise fare, NCL's government taxes, fees and port expenses, the daily service charges (crew gratuities) for every guest 3 and older, the gratuities for the Free at Sea offers you keep switched on, and Free at Sea Plus if you choose it. Unlimited Open Bar: guests 21 and over pay the full gratuity, a guest under 21 who is guest 2 pays for a soda package instead, and other guests under 21 pay nothing. Specialty Dining: guests 13 and over pay, under 13 eat free. NCL lists adults first, then kids oldest first. If NCL doesn't show a number on a given day, this page says so instead of guessing.</p>
+            <p>The Florida resident rate is the one number not from NCL's website: an estimate (34% off the cruise fare) worked out from an NCL cruise consultant's Florida resident quote on Oct 13, 2026. Switch it off to see NCL's published prices.</p>
             <p>Only ages are asked for. No names, birth dates or reservation details are collected.</p>
             <p id="footerVersion"></p>
         </div>
@@ -328,9 +336,16 @@
         const COUNTS_MAX_AGE_DAYS = 7;
         const MIN_GUESTS = 2, MAX_GUESTS = 5;
         const TYPE_ORDER = ["inside", "oceanview", "balcony", "mini_suite", "suite", "haven"];
-        const STORE_KEY = "joy-cabin-compare-v1";
+        const STORE_KEY = "joy-cabin-compare-v2";
         const GUARANTEE_TEXT = "Guarantee: NCL picks your cabin location";
         const NOT_FOUND = "Not found on NCL today";
+        // Florida resident rate: NOT read from NCL (NCL's website doesn't show it). Estimated by
+        // the owner's request from an NCL cruise consultant's Florida resident quote on 2026-10-13
+        // (2 adults, kids 15 and 17): Inside I4 $1,190 and Balcony BB $1,240, against $1,350 and
+        // $1,430 online the same hour, or 33.5% and 34.1% off the adults' cruise fare. 34% off the
+        // cruise fare reproduces BB exactly and I4 within $3.50. Taxes and gratuities unchanged.
+        const FL_RESIDENT_OFF = 0.34;
+        const FL_QUOTE_DATE = "Oct 13, 2026";
 
         let DATA = null, J = null;   // data file, the Joy sailing
         let COUNTS = null;           // data/counts.json when present and at most 7 days old
@@ -340,7 +355,8 @@
             pick: null,                  // chosen category code
             // Free at Sea choices for the cabin (all guests in a cabin must choose the same offers).
             offers: { bar: true, dining: true, plus: false },
-            prepayGratuities: true,      // service charges before sailing, or onboard on the last day
+            prepayGratuities: false,     // service charges before sailing, or onboard on the last day (default onboard)
+            flResident: true,            // Florida resident rate estimate (default on)
         };
 
         // ---------- helpers ----------
@@ -373,7 +389,8 @@
                     adults: s.adults, kids, offers,
                     type: typeof s.type === "string" ? s.type : state.type,
                     pick: typeof s.pick === "string" ? s.pick : null,
-                    prepayGratuities: s.prepayGratuities !== false,
+                    prepayGratuities: s.prepayGratuities === true,
+                    flResident: s.flResident !== false,
                 });
             } catch (e) {}
         }
@@ -507,10 +524,17 @@
                 if (n - diners) dining.notes.push("under 13 eat free");
             }
 
+            // Florida resident estimate: a share off the cruise fare only (needs NCL's tax line to
+            // know the fare). Kids Sail Free guests already have a $0 fare, so nothing comes off them.
+            const fare = taxes === null ? null : e.cabin_total - taxes;
+            const fl = { on: state.flResident, amount: 0, missing: state.flResident && fare === null };
+            if (state.flResident && fare !== null) fl.amount = Math.round(fare * FL_RESIDENT_OFF * 100) / 100;
+            if (fl.missing) missing.push("Florida resident estimate (needs NCL's tax line)");
+
             const gratuities = sc.total + bar.total + dining.total;
-            const total = e.cabin_total + plus.total + gratuities;
+            const total = e.cabin_total - fl.amount + plus.total + gratuities;
             const onboard = state.prepayGratuities ? 0 : sc.total;
-            return { n, nights, cabin: e.cabin_total, fare: taxes === null ? null : e.cabin_total - taxes, taxes, plus, sc, bar, dining, gratuities, total, onboard, before: total - onboard, missing };
+            return { n, nights, cabin: e.cabin_total, fare, fl, taxes, plus, sc, bar, dining, gratuities, total, onboard, before: total - onboard, missing };
         }
 
         function addedCostLine(c) {
@@ -546,6 +570,7 @@
                 ? `<div class="row"><span class="k">Cruise fare with taxes, fees and port expenses</span><span class="v">${money(k.cabin)}</span></div>
                    <div class="row missing"><span class="k">Taxes, fees and port expenses per guest (already in the line above)</span><span class="v">${NOT_FOUND}</span></div>`
                 : `<div class="row"><span class="k">Cruise fare</span><span class="v">${money(k.fare)}</span></div>
+                   ${k.fl.on ? `<div class="row"><span class="k">Florida resident rate (estimate, ${Math.round(FL_RESIDENT_OFF * 100)}% off the cruise fare)</span><span class="v">&minus;${money(k.fl.amount)}</span></div>` : ""}
                    <div class="row"><span class="k">Taxes, fees and port expenses: ${k.n} x ${money(J.taxes_per_guest)}</span><span class="v">${money(k.taxes)}</span></div>`;
             return `
                 ${fareRows}
@@ -650,7 +675,7 @@
         // cabin with today's choices (guests, ages, Free at Sea switches), the same number the
         // card shows as Total. Until every kid's age is chosen, fare and taxes only, because
         // gratuities depend on age.
-        const listPrice = (c, n) => agesKnown() ? cost(findCat(c.code)).total : entry(c, n).cabin_total;
+        const listPrice = (c, n) => { const k = cost(findCat(c.code)); return agesKnown() ? k.total : k.cabin - k.fl.amount; };
         const priceBasis = () => agesKnown() ? "total with your choices" : "fare and taxes; choose every kid's age for full totals";
 
         // One cabin button. When it is the only available option it is shown already selected,
@@ -749,7 +774,7 @@
                 <section class="panel" aria-label="Every cabin">
                     <div class="panel-title">Every cabin for ${plural(n, "guest", "guests")} (${priceBasis()})</div>
                     <table class="cabins"><tbody>${rows}</tbody></table>
-                    <p class="hint">Tap an available cabin to choose it. ${agesKnown() ? "Each price is that cabin's full total: fare, taxes, service charges and the Free at Sea options switched on above." : "Free at Sea and service charges are added once every kid's age is chosen."}${COUNTS ? " Cabins left are NCL's open cabins in that category for your party size; \"Count not available\" means NCL's answer couldn't be split cleanly (see NOTES.md)." : ""}</p>
+                    <p class="hint">Tap an available cabin to choose it. ${agesKnown() ? `Each price is that cabin's full total: fare, taxes, service charges and the Free at Sea options switched on${state.flResident ? ", with the Florida resident estimate" : ""}.` : "Free at Sea and service charges are added once every kid's age is chosen."}${COUNTS ? " Cabins left are NCL's open cabins in that category for your party size; \"Count not available\" means NCL's answer couldn't be split cleanly (see NOTES.md)." : ""}</p>
                 </section>`;
         }
 
@@ -774,6 +799,14 @@
                 `<button type="button" data-type="${k}" aria-pressed="${state.type === k}">${esc(typeName(k))}</button>`).join("");
         }
 
+        function renderFl() {
+            const on = state.flResident;
+            document.getElementById("flToggle").checked = on;
+            document.getElementById("flDesc").textContent = on
+                ? `About ${Math.round(FL_RESIDENT_OFF * 100)}% off the cruise fare. Estimated from an NCL cruise consultant's Florida resident quote on ${FL_QUOTE_DATE}, not shown on NCL's website. Confirm with NCL.`
+                : "NCL's published online prices, with no Florida resident discount.";
+        }
+
         function renderPrepay() {
             const on = state.prepayGratuities;
             document.getElementById("prepayToggle").checked = on;
@@ -786,6 +819,7 @@
         function render(msg) {
             if (!allTypes().includes(state.type)) state.type = allTypes().includes("balcony") ? "balcony" : allTypes()[0];
             if (!(DATA.rates || {}).free_at_sea_plus) state.offers.plus = false;
+            renderFl();
             renderPrepay();
             renderGuests(msg);
             renderKidsSailFree();
@@ -836,6 +870,11 @@
                 // Free at Sea Plus upgrades the Open Bar and Specialty Dining offers.
                 if (offer.dataset.offer === "plus" && offer.checked) { o.bar = true; o.dining = true; }
                 if ((offer.dataset.offer === "bar" || offer.dataset.offer === "dining") && !offer.checked) o.plus = false;
+                render();
+                return;
+            }
+            if (e.target.id === "flToggle") {
+                state.flResident = e.target.checked;
                 render();
                 return;
             }
