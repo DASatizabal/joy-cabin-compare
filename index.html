@@ -199,7 +199,6 @@
         .card-picks { padding: 0.9rem 1.25rem 0; }
         .card-picks .cat-list-title { margin-top: 0; }
         .gty { color: #92400e; }
-        .consult { color: #1d4ed8; font-weight: 600; }
         .cat-list { list-style: none; margin-top: 0.9rem; }
         .cat-list-title { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ocean-blue); margin-top: 0.9rem; }
         .cat-list button {
@@ -327,14 +326,14 @@
             <strong>About these prices</strong>
             <p>This page compares Norwegian Cruise Line's published rates. It does not book or hold a cabin. Prices come from NCL's booking system and are checked once a day. They change often, so check NCL before booking.</p>
             <p>Each total is the cruise fare, NCL's government taxes, fees and port expenses, the daily service charges (crew gratuities) for every guest 3 and older when you prepay them (otherwise they're shown separately as paid onboard), the gratuities for the Free at Sea offers you keep switched on, and Free at Sea Plus if you choose it. Unlimited Open Bar: guests 21 and over pay the full gratuity, a guest under 21 who is guest 2 pays for a soda package instead, and other guests under 21 pay nothing. Specialty Dining: guests 13 and over pay, under 13 eat free. NCL lists adults first, then kids oldest first. If NCL doesn't show a number on a given day, this page says so instead of guessing.</p>
-            <p>The Florida resident rate is the one number not from NCL's website: an estimate (14.9% off NCL's cabin price, fare and taxes) worked out from an NCL cruise consultant's Florida resident quote on Oct 13, 2026. Switch it off to see NCL's published prices.</p>
+            <p>The Florida resident rate is the one number not from NCL's website: an estimate (33.8% off the cruise fare; taxes are not discounted) worked out from an NCL cruise consultant's Florida resident quote on Oct 13, 2026. Switch it off to see NCL's published prices.</p>
             <p>Only ages are asked for. No names, birth dates or reservation details are collected.</p>
             <p id="footerVersion"></p>
         </div>
     </footer>
 
     <script>
-        const APP_VERSION = "1.0.0";
+        const APP_VERSION = "1.1.0";
         const DATA_URL = "data/prices.json";
         const COUNTS_URL = "data/counts.json";
         const COUNTS_MAX_AGE_DAYS = 7;
@@ -345,24 +344,16 @@
         const NOT_FOUND = "Not found on NCL today";
         // Florida resident rate: NOT read from NCL (NCL's website doesn't show it). Owner's method
         // (2026-10-14), from an NCL cruise consultant's Florida resident quotes on 2026-10-13 for
-        // 2 adults and kids 15 and 17: final price minus Open Bar ($96 + $96) and Specialty Dining
-        // ($20 x 4) gives fare and taxes of $918 (Inside) and $968 (Balcony). Checked against every
-        // Inside and Balcony category, only Inside I4 ($1,078 online for 4) and Balcony BF ($1,138
-        // for 4, from its 2-guest price) give the same rate: 85.2% and 85.1%. Together:
-        // ($918 + $968) / ($1,078 + $1,138) = 85.1% of NCL's cabin price (fare and taxes), so
-        // 14.9% off. Gratuities and service charges unchanged.
-        const FL_QUOTE_CABIN = 918 + 968, FL_WEBSITE_CABIN = 1078 + 1138;
-        const FL_RESIDENT_OFF = 1 - FL_QUOTE_CABIN / FL_WEBSITE_CABIN;
+        // 2 adults and kids 15 and 17: final price minus taxes ($150 x 4) minus Open Bar ($96 + $96)
+        // and Specialty Dining ($20 x 4) leaves the cruise fare: $318 (Inside, $1,190 quote) and
+        // $368 (Balcony, $1,240 quote). Checked against every Inside and Balcony category, the
+        // closest pair is Inside I4 (NCL fare for 4: $478) and Balcony BB ($558), 33.5% and 34.1%
+        // off. Together: ($318 + $368) / ($478 + $558) = 66.2% of NCL's fare, so 33.8% off the
+        // cruise fare only. Taxes, gratuities and service charges unchanged.
+        const FL_QUOTE_FARE = 318 + 368, FL_WEBSITE_FARE = 478 + 558;
+        const FL_RESIDENT_OFF = 1 - FL_QUOTE_FARE / FL_WEBSITE_FARE;
         const FL_PCT = (FL_RESIDENT_OFF * 100).toFixed(1) + "%";
         const FL_QUOTE_DATE = "Oct 13, 2026";
-        // Cabins the owner's consultant can book for party sizes NCL's website won't sell (owner's
-        // request, 2026-10-14). BF holds 4, sells online for 2 and 3, but not for 4; the consultant's
-        // Balcony quote for 4 matched BF. Price for such a party: the 2 adults' online fares (from
-        // the 2-guest price) plus taxes for every guest, which is how NCL prices guests 3 and 4 under
-        // Kids Sail Free (checked: it reproduces NCL's own 4-guest price for I4, BB and B4, and BF at
-        // 3 guests). Only added while Kids Sail Free covers the cabin's type and taxes are known.
-        const CONSULTANT_CABINS = ["BF"];
-        const CONSULTANT_TEXT = "Not available online. Available through David's consultant.";
 
         let DATA = null, J = null;   // data file, the Joy sailing
         let COUNTS = null;           // data/counts.json when present and at most 7 days old
@@ -541,9 +532,12 @@
                 if (n - diners) dining.notes.push("under 13 eat free");
             }
 
-            // Florida resident estimate: a share off NCL's cabin price (fare and taxes), the owner's method.
+            // Florida resident estimate: a share off the cruise fare only (needs NCL's tax line to
+            // know the fare). Kids Sail Free guests already have a $0 fare, so nothing comes off them.
             const fare = taxes === null ? null : e.cabin_total - taxes;
-            const fl = { on: state.flResident, amount: state.flResident ? Math.round(e.cabin_total * FL_RESIDENT_OFF * 100) / 100 : 0 };
+            const fl = { on: state.flResident, amount: 0 };
+            if (state.flResident && fare !== null) fl.amount = Math.round(fare * FL_RESIDENT_OFF * 100) / 100;
+            if (state.flResident && fare === null) missing.push("Florida resident estimate (needs NCL's tax line)");
 
             const gratuities = sc.total + bar.total + dining.total;
             const total = e.cabin_total - fl.amount + plus.total + gratuities;
@@ -587,7 +581,7 @@
                    <div class="row missing"><span class="k">Taxes, fees and port expenses per guest (already in the line above)</span><span class="v">${NOT_FOUND}</span></div>`
                 : `<div class="row"><span class="k">Cruise fare</span><span class="v">${money(k.fare)}</span></div>
                    <div class="row"><span class="k">Taxes, fees and port expenses: ${k.n} x ${money(J.taxes_per_guest)}</span><span class="v">${money(k.taxes)}</span></div>`;
-            const flRow = k.fl.on ? `<div class="row"><span class="k">Florida resident rate (estimate, ${FL_PCT} off fare and taxes)</span><span class="v">&minus;${money(k.fl.amount)}</span></div>` : "";
+            const flRow = k.fl.on ? `<div class="row"><span class="k">Florida resident rate (estimate, ${FL_PCT} off the cruise fare)</span><span class="v">&minus;${money(k.fl.amount)}</span></div>` : "";
             return `
                 ${fareRows}
                 ${flRow}
@@ -686,7 +680,7 @@
             const meta = [c.size, c.capacity && !c.description.includes("holds up to") ? `holds up to ${c.capacity}` : ""].filter(Boolean).join(", ");
             return `<div class="cabin-line">${catHtml(c)}
                 ${meta ? `<div class="cat-meta">${esc(meta)}</div>` : ""}
-                ${c.guarantee ? `<div class="cat-meta gty">${GUARANTEE_TEXT}</div>` : ""}${consultantHtml(c, guests())}</div>`;
+                ${c.guarantee ? `<div class="cat-meta gty">${GUARANTEE_TEXT}</div>` : ""}</div>`;
         }
 
         // Price shown for a cabin in the tap list and the full table: the full total for this
@@ -703,7 +697,7 @@
                 ? `class="only" aria-pressed="true" aria-disabled="true" tabindex="-1"`
                 : `data-pick="${esc(c.code)}" aria-pressed="${pressed}"`;
             return `<li><button type="button" ${attrs}>
-                    <span>${catHtml(c)}${c.guarantee ? `<span class="cat-meta gty" style="display:block">${GUARANTEE_TEXT}</span>` : ""}${consultantHtml(c, n)}${gaugeHtml(c, n)}</span>
+                    <span>${catHtml(c)}${c.guarantee ? `<span class="cat-meta gty" style="display:block">${GUARANTEE_TEXT}</span>` : ""}${gaugeHtml(c, n)}</span>
                     <span class="price">${money(listPrice(c, n))}</span>
                 </button></li>`;
         }
@@ -784,7 +778,7 @@
                     const e = entry(c, n);
                     const meta = [c.size, c.capacity && !c.description.includes("holds up to") ? `holds up to ${c.capacity}` : "", c.guarantee ? GUARANTEE_TEXT : ""].filter(Boolean).join(". ");
                     return e.available
-                        ? `<tr class="pickable ${chosen && c.code === chosen.code ? "chosen" : ""}" data-code="${esc(c.code)}" data-typekey="${t.match}"><td>${catHtml(c)}${meta ? `<div class="cat-meta">${esc(meta)}</div>` : ""}${consultantHtml(c, n)}${gaugeHtml(c, n)}</td><td>${money(listPrice(c, n))}<span class="pp-small">${moneyR(listPrice(c, n) / n)} pp</span></td></tr>`
+                        ? `<tr class="pickable ${chosen && c.code === chosen.code ? "chosen" : ""}" data-code="${esc(c.code)}" data-typekey="${t.match}"><td>${catHtml(c)}${meta ? `<div class="cat-meta">${esc(meta)}</div>` : ""}${gaugeHtml(c, n)}</td><td>${money(listPrice(c, n))}<span class="pp-small">${moneyR(listPrice(c, n) / n)} pp</span></td></tr>`
                         : `<tr class="off"><td>${catHtml(c)}${meta ? `<div class="cat-meta">${esc(meta)}</div>` : ""}</td><td>${esc(e.reason)}</td></tr>`;
                 }).join("");
             }).join("");
@@ -821,7 +815,7 @@
             const on = state.flResident;
             document.getElementById("flToggle").checked = on;
             document.getElementById("flDesc").textContent = on
-                ? `About ${FL_PCT} off NCL's cabin price (fare and taxes). Estimated from an NCL cruise consultant's Florida resident quote on ${FL_QUOTE_DATE}, not shown on NCL's website. Confirm with NCL.`
+                ? `About ${FL_PCT} off the cruise fare (not taxes). Estimated from an NCL cruise consultant's Florida resident quote on ${FL_QUOTE_DATE}, not shown on NCL's website. Confirm with NCL.`
                 : "NCL's published online prices, with no Florida resident discount.";
         }
 
@@ -950,27 +944,6 @@
             return parts.join(", ");
         }
 
-        function addConsultantCabins() {
-            const ksf = J.kids_sail_free, tax = J.taxes_per_guest;
-            if (!ksf || tax == null) return;
-            for (const t of J.types) {
-                if (!ksf.types.includes(t.code)) continue;
-                for (const c of t.categories) {
-                    if (!CONSULTANT_CABINS.includes(c.code)) continue;
-                    const two = c.by_guests["2"];
-                    if (!two || !two.available) continue;
-                    for (const n of [3, 4]) {
-                        const e = c.by_guests[String(n)];
-                        if (!e || e.available || !c.capacity || c.capacity < n) continue;
-                        const total = Math.round(2 * (two.price_pp - tax) + n * tax);
-                        c.by_guests[String(n)] = { available: true, sold_out: false, consultant: true,
-                            price_pp: Math.round(total / n * 100) / 100, cabin_total: total, added_vs_2: total - two.cabin_total };
-                    }
-                }
-            }
-        }
-        const consultantHtml = (c, n) => entry(c, n).consultant ? `<span class="cat-meta consult" style="display:block">${CONSULTANT_TEXT}</span>` : "";
-
         function attachCounts() {
             const sc = COUNTS && COUNTS.sailings[J.id];
             for (const t of J.types) for (const c of t.categories) {
@@ -1010,7 +983,6 @@
                 J = d.sailings.find(s => s.id.startsWith("joy"));
                 if (!J) throw new Error("the sailing is missing");
                 document.getElementById("asOf").textContent = new Date(d.saved_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "America/New_York" });
-                addConsultantCabins();
                 attachCounts();
                 departedNote();
                 render();

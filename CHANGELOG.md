@@ -2,6 +2,14 @@
 
 All notable changes to this project are listed here. Versions follow Semantic Versioning (MAJOR.MINOR.PATCH). The version in `index.html` (`APP_VERSION`) must match the newest entry below; `tools/check_release.py` enforces this.
 
+## [1.1.0] - 2026-10-14
+
+### Changed
+- Florida resident rate estimate: now 33.8% off the cruise fare only; taxes are not discounted. Worked out by taking taxes, Open Bar and Specialty Dining out of the consultant's quotes ($318 Inside and $368 Balcony in fare) and comparing with NCL's fares for every Inside and Balcony cabin; the closest pair is Inside I4 and Balcony BB. For 2 adults and kids 15 and 17: I4 $1,188.51 (quote $1,190), BB $1,241.49 (quote $1,240). Was 14.9% off fare and taxes.
+
+### Removed
+- The "Not available online. Available through David's consultant." note and the 4-guest price for Balcony BF. With taxes taken out, the quotes match cabins NCL sells online, so nothing points to a cabin only the consultant can book. BF for 4 shows NCL's own answer again.
+
 ## [1.0.0] - 2026-10-13
 
 First version, built from the June 2027 tool (DASatizabal/cruise-cabin-comparison 4.10.0) for one sailing: Norwegian Joy, Nov 20, 2026, 3 nights from Miami.
