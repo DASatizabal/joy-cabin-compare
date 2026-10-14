@@ -2,6 +2,11 @@
 
 All notable changes to this project are listed here. Versions follow Semantic Versioning (MAJOR.MINOR.PATCH). The version in `index.html` (`APP_VERSION`) must match the newest entry below; `tools/check_release.py` enforces this.
 
+## [1.2.0] - 2026-10-14
+
+### Changed
+- Florida resident rate: now the exact amounts from NCL's own Florida resident view, compared with the regular website view for the same category (2 adults): off the fare of guests 1 and 2, Inside IB and I4 $60 each, Balcony BF $80, B4 $50, BX $15, Oceanview OA, OB and O4 $0. Every other cabin shows "Florida resident rate: not checked for this cabin" and no discount. Replaces the 33.8% estimate, since the real discount is a different dollar amount per category. The switch is now labeled "Florida resident rate" (no longer "estimate").
+
 ## [1.1.0] - 2026-10-14
 
 ### Changed

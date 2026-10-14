@@ -304,7 +304,7 @@
             <div class="toggle-container">
                 <input type="checkbox" class="toggle-switch" id="flToggle" checked aria-label="Florida resident rate">
                 <div>
-                    <div class="toggle-label" id="flLabel">Florida resident rate (estimate)</div>
+                    <div class="toggle-label" id="flLabel">Florida resident rate</div>
                     <div class="toggle-price" id="flDesc"></div>
                 </div>
             </div>
@@ -326,14 +326,14 @@
             <strong>About these prices</strong>
             <p>This page compares Norwegian Cruise Line's published rates. It does not book or hold a cabin. Prices come from NCL's booking system and are checked once a day. They change often, so check NCL before booking.</p>
             <p>Each total is the cruise fare, NCL's government taxes, fees and port expenses, the daily service charges (crew gratuities) for every guest 3 and older when you prepay them (otherwise they're shown separately as paid onboard), the gratuities for the Free at Sea offers you keep switched on, and Free at Sea Plus if you choose it. Unlimited Open Bar: guests 21 and over pay the full gratuity, a guest under 21 who is guest 2 pays for a soda package instead, and other guests under 21 pay nothing. Specialty Dining: guests 13 and over pay, under 13 eat free. NCL lists adults first, then kids oldest first. If NCL doesn't show a number on a given day, this page says so instead of guessing.</p>
-            <p>The Florida resident rate is the one number not from NCL's website: an estimate (33.8% off the cruise fare; taxes are not discounted) worked out from an NCL cruise consultant's Florida resident quote on Oct 13, 2026. Switch it off to see NCL's published prices.</p>
+            <p>Florida resident rates aren't on NCL's public website. The amounts used here were read from NCL's Florida resident view on Oct 14, 2026 for some cabins (Inside IB and I4, Balcony BF, B4 and BX, Oceanview) and are taken off NCL's daily fare for guests 1 and 2. Cabins not checked show no Florida discount. Switch it off to see NCL's published prices.</p>
             <p>Only ages are asked for. No names, birth dates or reservation details are collected.</p>
             <p id="footerVersion"></p>
         </div>
     </footer>
 
     <script>
-        const APP_VERSION = "1.1.0";
+        const APP_VERSION = "1.2.0";
         const DATA_URL = "data/prices.json";
         const COUNTS_URL = "data/counts.json";
         const COUNTS_MAX_AGE_DAYS = 7;
@@ -342,18 +342,16 @@
         const STORE_KEY = "joy-cabin-compare-v2";
         const GUARANTEE_TEXT = "Guarantee: NCL picks your cabin location";
         const NOT_FOUND = "Not found on NCL today";
-        // Florida resident rate: NOT read from NCL (NCL's website doesn't show it). Owner's method
-        // (2026-10-14), from an NCL cruise consultant's Florida resident quotes on 2026-10-13 for
-        // 2 adults and kids 15 and 17: final price minus taxes ($150 x 4) minus Open Bar ($96 + $96)
-        // and Specialty Dining ($20 x 4) leaves the cruise fare: $318 (Inside, $1,190 quote) and
-        // $368 (Balcony, $1,240 quote). Checked against every Inside and Balcony category, the
-        // closest pair is Inside I4 (NCL fare for 4: $478) and Balcony BB ($558), 33.5% and 34.1%
-        // off. Together: ($318 + $368) / ($478 + $558) = 66.2% of NCL's fare, so 33.8% off the
-        // cruise fare only. Taxes, gratuities and service charges unchanged.
-        const FL_QUOTE_FARE = 318 + 368, FL_WEBSITE_FARE = 478 + 558;
-        const FL_RESIDENT_OFF = 1 - FL_QUOTE_FARE / FL_WEBSITE_FARE;
-        const FL_PCT = (FL_RESIDENT_OFF * 100).toFixed(1) + "%";
-        const FL_QUOTE_DATE = "Oct 13, 2026";
+        // Florida resident rates: NOT read from NCL's public pages (they don't show them). The owner
+        // compared NCL's Florida resident view with the regular website view on 2026-10-14, 2 adults,
+        // same category, and the difference was always in the cruise fare only, a fixed dollar
+        // amount per guest that differs by category (NOTES.md, "Florida resident rates"):
+        // IB $219 to $159, I4 $239 to $179, BF $269 to $189, B4 $289 to $239, BX $219 to $204,
+        // OA and OB $259 both ways, O4 $269 both ways (very likely O4: its cabin number wasn't
+        // confirmed). Taken off the fare of guests 1 and 2 (the guests the screens showed; guests 3
+        // and 4 pay $0 fare under Kids Sail Free). Every other category: not checked, no discount.
+        const FL_OFF_PER_GUEST = { IB: 60, I4: 60, BF: 80, B4: 50, BX: 15, OA: 0, OB: 0, O4: 0 };
+        const FL_CHECKED_DATE = "Oct 14, 2026";
 
         let DATA = null, J = null;   // data file, the Joy sailing
         let COUNTS = null;           // data/counts.json when present and at most 7 days old
@@ -364,7 +362,7 @@
             // Free at Sea choices for the cabin (all guests in a cabin must choose the same offers).
             offers: { bar: true, dining: true, plus: false },
             prepayGratuities: false,     // service charges before sailing, or onboard on the last day (default onboard)
-            flResident: true,            // Florida resident rate estimate (default on)
+            flResident: true,            // Florida resident rates where checked (default on)
         };
 
         // ---------- helpers ----------
@@ -532,12 +530,12 @@
                 if (n - diners) dining.notes.push("under 13 eat free");
             }
 
-            // Florida resident estimate: a share off the cruise fare only (needs NCL's tax line to
-            // know the fare). Kids Sail Free guests already have a $0 fare, so nothing comes off them.
+            // Florida resident rate: the checked dollar amount for this category, off the fare of
+            // guests 1 and 2 (never more than the fare). Unchecked categories get no discount.
             const fare = taxes === null ? null : e.cabin_total - taxes;
-            const fl = { on: state.flResident, amount: 0 };
-            if (state.flResident && fare !== null) fl.amount = Math.round(fare * FL_RESIDENT_OFF * 100) / 100;
-            if (state.flResident && fare === null) missing.push("Florida resident estimate (needs NCL's tax line)");
+            const perGuest = FL_OFF_PER_GUEST[c.code];
+            const fl = { on: state.flResident, checked: perGuest !== undefined, perGuest: perGuest || 0, guests: Math.min(n, 2), amount: 0 };
+            if (fl.on && fl.checked) fl.amount = Math.min(fl.perGuest * fl.guests, fare === null ? Infinity : fare);
 
             const gratuities = sc.total + bar.total + dining.total;
             const total = e.cabin_total - fl.amount + plus.total + gratuities;
@@ -581,7 +579,10 @@
                    <div class="row missing"><span class="k">Taxes, fees and port expenses per guest (already in the line above)</span><span class="v">${NOT_FOUND}</span></div>`
                 : `<div class="row"><span class="k">Cruise fare</span><span class="v">${money(k.fare)}</span></div>
                    <div class="row"><span class="k">Taxes, fees and port expenses: ${k.n} x ${money(J.taxes_per_guest)}</span><span class="v">${money(k.taxes)}</span></div>`;
-            const flRow = k.fl.on ? `<div class="row"><span class="k">Florida resident rate (estimate, ${FL_PCT} off the cruise fare)</span><span class="v">&minus;${money(k.fl.amount)}</span></div>` : "";
+            const flRow = !k.fl.on ? ""
+                : !k.fl.checked ? `<div class="row muted"><span class="k">Florida resident rate: not checked for this cabin</span><span class="v">no discount</span></div>`
+                : !k.fl.amount ? `<div class="row muted"><span class="k">Florida resident rate (checked on NCL's Florida view): same as the website for this cabin</span><span class="v">$0</span></div>`
+                : `<div class="row"><span class="k">Florida resident rate (checked on NCL's Florida view): ${plural(k.fl.guests, "guest", "guests")} x ${money(k.fl.perGuest)} off the fare</span><span class="v">&minus;${money(k.fl.amount)}</span></div>`;
             return `
                 ${fareRows}
                 ${flRow}
@@ -786,7 +787,7 @@
                 <section class="panel" aria-label="Every cabin">
                     <div class="panel-title">Every cabin for ${plural(n, "guest", "guests")} (${priceBasis()})</div>
                     <table class="cabins"><tbody>${rows}</tbody></table>
-                    <p class="hint">Tap an available cabin to choose it. ${agesKnown() ? `Each price is that cabin's total ${state.prepayGratuities ? "" : "to pay now "}with your choices: fare, taxes${state.prepayGratuities ? ", service charges" : ""} and the Free at Sea options switched on${state.flResident ? ", with the Florida resident estimate" : ""}.${state.prepayGratuities ? "" : " Service charges are paid onboard and not included."}` : "Free at Sea and service charges are added once every kid's age is chosen."}${COUNTS ? " Cabins left are NCL's open cabins in that category for your party size; \"Count not available\" means NCL's answer couldn't be split cleanly (see NOTES.md)." : ""}</p>
+                    <p class="hint">Tap an available cabin to choose it. ${agesKnown() ? `Each price is that cabin's total ${state.prepayGratuities ? "" : "to pay now "}with your choices: fare, taxes${state.prepayGratuities ? ", service charges" : ""} and the Free at Sea options switched on${state.flResident ? ", with Florida resident rates where checked" : ""}.${state.prepayGratuities ? "" : " Service charges are paid onboard and not included."}` : "Free at Sea and service charges are added once every kid's age is chosen."}${COUNTS ? " Cabins left are NCL's open cabins in that category for your party size; \"Count not available\" means NCL's answer couldn't be split cleanly (see NOTES.md)." : ""}</p>
                 </section>`;
         }
 
@@ -815,7 +816,7 @@
             const on = state.flResident;
             document.getElementById("flToggle").checked = on;
             document.getElementById("flDesc").textContent = on
-                ? `About ${FL_PCT} off the cruise fare (not taxes). Estimated from an NCL cruise consultant's Florida resident quote on ${FL_QUOTE_DATE}, not shown on NCL's website. Confirm with NCL.`
+                ? `From NCL's Florida resident view, checked ${FL_CHECKED_DATE}, off the fare for guests 1 and 2: Inside IB and I4 $60, Balcony BF $80, B4 $50, BX $15 each. Oceanview: no discount. Other cabins: not checked. Confirm with NCL.`
                 : "NCL's published online prices, with no Florida resident discount.";
         }
 

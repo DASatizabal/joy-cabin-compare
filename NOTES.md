@@ -68,23 +68,29 @@ The daily age test (`fetch_prices.py`): one price summary with 1 adult (reservat
 
 Unlike the June page, every cabin price in the tap list and the full table is that cabin's full total with the current choices: cabin fare and taxes, service charges (Suite and Haven rate where it applies), Open Bar, Specialty Dining and Free at Sea Plus as switched on, for the chosen guests and ages. It is the same number as the card's Total and changes when a switch, a guest or an age changes. The small "pp" figure under it is that total divided by the guests. Until every kid's age is chosen, the lists show fare and taxes only and say so, because gratuities depend on age. Amounts NCL didn't show today are left out, as in the card.
 
-## Florida resident rate estimate (owner's request, 2026-10-13)
+## Florida resident rates (checked on NCL, 2026-10-14; version 1.2.0)
 
-NCL's website doesn't show Florida resident rates. The owner's NCL cruise consultant quoted, for 2 adults plus kids aged 15 and 17, with Open Bar for the adults and Specialty Dining for all 4, not a Guarantee cabin, priced about 15 minutes before the comparison: Inside $1,190 and Balcony $1,240 (2 adults only: $850 and $900; each kid adds $150 taxes plus $20 dining).
+NCL's public website doesn't show Florida resident rates. On 2026-10-14 the owner opened NCL's "View Guest Breakdown" for the same category twice, once in NCL's Florida resident view and once in the regular website view, for 2 adults with Open Bar and Specialty Dining. In every pair, Open Bar ($96 each), Specialty Dining ($20 each) and taxes ($150 each) were identical; only the cruise fare changed, by a fixed dollar amount per guest that differs by category:
 
-The same hour, NCL's online availability (unchanged from the morning) offered only one Inside (I4, Family Inside) and two Balconies (BB, B4) for 4 guests, so the quote was I4 and most likely BB. Online without service charges: I4 $1,350 (fare $478, taxes $600, Open Bar $192, dining $80) and BB $1,430 (fare $558). Kids Sail Free makes guests 3 and 4 pay $0 fare, so the whole difference ($160 and $190) comes off the adults' fares: $239 to $159 per adult on I4 (33.5% off) and $279 to $184 on BB (34.1% off).
+| Category | Website fare per guest | Florida fare per guest | Off per guest | Totals for 2 (website, Florida) |
+|---|---|---|---|---|
+| IB Inside (#9535 website) | $219 | $159 | $60 | $970, $850 |
+| I4 Family Inside (#12653 website) | $239 | $179 | $60 | $1,010, $890 |
+| BF Balcony (sold as "Balcony Guarantee") | $269 | $189 | $80 | $1,070, $910 |
+| B4 Family Balcony (#14876 website) | $289 | $239 | $50 | $1,110, $1,010 |
+| BX Guarantee Balcony | $219 | $204 | $15 | $970, $940 |
+| OA/OB Oceanview with Picture Window (#11706 Florida, #12102 website) | $259 | $259 | $0 | $1,050, $1,050 |
+| O4 Family Oceanview (very likely; #11700 Florida at $269, the website O4 fare; its category wasn't confirmed) | $269 | $269 | $0 | |
 
-Method in use since version 1.1.0 (owner's instruction, 2026-10-14): take each consultant price, subtract taxes ($150 x 4 = $600) and the Free at Sea gratuities in it (Open Bar $96 + $96, Specialty Dining $20 x 4 = $272). That leaves the cruise fare: $318 (Inside, $1,190 quote) and $368 (Balcony, $1,240 quote). Divide by NCL's published fare (before taxes) for the same cabin and party.
+The Florida fare for each category is the subtotal minus Open Bar and Specialty Dining, divided by 2 (the Florida view doesn't list the fare line). The website fares match the page's data exactly, and the page showed the same website totals.
 
-Every Inside and Balcony category, NCL fares for 2 adults and 2 kids (Kids Sail Free: guests 3 and 4 pay $0 fare, so the fare for 4 is the 2 adults' fares, from the 2-guest price), prices from 2026-10-14 00:27 UTC: Inside IX $398 (20.1% off), IB and IF $438 (27.4%), IA $458 (30.6%, holds 3), I4 $478 (33.5%); Balcony BX $438 (16.0%), BF $538 (31.6%), BA $558 (34.1%, holds 3), BB $558 (34.1%), B4 $578 (36.3%), B1 $758 (51.5%, holds 3). The closest Inside and Balcony pair is I4 and BB (both sold online for 4). Next best: IA and BF, $5.10 off in total; I4 and BF, $9.49.
+Page rule (`FL_OFF_PER_GUEST` in `index.html`): with the "Florida resident rate" switch on (default), a checked category's amount comes off the fare of guests 1 and 2, never more than the fare (guests 3 and 4 pay $0 fare under Kids Sail Free; a 5th guest's Florida fare wasn't checked, so it isn't discounted). Checked $0 categories say "same as the website". Every other category (IF, IA, IX, OX, O5, BA, BB, B1, Club Balcony Suite, Suite, The Haven) shows "Florida resident rate: not checked for this cabin" and no discount. The amounts are not refreshed daily; if NCL's Florida view is checked again, update `FL_OFF_PER_GUEST`, `FL_CHECKED_DATE` and this section. The page never shows or stores any guest names from those screens.
 
-The page uses ($318 + $368) / ($478 + $558) = 66.2% of NCL's fare, so 33.8% off the cruise fare only (`FL_QUOTE_FARE` and `FL_WEBSITE_FARE` in `index.html`). Taxes are not discounted. Result for this family: I4 $1,188.51 (quote $1,190), BB $1,241.49 (quote $1,240). It needs NCL's tax line to know the fare; without it the estimate is left out and listed as not included.
+Consultant quotes (2026-10-13), explained by these rates: 2 adults Inside $850 is IB at the Florida rate; 4 guests Inside $1,190 is IB for 2 adults and 2 kids (NCL's website doesn't sell IB for 4, so the consultant booked it); 2 adults Balcony $900 and 4 guests $1,240 are $10 under BF at the Florida rate ($910 and $1,250), likely a small price move.
 
-History: 1.0.0 went live with 14.9% off fare and taxes together, from the same quotes without taking out taxes. That method matched I4 and BF, and led to a "Not available online. Available through David's consultant." note on BF for 4 guests (BF holds 4 but NCL's website doesn't sell it for 4). With taxes taken out, the quotes match I4 and BB, which are both sold online, so 1.1.0 removed the BF note and its 4-guest price. Earlier tries during review: 34% off the fare and 16.4% off fare and taxes, both from BB alone.
+History: before the Florida view was checked, the page estimated the rate from the consultant's quotes alone: 1.0.0 used 14.9% off fare and taxes (and briefly priced BF for 4 as "Available through David's consultant"), 1.1.0 used 33.8% off the fare. Both were replaced in 1.2.0 by the checked amounts above, because the real discount is a different dollar amount per category, not one percentage.
 
 Service charges (4 guests x $20 x 3 nights = $240 for this family) are not in the consultant's quote. Owner's rule (2026-10-14): with the prepay switch off (the default), every total on the page is what's paid now, without service charges, and the Total line adds "+ $240 service charges paid onboard (can be removed at Guest Services)"; the service charge line in the breakdown is grey and marked "onboard". With prepay on, totals include them ($1,480 for this family). So with the defaults, this family's Balcony BB reads $1,240, the consultant's number.
-
-It is the one number on the page not read from NCL, so it is labeled "estimate" everywhere, explained in the footer, and the switch ("Florida resident rate (estimate)", in the card with the prepay switch, default on) turns it off to show NCL's published prices. It also applies to the list prices. It is not refreshed daily; if the consultant quotes again, update `FL_QUOTE_CABIN`, `FL_WEBSITE_CABIN`, `FL_QUOTE_DATE` and this section.
 
 Same day, the prepay gratuities switch default changed to off (service charges charged onboard), owner's request. The saved-choices key moved to `joy-cabin-compare-v2` so earlier previews pick up both new defaults.
 
