@@ -314,8 +314,8 @@
             <div class="toggle-container">
                 <input type="checkbox" class="toggle-switch" id="prepayToggle" aria-label="Prepay gratuities">
                 <div>
-                    <div class="toggle-label" id="prepayLabel">Prepay gratuities</div>
-                    <div class="toggle-price" id="prepayDesc">Service charges are paid with the cruise, before you sail</div>
+                    <div class="toggle-label" id="prepayLabel">Prepay gratuities (No)</div>
+                    <div class="toggle-price" id="prepayDesc">Pay onboard on the last day. Service charges are not in the totals. They're charged to your onboard account and can be removed at Guest Services.</div>
                 </div>
             </div>
             <p class="hint">Daily gratuities can be adjusted or removed onboard at Guest Services.</p>
@@ -336,7 +336,7 @@
     </footer>
 
     <script>
-        const APP_VERSION = "1.4.0";
+        const APP_VERSION = "1.4.1";
         const DATA_URL = "data/prices.json";
         const COUNTS_URL = "data/counts.json";
         const COUNTS_MAX_AGE_DAYS = 7;
@@ -863,10 +863,10 @@
         function renderPrepay() {
             const on = state.prepayGratuities;
             document.getElementById("prepayToggle").checked = on;
-            document.getElementById("prepayLabel").textContent = on ? "Prepay gratuities" : "Pay onboard on the last day";
+            document.getElementById("prepayLabel").textContent = on ? "Prepay gratuities" : "Prepay gratuities (No)";
             document.getElementById("prepayDesc").textContent = on
                 ? "Service charges are paid now with the cruise and included in the totals."
-                : "Service charges are not in the totals. They're charged to your onboard account and can be removed at Guest Services.";
+                : "Pay onboard on the last day. Service charges are not in the totals. They're charged to your onboard account and can be removed at Guest Services.";
         }
 
         function render(msg) {
@@ -1011,6 +1011,7 @@
         document.getElementById("versionBadge").textContent = "v" + APP_VERSION;
         document.getElementById("footerVersion").textContent = "Version " + APP_VERSION;
         restore();
+        renderPrepay();   // the saved prepay choice shows its own wording right away, before the data loads
         // Counts are optional: any problem loading them just hides the count labels.
         const countsPromise = fetch(COUNTS_URL, { cache: "no-cache" })
             .then(r => r.ok ? r.json() : null)

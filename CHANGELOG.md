@@ -2,6 +2,14 @@
 
 All notable changes to this project are listed here. Versions follow Semantic Versioning (MAJOR.MINOR.PATCH). The version in `index.html` (`APP_VERSION`) must match the newest entry below; `tools/check_release.py` enforces this.
 
+## [1.4.1] - 2026-10-15
+
+### Changed
+- Prepay switch wording when OFF (the default): title "Prepay gratuities (No)", subtitle "Pay onboard on the last day. Service charges are not in the totals. They're charged to your onboard account and can be removed at Guest Services." ON wording unchanged. Text only: totals, behavior, default and saved choices are the same.
+
+### Fixed
+- The switch showed old ON wording ("Prepay gratuities", "Service charges are paid with the cruise, before you sail") until the prices file loaded, or for good if it failed to load. The page now shows the saved or default choice's wording right away.
+
 ## [1.4.0] - 2026-10-15
 
 ### Fixed
