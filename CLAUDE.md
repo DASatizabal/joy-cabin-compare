@@ -27,7 +27,7 @@ Built from the owner's June 2027 tool (public repo DASatizabal/cruise-cabin-comp
 - `data/prices.json` (schema 1): written by `tools/fetch_prices.py`. Same layout as the June repo's schema 2 for one sailing, plus `warnings`, `sailings[].ncl_ids` and `sailings[].kids_sail_free` (NCL's offer text and the cabin types it covers, or null). `taxes_per_guest`, `gratuities` and each entry of `rates` may be null, only with a warning.
 - `data/counts.json` (schema 1): written by `tools/fetch_counts.py`, same as June.
 - `data/florida.json` (schema 1): written by `tools/fetch_florida.py` on the AI PC, not by GitHub Actions. `categories[<code>]`: `type`, `website_fare_pp`, `florida_fare_pp`, `off_pp`, `checked_at`, `source`.
-- `tools/decide_run.py`: first job of the refresh. Scheduled runs skip work done that UTC day; every run skips from the sail date on.
+- `tools/decide_run.py`: first job of the refresh. Scheduled runs skip work done that day; every run skips from the sail date on. "That day" is always the Eastern date (America/New_York, the zone, never a fixed offset), here, in `fetch_counts.py`'s full-sweep cadence and in `fetch_florida.py`; never the UTC date (NOTES.md, "Daily refresh and publishing").
 
 ## Automation
 

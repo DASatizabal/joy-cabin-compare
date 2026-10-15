@@ -13,7 +13,7 @@ Modes:
   light  only categories whose last reliable count was under 15, plus the next pricier
          category each one needs for the subtraction; everything else keeps its last count
   auto   full when there is no usable previous file or the last full sweep was 3 or more
-         days ago (by UTC date), light otherwise
+         days ago (by Eastern date, America/New_York), light otherwise
 
 Method (see NOTES.md, "Cabin counts"): NCL's cabin/availability call for a category returns it
 plus every pricier category of the same broad type, with per location totals (numberOfCabins).
@@ -73,7 +73,8 @@ def choose_mode(requested, previous, now):
         return "full", "requested"
     if requested == "light":
         return "light", "requested"
-    days = (now.date() - parse_iso(previous["last_full_sweep"]).date()).days
+    # Days counted in Miami time, like tools/decide_run.py (an evening sweep belongs to that evening's day).
+    days = (now.astimezone(fp.MIAMI).date() - parse_iso(previous["last_full_sweep"]).astimezone(fp.MIAMI).date()).days
     if days >= FULL_SWEEP_EVERY_DAYS:
         return "full", f"last full sweep was {days} days ago"
     return "light", f"last full sweep was {days} day(s) ago"

@@ -3,12 +3,17 @@
 
   python3 tools/decide_run.py --event schedule
 
+"Today" is the date in Miami (America/New_York, so daylight saving time is handled), never the
+UTC date. Why: on 2026-10-13 a manual run at 8:27 PM Eastern saved prices at 2026-10-14T00:27Z;
+by UTC date that counted as Oct 14, so all three scheduled runs on Oct 14 skipped the prices job
+and the page kept prices almost 24 hours old (NCL cut Oceanview $30 per guest in that time).
+
 Scheduled runs (10:17, 14:47 and 19:37 UTC) skip work that is already done today:
-  - prices and counts both saved today (UTC date of saved_at): skip everything
+  - prices and counts both saved today (Eastern date of saved_at): skip everything
   - prices saved today, counts not: skip the price job, run only counts
   - otherwise: run both
 Manual runs and branch test runs always run both.
-From the sail date on (UTC), every run skips everything: the ship has sailed and NCL no
+From the sail date on (Eastern), every run skips everything: the ship has sailed and NCL no
 longer sells it, so the page keeps the last prices it had.
 
 Writes "prices=true|false" and "counts=true|false" to GITHUB_OUTPUT (or prints them when
@@ -23,14 +28,23 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from fetch_prices import SAILING  # noqa: E402
+from fetch_prices import SAILING, MIAMI  # noqa: E402   (MIAMI = ZoneInfo("America/New_York"))
+
+
+def parse_utc(text):
+    return dt.datetime.strptime(text, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=dt.timezone.utc)
+
+
+def eastern_date(when):
+    """The calendar date in Miami for a UTC time (EDT or EST, whichever applies that day)."""
+    return when.astimezone(MIAMI).date()
 
 
 def saved_date(path):
     try:
         with open(path, encoding="utf-8") as f:
             saved = json.load(f)["saved_at"]
-        return dt.datetime.strptime(saved, "%Y-%m-%dT%H:%M:%SZ").date(), saved
+        return eastern_date(parse_utc(saved)), saved
     except Exception as e:
         return None, f"unreadable ({e.__class__.__name__})"
 
@@ -38,7 +52,7 @@ def saved_date(path):
 def decide(event, prices_path, counts_path, today, depart):
     prices_day, prices_saved = saved_date(prices_path)
     counts_day, counts_saved = saved_date(counts_path)
-    seen = f"prices saved_at {prices_saved}, counts saved_at {counts_saved}, today (UTC) {today}"
+    seen = f"prices saved_at {prices_saved}, counts saved_at {counts_saved}, today (Eastern) {today}"
     if today >= depart:
         return False, False, f"Skipped: the ship sails on {depart}, so there is nothing left to refresh ({seen})."
     if event != "schedule":
@@ -58,9 +72,9 @@ def main():
     ap.add_argument("--event", required=True)
     ap.add_argument("--prices", default="data/prices.json")
     ap.add_argument("--counts", default="data/counts.json")
-    ap.add_argument("--today", help="YYYY-MM-DD, for tests; default is today's UTC date")
+    ap.add_argument("--now", help="a UTC time like 2026-10-14T10:17:00Z, for tests; default is now")
     args = ap.parse_args()
-    today = dt.date.fromisoformat(args.today) if args.today else dt.datetime.now(dt.timezone.utc).date()
+    today = eastern_date(parse_utc(args.now) if args.now else dt.datetime.now(dt.timezone.utc))
     depart = dt.date.fromisoformat(SAILING["depart"])
     prices, counts, why = decide(args.event, args.prices, args.counts, today, depart)
     print(f"::notice title=Refresh decision::{why}")

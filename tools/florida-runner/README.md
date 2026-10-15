@@ -4,7 +4,7 @@ This sets up the AI PC to read NCL's Florida resident prices for the Joy Nov 20,
 
 What it does each run: for every cabin type at 2 guests, it asks NCL for the website price (signed out) and the Florida price (signed in), and saves only the numbers in `data/florida.json`. No names, email, Latitudes number or anything else from your account. It only uses NCL's price calls, never anything that books or holds a cabin. About 70 calls, 2 seconds apart, about 3 minutes.
 
-It only does what isn't done yet today (by the UTC date, like the GitHub refresh): if every cabin already has today's Florida price, a run finishes in seconds; if a run failed, the next one tries again; if a few cabins failed, the next run checks only those. Add `--force` to check every cabin anyway.
+It only does what isn't done yet today (by the date in Miami, like the GitHub refresh): if every cabin already has today's Florida price, a run finishes in seconds; if a run failed, the next one tries again; if a few cabins failed, the next run checks only those. Add `--force` to check every cabin anyway.
 
 The two ways to run it:
 - `py -3 tools\fetch_florida.py` checks and saves `data\florida.json` on the AI PC only. The page doesn't change.
@@ -30,7 +30,7 @@ Important: the folder `D:\AI-VAULT\ncl-profile` holds your signed-in NCL session
    The last two lines make this copy sign its updates with GitHub's private address instead of your personal email, because the repository is public (GitHub blocks pushes that would publish a personal email, and the script refuses to publish without this).
 6. Install the browser tool. Type each line and press Enter after each (the second one downloads a backup browser and takes a minute):
    ```
-   py -3 -m pip install playwright
+   py -3 -m pip install playwright tzdata
    py -3 -m playwright install chromium
    ```
 7. Sign in once. Type this and press Enter:

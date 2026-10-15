@@ -2,6 +2,19 @@
 
 All notable changes to this project are listed here. Versions follow Semantic Versioning (MAJOR.MINOR.PATCH). The version in `index.html` (`APP_VERSION`) must match the newest entry below; `tools/check_release.py` enforces this.
 
+## [1.4.0] - 2026-10-15
+
+### Fixed
+- Stale prices: "done that day" now means the Eastern date (America/New_York), not the UTC date, in `tools/decide_run.py` (prices, counts, sail-date stop), `tools/fetch_counts.py` (full-sweep cadence) and `tools/fetch_florida.py` (cabins already done, sail-date stop). A manual run on Oct 13 at 8:27 PM Eastern was saved as Oct 14 UTC, so every scheduled run on Oct 14 skipped the prices job and the page kept prices almost 24 hours old while NCL cut Oceanview fares $30 per guest (OA and OB $259 to $229, O4 $269 to $239, O5 $299 to $269). Uses the time zone, not a fixed offset, because daylight saving time ends on Nov 1, after which the Florida runner's 7:00 PM Eastern run would have landed on the next UTC day and redone every signed-in call.
+
+### Changed
+- `tools/fetch_florida.py` makes no NCL calls on runs with nothing left to check (it now reads the cabin list from `data/prices.json` and calls availability only when something is due): 73 calls a day before, 70 after (142 a day after Nov 1 under the old UTC check). GitHub's daily calls are unchanged.
+- "Prices as of" shows the Eastern date and time, for example "Oct 13, 8:27 PM ET".
+- `tools/florida-runner/README.md` installs `tzdata` with Playwright (Windows has no built-in time zone database).
+
+### Added
+- An amber warning under the dates when the AI PC's latest website fare readings (last 24 hours, newer than the price refresh) disagree with the page's prices: "NCL prices have moved since the last refresh. Totals may be off until the next update." Totals are not changed.
+
 ## [1.3.3] - 2026-10-14
 
 ### Fixed

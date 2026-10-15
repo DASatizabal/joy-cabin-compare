@@ -56,8 +56,27 @@ def log(msg):
     print(msg, flush=True)
 
 
+def now_utc():
+    """The current time (one place, so tests can set the clock)."""
+    return dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
+
+
 def now_iso():
-    return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return now_utc().strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def eastern_date(text_or_time):
+    """Calendar date in Miami (America/New_York: EDT or EST as that day has it) for a UTC time or
+    a "2026-10-14T18:07:38Z" string. A date-only string ("2026-10-14") is taken as that date.
+
+    "Done today" uses this, never the UTC date: after daylight saving time ends on 2026-11-01,
+    the 7:00 PM Eastern run is at 00:00 UTC, the next UTC day, and a UTC check would redo every
+    signed-in call."""
+    if isinstance(text_or_time, str):
+        if len(text_or_time) == 10:
+            return dt.date.fromisoformat(text_or_time)
+        text_or_time = dt.datetime.strptime(text_or_time, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=dt.timezone.utc)
+    return text_or_time.astimezone(fp.MIAMI).date()
 
 
 def load_json(path):
@@ -178,16 +197,18 @@ def layout(res):
 
 # ---------- the sailing and its categories ----------
 
-def sailing_and_categories():
+def sailing_and_categories(with_fare_codes=True):
+    """The sailing and its cabin types from data/prices.json (no NCL call). With with_fare_codes,
+    one NCL availability call for today's default Free at Sea promotion per cabin type; runs with
+    nothing left to check skip it, so they make no NCL calls at all."""
     prices = load_json(PRICES)
     if not prices or not prices.get("sailings"):
         raise SystemExit(f"Cannot read {PRICES}")
     s = prices["sailings"][0]
     cfg = dict(fp.SAILING, itinerary_code=s["itinerary_code"], package_id=s["package_id"])
-    # Today's default Free at Sea promotion per cabin type (what the page prices).
-    fare_codes = fp.default_fare_codes(fp.fetch_availability(cfg, GUESTS))
     cats = [(t["code"], c["code"]) for t in s["types"] for c in t["categories"]
             if not c["solo"] and c["by_guests"][str(GUESTS)]["available"]]
+    fare_codes = fp.default_fare_codes(fp.fetch_availability(cfg, GUESTS)) if with_fare_codes else None
     return s, cfg, fare_codes, cats
 
 
@@ -289,7 +310,7 @@ def publish():
             log("Nothing new to publish.")
             return 0
     else:
-        subprocess.run(["git", "-C", ROOT, "commit", "-q", "-m", f"Refresh Florida rates {now_iso()[:10]}"], check=True)
+        subprocess.run(["git", "-C", ROOT, "commit", "-q", "-m", f"Refresh Florida rates {eastern_date(now_utc())}"], check=True)
     for attempt in range(4):
         if subprocess.run(["git", "-C", ROOT, "pull", "--rebase", "-q"]).returncode == 0 and \
            subprocess.run(["git", "-C", ROOT, "push", "-q", "origin", "HEAD:main"]).returncode == 0:
@@ -301,24 +322,27 @@ def publish():
 
 
 def daily(profile, show, push, force=False):
-    """Checks only what isn't done yet today (UTC date, like the GitHub refresh): a category counts
+    """Checks only what isn't done yet today (Eastern date, like the GitHub refresh): a category counts
     as done when today's entry came from the signed-in account. So a second run the same day
     finishes in seconds, a run after a failure checks again, and after a partial failure only the
     cabins that failed are checked. --force checks every cabin anyway."""
     if push:
         subprocess.run(["git", "-C", ROOT, "pull", "--rebase", "--autostash", "-q"], check=True)
-    today = dt.datetime.now(dt.timezone.utc).date()
+    today = eastern_date(now_utc())
     if today >= dt.date.fromisoformat(fp.SAILING["depart"]):
         log("The ship has sailed; nothing to check.")
         return 0
-    s, cfg, fare_codes, cats = sailing_and_categories()
+    s, cfg, _, cats = sailing_and_categories(with_fare_codes=False)
     prev = (load_json(OUT) or {}).get("categories") or {}
-    done_today = lambda code: (prev.get(code) or {}).get("source") == LOGGED_IN and \
-        str((prev.get(code) or {}).get("checked_at", ""))[:10] == today.isoformat()
-    todo = cats if force else [(t, c) for t, c in cats if not done_today(c)]
+
+    def checked_today(entry):
+        return (entry or {}).get("source") == LOGGED_IN and entry.get("checked_at") and \
+            eastern_date(entry["checked_at"]) == today
+    todo = cats if force else [(t, c) for t, c in cats if not checked_today(prev.get(c))]
     if not todo:
-        log(f"Already checked today: all {len(cats)} cabins have today's Florida price.")
+        log(f"Already checked today: all {len(cats)} cabins have today's Florida price. No NCL calls.")
         return publish() if push else 0
+    fare_codes = fp.default_fare_codes(fp.fetch_availability(cfg, GUESTS))
     if len(todo) < len(cats):
         log(f"{len(cats) - len(todo)} cabins already checked today; checking the other {len(todo)}: {', '.join(c for t, c in todo)}")
     pw, ctx, page = open_browser(profile, show)
@@ -348,8 +372,7 @@ def daily(profile, show, push, force=False):
         return 4
     # Sanity check over everything signed in today: some cabin should get a Florida price
     # (Inside and Balcony did on 2026-10-14). If none does, NCL didn't apply the login.
-    today_entries = [out[c] for t, c in cats if c in out and out[c].get("source") == LOGGED_IN
-                     and str(out[c].get("checked_at", ""))[:10] == today.isoformat()]
+    today_entries = [out[c] for t, c in cats if checked_today(out.get(c))]
     if len(today_entries) >= 10 and not any(e["off_pp"] > 0 for e in today_entries):
         log("No cabin got a Florida price today: NCL probably didn't apply the login. File not changed.")
         return 3

@@ -15,6 +15,8 @@ name: Refresh prices
 # GitHub's schedules are best effort (the June repo saw runs 1 to 7 hours late), so there are
 # three times a day. The first job ("decide") makes scheduled runs skip work already done
 # today, and makes every run skip from the sail date on. Manual runs always run fully.
+# "Today" is the Eastern date (America/New_York), not the UTC date: an evening run belongs to
+# that evening's day, so the next morning still refreshes (tools/decide_run.py, NOTES.md).
 # CruiseFeed is never called here.
 on:
   schedule:
