@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "saved_at": "2026-10-18T11:03:37Z",
+ "saved_at": "2026-10-18T15:00:27Z",
  "sailing_id": "joy-2026-11-20",
  "package_id": "23379711",
  "guests": 2,
@@ -155,7 +155,7 @@
    "website_fare_pp": 239.0,
    "florida_fare_pp": 159.0,
    "off_pp": 80.0,
-   "checked_at": "2026-10-17T11:00:30Z",
+   "checked_at": "2026-10-18T15:00:18Z",
    "source": "logged-in NCL account"
   },
   "IF": {
@@ -227,7 +227,7 @@
    "website_fare_pp": 239.0,
    "florida_fare_pp": 239.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-17T11:01:13Z",
+   "checked_at": "2026-10-18T15:00:24Z",
    "source": "logged-in NCL account"
   },
   "O5": {
