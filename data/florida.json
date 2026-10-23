@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "saved_at": "2026-10-22T11:04:14Z",
+ "saved_at": "2026-10-23T11:03:35Z",
  "sailing_id": "joy-2026-11-20",
  "package_id": "23379711",
  "guests": 2,
@@ -8,10 +8,10 @@
  "categories": {
   "B1": {
    "type": "BALCONY",
-   "website_fare_pp": 309.0,
-   "florida_fare_pp": 309.0,
-   "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:02:16Z",
+   "website_fare_pp": 369.0,
+   "florida_fare_pp": 339.0,
+   "off_pp": 30.0,
+   "checked_at": "2026-10-23T11:01:44Z",
    "source": "logged-in NCL account"
   },
   "B4": {
@@ -19,7 +19,7 @@
    "website_fare_pp": 349.0,
    "florida_fare_pp": 239.0,
    "off_pp": 110.0,
-   "checked_at": "2026-10-22T11:02:22Z",
+   "checked_at": "2026-10-23T11:01:51Z",
    "source": "logged-in NCL account"
   },
   "BA": {
@@ -27,7 +27,7 @@
    "website_fare_pp": 279.0,
    "florida_fare_pp": 209.0,
    "off_pp": 70.0,
-   "checked_at": "2026-10-22T11:02:09Z",
+   "checked_at": "2026-10-23T11:01:37Z",
    "source": "logged-in NCL account"
   },
   "BB": {
@@ -35,7 +35,7 @@
    "website_fare_pp": 269.0,
    "florida_fare_pp": 199.0,
    "off_pp": 70.0,
-   "checked_at": "2026-10-22T11:02:02Z",
+   "checked_at": "2026-10-23T11:01:31Z",
    "source": "logged-in NCL account"
   },
   "BF": {
@@ -43,7 +43,7 @@
    "website_fare_pp": 239.0,
    "florida_fare_pp": 189.0,
    "off_pp": 50.0,
-   "checked_at": "2026-10-22T11:01:56Z",
+   "checked_at": "2026-10-23T11:01:25Z",
    "source": "logged-in NCL account"
   },
   "BX": {
@@ -51,15 +51,15 @@
    "website_fare_pp": 229.0,
    "florida_fare_pp": 219.0,
    "off_pp": 10.0,
-   "checked_at": "2026-10-22T11:01:49Z",
+   "checked_at": "2026-10-23T11:01:18Z",
    "source": "logged-in NCL account"
   },
   "H5": {
    "type": "HAVEN",
-   "website_fare_pp": 1449.0,
-   "florida_fare_pp": 1449.0,
+   "website_fare_pp": 1249.0,
+   "florida_fare_pp": 1249.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:04:07Z",
+   "checked_at": "2026-10-23T11:03:29Z",
    "source": "logged-in NCL account"
   },
   "H6": {
@@ -67,15 +67,15 @@
    "website_fare_pp": 1649.0,
    "florida_fare_pp": 1649.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:04:14Z",
+   "checked_at": "2026-10-23T11:03:35Z",
    "source": "logged-in NCL account"
   },
   "HB": {
    "type": "HAVEN",
-   "website_fare_pp": 1099.0,
-   "florida_fare_pp": 1099.0,
+   "website_fare_pp": 999.0,
+   "florida_fare_pp": 999.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:04:01Z",
+   "checked_at": "2026-10-23T11:03:23Z",
    "source": "logged-in NCL account"
   },
   "HC": {
@@ -83,7 +83,7 @@
    "website_fare_pp": 1049.0,
    "florida_fare_pp": 1049.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:03:54Z",
+   "checked_at": "2026-10-23T11:03:17Z",
    "source": "logged-in NCL account"
   },
   "HE": {
@@ -91,7 +91,7 @@
    "website_fare_pp": 799.0,
    "florida_fare_pp": 799.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:03:47Z",
+   "checked_at": "2026-10-23T11:03:11Z",
    "source": "logged-in NCL account"
   },
   "HF": {
@@ -104,18 +104,18 @@
   },
   "HG": {
    "type": "HAVEN",
-   "website_fare_pp": 699.0,
-   "florida_fare_pp": 699.0,
+   "website_fare_pp": 799.0,
+   "florida_fare_pp": 799.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:03:28Z",
+   "checked_at": "2026-10-23T11:02:52Z",
    "source": "logged-in NCL account"
   },
   "HH": {
    "type": "HAVEN",
-   "website_fare_pp": 749.0,
-   "florida_fare_pp": 749.0,
+   "website_fare_pp": 629.0,
+   "florida_fare_pp": 629.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:03:41Z",
+   "checked_at": "2026-10-23T11:03:05Z",
    "source": "logged-in NCL account"
   },
   "HI": {
@@ -123,103 +123,103 @@
    "website_fare_pp": 649.0,
    "florida_fare_pp": 649.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:03:22Z",
+   "checked_at": "2026-10-23T11:02:46Z",
    "source": "logged-in NCL account"
   },
   "HJ": {
    "type": "HAVEN",
-   "website_fare_pp": 699.0,
-   "florida_fare_pp": 699.0,
+   "website_fare_pp": 599.0,
+   "florida_fare_pp": 599.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:03:35Z",
+   "checked_at": "2026-10-23T11:02:58Z",
    "source": "logged-in NCL account"
   },
   "I4": {
    "type": "INSIDE",
-   "website_fare_pp": 239.0,
+   "website_fare_pp": 199.0,
    "florida_fare_pp": 179.0,
-   "off_pp": 60.0,
-   "checked_at": "2026-10-22T11:01:10Z",
+   "off_pp": 20.0,
+   "checked_at": "2026-10-23T11:00:47Z",
    "source": "logged-in NCL account"
   },
   "IA": {
    "type": "INSIDE",
-   "website_fare_pp": 229.0,
+   "website_fare_pp": 189.0,
    "florida_fare_pp": 169.0,
-   "off_pp": 60.0,
-   "checked_at": "2026-10-22T11:01:03Z",
+   "off_pp": 20.0,
+   "checked_at": "2026-10-23T11:00:41Z",
    "source": "logged-in NCL account"
   },
   "IB": {
    "type": "INSIDE",
-   "website_fare_pp": 219.0,
+   "website_fare_pp": 179.0,
    "florida_fare_pp": 159.0,
-   "off_pp": 60.0,
-   "checked_at": "2026-10-22T11:00:50Z",
+   "off_pp": 20.0,
+   "checked_at": "2026-10-23T11:00:29Z",
    "source": "logged-in NCL account"
   },
   "IF": {
    "type": "INSIDE",
-   "website_fare_pp": 219.0,
+   "website_fare_pp": 169.0,
    "florida_fare_pp": 159.0,
-   "off_pp": 60.0,
-   "checked_at": "2026-10-22T11:00:57Z",
+   "off_pp": 10.0,
+   "checked_at": "2026-10-23T11:00:35Z",
    "source": "logged-in NCL account"
   },
   "IX": {
    "type": "INSIDE",
-   "website_fare_pp": 199.0,
-   "florida_fare_pp": 159.0,
+   "website_fare_pp": 159.0,
+   "florida_fare_pp": 119.0,
    "off_pp": 40.0,
-   "checked_at": "2026-10-22T11:00:44Z",
+   "checked_at": "2026-10-23T11:00:17Z",
    "source": "logged-in NCL account"
   },
   "M4": {
    "type": "MINISUITE",
-   "website_fare_pp": 399.0,
+   "website_fare_pp": 359.0,
    "florida_fare_pp": 269.0,
-   "off_pp": 130.0,
-   "checked_at": "2026-10-22T11:02:59Z",
+   "off_pp": 90.0,
+   "checked_at": "2026-10-23T11:02:28Z",
    "source": "logged-in NCL account"
   },
   "M6": {
    "type": "MINISUITE",
-   "website_fare_pp": 359.0,
-   "florida_fare_pp": 359.0,
+   "website_fare_pp": 329.0,
+   "florida_fare_pp": 329.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:02:47Z",
+   "checked_at": "2026-10-23T11:02:16Z",
    "source": "logged-in NCL account"
   },
   "MA": {
    "type": "MINISUITE",
-   "website_fare_pp": 359.0,
+   "website_fare_pp": 319.0,
    "florida_fare_pp": 249.0,
-   "off_pp": 110.0,
-   "checked_at": "2026-10-22T11:02:53Z",
+   "off_pp": 70.0,
+   "checked_at": "2026-10-23T11:02:22Z",
    "source": "logged-in NCL account"
   },
   "MB": {
    "type": "MINISUITE",
-   "website_fare_pp": 339.0,
+   "website_fare_pp": 299.0,
    "florida_fare_pp": 239.0,
-   "off_pp": 100.0,
-   "checked_at": "2026-10-22T11:02:41Z",
+   "off_pp": 60.0,
+   "checked_at": "2026-10-23T11:02:10Z",
    "source": "logged-in NCL account"
   },
   "MC": {
    "type": "MINISUITE",
-   "website_fare_pp": 319.0,
+   "website_fare_pp": 289.0,
    "florida_fare_pp": 239.0,
-   "off_pp": 80.0,
-   "checked_at": "2026-10-22T11:02:34Z",
+   "off_pp": 50.0,
+   "checked_at": "2026-10-23T11:02:03Z",
    "source": "logged-in NCL account"
   },
   "MX": {
    "type": "MINISUITE",
-   "website_fare_pp": 299.0,
-   "florida_fare_pp": 284.0,
+   "website_fare_pp": 259.0,
+   "florida_fare_pp": 244.0,
    "off_pp": 15.0,
-   "checked_at": "2026-10-22T11:02:28Z",
+   "checked_at": "2026-10-23T11:01:57Z",
    "source": "logged-in NCL account"
   },
   "O4": {
@@ -235,31 +235,31 @@
    "website_fare_pp": 329.0,
    "florida_fare_pp": 329.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:01:42Z",
+   "checked_at": "2026-10-23T11:01:12Z",
    "source": "logged-in NCL account"
   },
   "OA": {
    "type": "OCEANVIEW",
-   "website_fare_pp": 239.0,
-   "florida_fare_pp": 239.0,
+   "website_fare_pp": 269.0,
+   "florida_fare_pp": 269.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:01:23Z",
+   "checked_at": "2026-10-23T11:01:06Z",
    "source": "logged-in NCL account"
   },
   "OB": {
    "type": "OCEANVIEW",
-   "website_fare_pp": 229.0,
-   "florida_fare_pp": 229.0,
+   "website_fare_pp": 259.0,
+   "florida_fare_pp": 259.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:01:30Z",
+   "checked_at": "2026-10-23T11:01:00Z",
    "source": "logged-in NCL account"
   },
   "OX": {
    "type": "OCEANVIEW",
-   "website_fare_pp": 179.0,
-   "florida_fare_pp": 179.0,
+   "website_fare_pp": 209.0,
+   "florida_fare_pp": 209.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:01:17Z",
+   "checked_at": "2026-10-23T11:00:53Z",
    "source": "logged-in NCL account"
   },
   "SC": {
@@ -267,7 +267,7 @@
    "website_fare_pp": 459.0,
    "florida_fare_pp": 459.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:03:05Z",
+   "checked_at": "2026-10-23T11:02:34Z",
    "source": "logged-in NCL account"
   },
   "SP": {
@@ -275,7 +275,7 @@
    "website_fare_pp": 489.0,
    "florida_fare_pp": 489.0,
    "off_pp": 0.0,
-   "checked_at": "2026-10-22T11:03:11Z",
+   "checked_at": "2026-10-23T11:02:40Z",
    "source": "logged-in NCL account"
   }
  }
