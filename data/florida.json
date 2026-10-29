@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "saved_at": "2026-10-29T11:02:54Z",
+ "saved_at": "2026-10-29T19:00:15Z",
  "sailing_id": "joy-2026-11-20",
  "package_id": "23379711",
  "guests": 2,
@@ -216,10 +216,10 @@
   },
   "MX": {
    "type": "MINISUITE",
-   "website_fare_pp": 269.0,
-   "florida_fare_pp": 209.0,
+   "website_fare_pp": 259.0,
+   "florida_fare_pp": 199.0,
    "off_pp": 60.0,
-   "checked_at": "2026-10-28T11:01:57Z",
+   "checked_at": "2026-10-29T19:00:15Z",
    "source": "logged-in NCL account"
   },
   "O4": {
