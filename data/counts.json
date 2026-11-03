@@ -1,13 +1,13 @@
 {
  "schema_version": 1,
- "saved_at": "2026-11-02T20:22:20Z",
- "mode": "light",
- "mode_reason": "last full sweep was 2 day(s) ago",
- "last_full_sweep": "2026-10-31T15:43:55Z",
- "prices_saved_at": "2026-11-02T20:21:59Z",
+ "saved_at": "2026-11-03T17:51:27Z",
+ "mode": "full",
+ "mode_reason": "last full sweep was 3 days ago",
+ "last_full_sweep": "2026-11-03T17:51:27Z",
+ "prices_saved_at": "2026-11-03T17:51:13Z",
  "pause_seconds": 3,
- "calls": 33,
- "rechecked": 32,
+ "calls": 49,
+ "rechecked": 49,
  "unreliable": [
   {
    "sailing": "joy-2026-11-20",
@@ -31,7 +31,7 @@
    "sailing": "joy-2026-11-20",
    "category": "OB",
    "guests": "2",
-   "why": "call returned other cabin types: IA, MA"
+   "why": "call returned other cabin types: MA"
   },
   {
    "sailing": "joy-2026-11-20",
@@ -47,15 +47,9 @@
   },
   {
    "sailing": "joy-2026-11-20",
-   "category": "O5",
-   "guests": "3",
-   "why": "call returned other cabin types: MA"
-  },
-  {
-   "sailing": "joy-2026-11-20",
    "category": "BF",
    "guests": "2",
-   "why": "call returned other cabin types: MA"
+   "why": "call returned other cabin types: MA, OA"
   },
   {
    "sailing": "joy-2026-11-20",
@@ -71,9 +65,9 @@
   },
   {
    "sailing": "joy-2026-11-20",
-   "category": "BA",
-   "guests": "3",
-   "why": "call returned other cabin types: MA"
+   "category": "MB",
+   "guests": "2",
+   "why": "call returned other cabin types: OA"
   },
   {
    "sailing": "joy-2026-11-20",
@@ -83,15 +77,21 @@
   },
   {
    "sailing": "joy-2026-11-20",
-   "category": "HJ",
-   "guests": "3",
-   "why": "subtraction gave {'Aft': 0, 'Forward': 0, 'Mid': 0}"
+   "category": "HC",
+   "guests": "2",
+   "why": "ties in price with another category"
   },
   {
    "sailing": "joy-2026-11-20",
-   "category": "HJ",
+   "category": "HC",
+   "guests": "3",
+   "why": "ties in price with another category"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "HC",
    "guests": "4",
-   "why": "subtraction gave {'Aft': 0, 'Forward': 0}"
+   "why": "ties in price with another category"
   },
   {
    "sailing": "joy-2026-11-20",
@@ -109,31 +109,19 @@
    "sailing": "joy-2026-11-20",
    "category": "HG",
    "guests": "4",
-   "why": "subtraction gave {'Aft': 0, 'Forward': 0}"
-  },
-  {
-   "sailing": "joy-2026-11-20",
-   "category": "HI",
-   "guests": "2",
-   "why": "ties in price with another category"
-  },
-  {
-   "sailing": "joy-2026-11-20",
-   "category": "HI",
-   "guests": "3",
    "why": "ties in price with another category"
   },
   {
    "sailing": "joy-2026-11-20",
    "category": "HE",
    "guests": "2",
-   "why": "subtraction gave {'Aft': 0, 'Forward': 0}"
+   "why": "subtraction gave {'Forward': 0}"
   },
   {
    "sailing": "joy-2026-11-20",
    "category": "HE",
    "guests": "3",
-   "why": "subtraction gave {'Aft': 0, 'Forward': 0}"
+   "why": "subtraction gave {'Forward': 0}"
   }
  ],
  "sailings": {
@@ -146,7 +134,7 @@
       "cabins_left": null,
       "reliable": false,
       "why": "subtraction gave {'Aft': 0, 'Forward': 0, 'Mid': 0}",
-      "checked_at": "2026-10-31T15:43:55Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -164,7 +152,7 @@
       "cabins_left": 10,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -181,7 +169,7 @@
       "cabins_left": null,
       "reliable": false,
       "why": "call returned other cabin types: BB",
-      "checked_at": "2026-10-31T15:43:55Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -201,19 +189,19 @@
       "cabins_left": null,
       "reliable": false,
       "why": "call returned other cabin types: BB",
-      "checked_at": "2026-10-31T15:43:55Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
-      "cabins_left": 7,
+      "cabins_left": 9,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "4": {
-      "cabins_left": 7,
+      "cabins_left": 9,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -228,15 +216,14 @@
      "2": {
       "cabins_left": null,
       "reliable": false,
-      "why": "call returned other cabin types: IA, MA",
-      "checked_at": "2026-10-31T15:43:55Z"
+      "why": "call returned other cabin types: MA",
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
    "OA": {
     "open_decks": [
-     9,
-     12
+     9
     ],
     "open_locations": [
      "forward"
@@ -246,7 +233,7 @@
       "cabins_left": null,
       "reliable": false,
       "why": "call returned other cabin types: MA",
-      "checked_at": "2026-10-31T15:43:55Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -263,37 +250,24 @@
       "cabins_left": null,
       "reliable": false,
       "why": "call returned other cabin types: MA",
-      "checked_at": "2026-10-31T15:43:55Z"
-     },
-     "3": {
-      "cabins_left": null,
-      "reliable": false,
-      "why": "call returned other cabin types: MA",
-      "checked_at": "2026-10-31T15:43:55Z"
-     },
-     "4": {
-      "cabins_left": 3,
-      "reliable": true,
-      "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
-     },
-     "5": {
-      "cabins_left": 3,
-      "reliable": true,
-      "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
    "BF": {
-    "open_decks": null,
-    "open_locations": null,
+    "open_decks": [
+     9
+    ],
+    "open_locations": [
+     "forward",
+     "midship"
+    ],
     "by_guests": {
      "2": {
       "cabins_left": null,
       "reliable": false,
-      "why": "call returned other cabin types: MA",
-      "checked_at": "2026-10-31T15:43:55Z"
+      "why": "call returned other cabin types: MA, OA",
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -312,12 +286,13 @@
       "cabins_left": null,
       "reliable": false,
       "why": "call returned other cabin types: MA",
-      "checked_at": "2026-10-31T15:43:55Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
    "BA": {
     "open_decks": [
+     12,
      13,
      14,
      15
@@ -332,13 +307,13 @@
       "cabins_left": null,
       "reliable": false,
       "why": "call returned other cabin types: MA",
-      "checked_at": "2026-10-31T15:43:55Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
-      "cabins_left": null,
-      "reliable": false,
-      "why": "call returned other cabin types: MA",
-      "checked_at": "2026-10-31T15:43:55Z"
+      "cabins_left": 114,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -354,22 +329,22 @@
     ],
     "by_guests": {
      "2": {
-      "cabins_left": 20,
+      "cabins_left": 17,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-10-31T15:43:55Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
-      "cabins_left": 20,
+      "cabins_left": 17,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-10-31T15:43:55Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "4": {
-      "cabins_left": 20,
+      "cabins_left": 17,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-10-31T15:43:55Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -378,8 +353,8 @@
      9,
      10,
      11,
+     12,
      13,
-     14,
      15
     ],
     "open_locations": [
@@ -390,13 +365,29 @@
       "cabins_left": 10,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
       "cabins_left": 9,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
+     }
+    }
+   },
+   "MB": {
+    "open_decks": [
+     10
+    ],
+    "open_locations": [
+     "midship"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "call returned other cabin types: OA",
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -409,16 +400,16 @@
     ],
     "by_guests": {
      "2": {
-      "cabins_left": 6,
+      "cabins_left": 7,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
       "cabins_left": null,
       "reliable": false,
       "why": "subtraction gave {'Mid': 0}",
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -434,7 +425,7 @@
       "cabins_left": 6,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -447,34 +438,24 @@
     ],
     "by_guests": {
      "2": {
-      "cabins_left": 8,
+      "cabins_left": 10,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
-      "cabins_left": 8,
+      "cabins_left": 10,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "4": {
-      "cabins_left": 8,
+      "cabins_left": 10,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
-   },
-   "MB": {
-    "open_decks": [
-     10,
-     12
-    ],
-    "open_locations": [
-     "midship"
-    ],
-    "by_guests": {}
    },
    "SP": {
     "open_decks": [
@@ -489,25 +470,25 @@
       "cabins_left": 6,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
       "cabins_left": 6,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "4": {
       "cabins_left": 6,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "5": {
       "cabins_left": 6,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -521,61 +502,13 @@
       "cabins_left": 5,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
       "cabins_left": 2,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
-     }
-    }
-   },
-   "HJ": {
-    "open_decks": null,
-    "open_locations": null,
-    "by_guests": {
-     "3": {
-      "cabins_left": null,
-      "reliable": false,
-      "why": "subtraction gave {'Aft': 0, 'Forward': 0, 'Mid': 0}",
-      "checked_at": "2026-10-31T15:43:55Z"
-     },
-     "4": {
-      "cabins_left": null,
-      "reliable": false,
-      "why": "subtraction gave {'Aft': 0, 'Forward': 0}",
-      "checked_at": "2026-10-31T15:43:55Z"
-     }
-    }
-   },
-   "HG": {
-    "open_decks": [
-     9,
-     10,
-     13
-    ],
-    "open_locations": [
-     "forward"
-    ],
-    "by_guests": {
-     "2": {
-      "cabins_left": null,
-      "reliable": false,
-      "why": "ties in price with another category",
-      "checked_at": "2026-10-31T15:43:55Z"
-     },
-     "3": {
-      "cabins_left": null,
-      "reliable": false,
-      "why": "ties in price with another category",
-      "checked_at": "2026-10-31T15:43:55Z"
-     },
-     "4": {
-      "cabins_left": null,
-      "reliable": false,
-      "why": "subtraction gave {'Aft': 0, 'Forward': 0}",
-      "checked_at": "2026-10-31T15:43:55Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -589,34 +522,16 @@
     ],
     "by_guests": {
      "2": {
-      "cabins_left": null,
-      "reliable": false,
-      "why": "ties in price with another category",
-      "checked_at": "2026-10-31T15:43:55Z"
+      "cabins_left": 3,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
-      "cabins_left": null,
-      "reliable": false,
-      "why": "ties in price with another category",
-      "checked_at": "2026-10-31T15:43:55Z"
-     }
-    }
-   },
-   "HE": {
-    "open_decks": null,
-    "open_locations": null,
-    "by_guests": {
-     "2": {
-      "cabins_left": null,
-      "reliable": false,
-      "why": "subtraction gave {'Aft': 0, 'Forward': 0}",
-      "checked_at": "2026-11-02T20:22:20Z"
-     },
-     "3": {
-      "cabins_left": null,
-      "reliable": false,
-      "why": "subtraction gave {'Aft': 0, 'Forward': 0}",
-      "checked_at": "2026-11-02T20:22:20Z"
+      "cabins_left": 3,
+      "reliable": true,
+      "why": null,
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -631,22 +546,69 @@
     ],
     "by_guests": {
      "2": {
-      "cabins_left": 3,
-      "reliable": true,
-      "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
-      "cabins_left": 3,
-      "reliable": true,
-      "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "4": {
-      "cabins_left": 3,
-      "reliable": true,
-      "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-11-03T17:51:27Z"
+     }
+    }
+   },
+   "HG": {
+    "open_decks": [
+     9,
+     13
+    ],
+    "open_locations": [
+     "forward"
+    ],
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-11-03T17:51:27Z"
+     },
+     "3": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-11-03T17:51:27Z"
+     },
+     "4": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "ties in price with another category",
+      "checked_at": "2026-11-03T17:51:27Z"
+     }
+    }
+   },
+   "HE": {
+    "open_decks": null,
+    "open_locations": null,
+    "by_guests": {
+     "2": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "subtraction gave {'Forward': 0}",
+      "checked_at": "2026-11-03T17:51:27Z"
+     },
+     "3": {
+      "cabins_left": null,
+      "reliable": false,
+      "why": "subtraction gave {'Forward': 0}",
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -659,28 +621,28 @@
     ],
     "by_guests": {
      "2": {
-      "cabins_left": 3,
+      "cabins_left": 2,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
-      "cabins_left": 3,
+      "cabins_left": 2,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "4": {
-      "cabins_left": 3,
+      "cabins_left": 2,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "5": {
-      "cabins_left": 3,
+      "cabins_left": 2,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    },
@@ -693,28 +655,28 @@
     ],
     "by_guests": {
      "2": {
-      "cabins_left": 7,
+      "cabins_left": 6,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "3": {
-      "cabins_left": 7,
+      "cabins_left": 6,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "4": {
-      "cabins_left": 7,
+      "cabins_left": 6,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      },
      "5": {
-      "cabins_left": 7,
+      "cabins_left": 6,
       "reliable": true,
       "why": null,
-      "checked_at": "2026-11-02T20:22:20Z"
+      "checked_at": "2026-11-03T17:51:27Z"
      }
     }
    }
