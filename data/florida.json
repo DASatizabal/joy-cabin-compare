@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "saved_at": "2026-11-05T16:03:02Z",
+ "saved_at": "2026-11-05T20:00:30Z",
  "sailing_id": "joy-2026-11-20",
  "package_id": "23379711",
  "guests": 2,
@@ -184,10 +184,10 @@
   },
   "M6": {
    "type": "MINISUITE",
-   "website_fare_pp": 329.0,
-   "florida_fare_pp": 329.0,
+   "website_fare_pp": 369.0,
+   "florida_fare_pp": 369.0,
    "off_pp": 0.0,
-   "checked_at": "2026-11-04T12:02:13Z",
+   "checked_at": "2026-11-05T20:00:29Z",
    "source": "logged-in NCL account"
   },
   "MA": {
@@ -200,18 +200,18 @@
   },
   "MB": {
    "type": "MINISUITE",
-   "website_fare_pp": 299.0,
-   "florida_fare_pp": 299.0,
+   "website_fare_pp": 329.0,
+   "florida_fare_pp": 329.0,
    "off_pp": 0.0,
-   "checked_at": "2026-11-04T12:02:00Z",
+   "checked_at": "2026-11-05T20:00:23Z",
    "source": "logged-in NCL account"
   },
   "MC": {
    "type": "MINISUITE",
-   "website_fare_pp": 289.0,
-   "florida_fare_pp": 219.0,
-   "off_pp": 70.0,
-   "checked_at": "2026-11-02T12:01:56Z",
+   "website_fare_pp": 319.0,
+   "florida_fare_pp": 319.0,
+   "off_pp": 0.0,
+   "checked_at": "2026-11-05T20:00:17Z",
    "source": "logged-in NCL account"
   },
   "MX": {
