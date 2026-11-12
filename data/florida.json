@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "saved_at": "2026-11-12T12:02:16Z",
+ "saved_at": "2026-11-12T20:00:21Z",
  "sailing_id": "joy-2026-11-20",
  "package_id": "23379711",
  "guests": 2,
@@ -16,10 +16,10 @@
   },
   "B4": {
    "type": "BALCONY",
-   "website_fare_pp": 319.0,
-   "florida_fare_pp": 319.0,
+   "website_fare_pp": 379.0,
+   "florida_fare_pp": 379.0,
    "off_pp": 0.0,
-   "checked_at": "2026-11-11T12:01:26Z",
+   "checked_at": "2026-11-12T20:00:14Z",
    "source": "logged-in NCL account"
   },
   "BA": {
@@ -176,10 +176,10 @@
   },
   "M4": {
    "type": "MINISUITE",
-   "website_fare_pp": 399.0,
-   "florida_fare_pp": 399.0,
+   "website_fare_pp": 369.0,
+   "florida_fare_pp": 369.0,
    "off_pp": 0.0,
-   "checked_at": "2026-11-09T12:01:59Z",
+   "checked_at": "2026-11-12T20:00:21Z",
    "source": "logged-in NCL account"
   },
   "M6": {
