@@ -1,13 +1,13 @@
 {
  "schema_version": 1,
- "saved_at": "2026-11-16T20:27:14Z",
+ "saved_at": "2026-11-16T23:30:55Z",
  "mode": "light",
  "mode_reason": "last full sweep was 1 day(s) ago",
  "last_full_sweep": "2026-11-15T17:07:20Z",
  "prices_saved_at": "2026-11-15T17:07:11Z",
  "pause_seconds": 3,
- "calls": 3,
- "rechecked": 2,
+ "calls": 0,
+ "rechecked": 0,
  "unreliable": [
   {
    "sailing": "joy-2026-11-20",
