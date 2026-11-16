@@ -1,13 +1,13 @@
 {
  "schema_version": 1,
- "saved_at": "2026-11-15T17:07:20Z",
- "mode": "full",
- "mode_reason": "last full sweep was 3 days ago",
+ "saved_at": "2026-11-16T20:27:14Z",
+ "mode": "light",
+ "mode_reason": "last full sweep was 1 day(s) ago",
  "last_full_sweep": "2026-11-15T17:07:20Z",
  "prices_saved_at": "2026-11-15T17:07:11Z",
  "pause_seconds": 3,
- "calls": 11,
- "rechecked": 11,
+ "calls": 3,
+ "rechecked": 2,
  "unreliable": [
   {
    "sailing": "joy-2026-11-20",
@@ -29,6 +29,12 @@
   },
   {
    "sailing": "joy-2026-11-20",
+   "category": "OB",
+   "guests": "2",
+   "why": "subtraction gave {}"
+  },
+  {
+   "sailing": "joy-2026-11-20",
    "category": "O5",
    "guests": "2",
    "why": "subtraction gave {}"
@@ -36,6 +42,12 @@
   {
    "sailing": "joy-2026-11-20",
    "category": "BF",
+   "guests": "2",
+   "why": "subtraction gave {}"
+  },
+  {
+   "sailing": "joy-2026-11-20",
+   "category": "SP",
    "guests": "2",
    "why": "subtraction gave {}"
   },
@@ -103,18 +115,14 @@
     }
    },
    "OB": {
-    "open_decks": [
-     5
-    ],
-    "open_locations": [
-     "forward"
-    ],
+    "open_decks": null,
+    "open_locations": null,
     "by_guests": {
      "2": {
-      "cabins_left": 2,
-      "reliable": true,
-      "why": null,
-      "checked_at": "2026-11-15T17:07:20Z"
+      "cabins_left": null,
+      "reliable": false,
+      "why": "subtraction gave {}",
+      "checked_at": "2026-11-16T20:27:14Z"
      }
     }
    },
@@ -147,10 +155,10 @@
     "open_locations": null,
     "by_guests": {
      "2": {
-      "cabins_left": 1,
-      "reliable": true,
-      "why": null,
-      "checked_at": "2026-11-15T17:07:20Z"
+      "cabins_left": null,
+      "reliable": false,
+      "why": "subtraction gave {}",
+      "checked_at": "2026-11-16T20:27:14Z"
      },
      "3": {
       "cabins_left": null,
