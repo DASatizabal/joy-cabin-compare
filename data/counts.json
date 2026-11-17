@@ -1,8 +1,8 @@
 {
  "schema_version": 1,
- "saved_at": "2026-11-17T02:36:01Z",
+ "saved_at": "2026-11-17T19:10:34Z",
  "mode": "light",
- "mode_reason": "last full sweep was 1 day(s) ago",
+ "mode_reason": "last full sweep was 2 day(s) ago",
  "last_full_sweep": "2026-11-15T17:07:20Z",
  "prices_saved_at": "2026-11-15T17:07:11Z",
  "pause_seconds": 3,
